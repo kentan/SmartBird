@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<project name="MahjongServer" default="jar" basedir="." >
+	<target name="clean">
+		<delete file = "./bin/*"></delete>
+		<delete file = "sbserver.jar"></delete>
+	</target>	
+
+	<target name="build">
+		<javac srcdir="./src"
+		         destdir="./bin"
+		         includes="*.java" />
+	</target>	
+	<target name="jar" depends="clean,build">
+		<jar basedir="./bin" jarfile="sbserver.jar">
+			<manifest>
+				<attribute name="Server" value="org.sb.server"/>
+			</manifest>
+		</jar>
+	</target>
+</project>

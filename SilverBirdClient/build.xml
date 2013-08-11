@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<project name="SilverBirdClient" default="jar" basedir="." >
+	<target name="clean">
+		<delete file = "./bin/*"></delete>
+		<delete file = "sbclient.jar"></delete>
+	</target>	
+
+	<target name="build">
+		<javac srcdir="./src"
+		         destdir="./bin"
+		         includes="*.java" />
+	</target>	
+	<target name="jar" depends="clean,build">
+		<jar basedir="./bin" jarfile="sbclient.jar">
+			<manifest>
+				<attribute name="client" value="org.sb.client"/>
+			</manifest>
+		</jar>
+	</target>
+</project>

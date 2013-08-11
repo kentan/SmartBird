@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<project name="MahjongModel" default="jar" basedir="." >
+	<target name="clean">
+		<delete file = "./bin/*"></delete>
+		<delete file = "sbmodel.jar"></delete>
+	</target>	
+
+	<target name="build">
+		<javac srcdir="./src"
+		         destdir="./bin"
+		         includes="*.java" />
+	</target>	
+	<target name="jar" depends="clean,build">
+		<jar basedir="./bin" jarfile="sbmodel.jar">
+			<manifest>
+				<attribute name="Model" value="org.sb.engine"/>
+			</manifest>
+		</jar>
+	</target>
+</project>
