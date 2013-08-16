@@ -16,7 +16,8 @@ import org.sb.mdl.enm.WinningFormEnum;
 public class TileSet {
 
 	
-	private PrintStream ps = new PrintStream(new ByteArrayOutputStream());
+//	private PrintStream ps = new PrintStream(new ByteArrayOutputStream());
+	private PrintStream ps = System.out;
 	private List<TileEnum> _tiles = new ArrayList<TileEnum>();
 	private TileEnum _playerWind;
 	private TileEnum _prevailingWind;
@@ -83,6 +84,9 @@ public class TileSet {
 		_winningTile = tile;
 	}
 
+	public void addDoraTiles(List<TileEnum> tiles) {
+		_doraList.addAll(tiles);
+	}
 	public void addDoraTile(TileEnum tile) {
 		_doraList.add(tile);
 	}
@@ -318,12 +322,12 @@ public class TileSet {
 		List<Integer> headPoses = searchHeadPos();
 		WinningHandsList winningHandsList = new WinningHandsList();
 		for (Integer headPos : headPoses) {
-			MeldNode yakuTree = makeMeldTree(headPos);
+			MeldNode meldTree = makeMeldTree(headPos);
 
-			if (yakuTree != null) {
-				ps.println("-YAKUTREE:" + yakuTree);
+			if (meldTree != null) {
+				ps.println("-Meld Tree:" + meldTree);
 				// to List<Yaku>
-				winningHandsList.addAll(yakuTree.transformGraphToList(_isStolen, _isTumo));
+				winningHandsList.addAll(meldTree.transformGraphToList(_isStolen, _isTumo));
 			}
 		}
 

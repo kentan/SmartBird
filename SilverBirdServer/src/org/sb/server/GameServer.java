@@ -10,7 +10,6 @@ import java.util.Random;
 
 
 import org.sb.server.InputCommand;
-import org.sb.engine.controller.TileManager;
 import org.sb.engine.controller.TileSet;
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.bean.PointBean;
@@ -47,7 +46,7 @@ public class GameServer {
 	}
 
 	public TileEnum takeTile(int playerId) {
-		return TileManager.takeTileFromTable();
+		return table.takeTileFromTable();
 
 	}
 	/**
@@ -87,17 +86,21 @@ public class GameServer {
 		TileSet tileSet = new TileSet(table.getPlayerWind(playerId), table.getPrevailingWind());
 		tileSet.setTiles(table.getWallTiles(playerId));
 		tileSet.addTile(ron);
+		tileSet.addDoraTiles(table.getDoraTiles());
 		tileSet.setRon();
-		
+		tileSet.setWinningTile(ron);
+	
 		return callFinish(tileSet, playerId);
 	}
 	
-	public boolean callFinishTumo(int playerId) {
+	public boolean callFinishTumo(int playerId,TileEnum tumo) {
 		
 		TileSet tileSet = new TileSet(table.getPlayerWind(playerId), table.getPrevailingWind());
 		tileSet.setTiles(table.getWallTiles(playerId));
-		
+		tileSet.addDoraTiles(table.getDoraTiles());		
 		tileSet.setTumo();
+		tileSet.setWinningTile(tumo);
+		
 		return callFinish(tileSet, playerId);
 
 	}
@@ -194,7 +197,7 @@ public class GameServer {
 	}
 	private void initPlayers(){
 		for(int i = 0 ; i < GameConstants.PLAYER_NUM; i++){
-			players.get(i).initialize(i,table.getWallTiles(i));
+			players.get(i).initialize(i,table.getWallTiles(i),table.getDoraTiles().get(0),table.getPrevailingWind(),table.getPlayerWind(i));
 		}
 	}
 	
@@ -229,7 +232,7 @@ public class GameServer {
 		int count = 0;
 		int playerId = 0;
 		while(count < GameConstants.TILE_SUMMARY_NUM){
-				TileEnum tookTile = TileManager.takeTileFromTable();
+				TileEnum tookTile = table.takeTileFromTable();
 				table.addWallTiles(playerId, tookTile);
 				
 
@@ -275,7 +278,7 @@ public class GameServer {
 			}
 
 		}
-		if(count == GameConstants.TILE_SUMMARY_NUM - 1){
+		if(count == GameConstants.TILE_SUMMARY_NUM){
 			System.out.println("no winner");
 		}
 		System.out.println("Game End");

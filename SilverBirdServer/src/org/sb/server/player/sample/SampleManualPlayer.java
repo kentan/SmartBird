@@ -84,7 +84,7 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 		InputCommand input = nextInput(tiles);
 		switch(input.getCommand()){
 			case TUMO:
-				callFinishTumo();
+				callFinishTumo(tileAtThisTurn);
 
 				break;
 			case RICHI:

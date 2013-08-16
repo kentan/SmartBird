@@ -113,7 +113,7 @@ public class ConcreatePlayer extends AbstractGamePlayer
 		InputCommand input = computeNextHand(tiles);
 		switch(input.getCommand()){
 			case TUMO:
-				callFinishTumo();
+				callFinishTumo(tileAtThisTurn);
 				break;
 			case RICHI:
 				TileEnum richiTile = input.getRichiTile();

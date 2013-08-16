@@ -1,5 +1,6 @@
 package org.sb.server.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,20 +15,30 @@ public abstract class AbstractGamePlayer {
 	abstract public void notifyTurn(final List<TileEnum> tiles,final TileEnum tileAtThisTurn,List<MeldElement> huroMelds,List<TileEnum> discardeTiles,Map<Integer,List<TileEnum>> otherPlayerDiscardedTiles,Map<Integer,List<MeldElement>> otherPlayerHuroTiles);
 
 	abstract public InputCommand notifySteal();
+	
 	protected int _playerId;
 	protected List<TileEnum> _tiles;
+	protected List<TileEnum> _doraList;
+	protected TileEnum _playerWind;
+	protected TileEnum _prevailingWind;
 	private GameServer _gameServer = null;
-	public void initialize(int playerId,List<TileEnum> tiles){
+	
+	public void initialize(int playerId,List<TileEnum> tiles,TileEnum doraTile,TileEnum prevailingWind,TileEnum playerWind){
 		_playerId = playerId;
 		_tiles = tiles;
 		_gameServer = GameServer.getInstance();
+		
+		_doraList = new ArrayList<TileEnum>();
+		_doraList.add(doraTile);
+		_playerWind = playerWind;
+		_prevailingWind = prevailingWind;
 		
 	}
 	public boolean isWinningHandsValid(){
 		return _gameServer.isWinningHandsValid(_playerId);
 	}
-	public boolean callFinishTumo(){
-		return _gameServer.callFinishTumo(_playerId);		
+	public boolean callFinishTumo(TileEnum tumoTile){
+		return _gameServer.callFinishTumo(_playerId,tumoTile);		
 	}
 	public boolean callFinishRon(TileEnum ronTile){
 		return _gameServer.callFinishRon(_playerId, ronTile);	

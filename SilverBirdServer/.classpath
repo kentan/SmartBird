@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SilverBirdEngine"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SilverBirdModel"/>
-	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/galileo/SilverBirdClient/sbclient.jar"/>
+	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/galileo/SilverBird/SilverBirdClient/sbclient.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

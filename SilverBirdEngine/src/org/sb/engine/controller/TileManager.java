@@ -12,12 +12,12 @@ import org.sb.mdl.cnst.GameConstants;
 public class TileManager {
 	private final static Random rnd = new Random(); 
 	private final static int TILE_INDEX_MAX = TileEnum.RED.getIndex();
-	private static Map<TileEnum,Integer> tileHistory = new HashMap<TileEnum,Integer>();
+	private Map<TileEnum,Integer> tileHistory = new HashMap<TileEnum,Integer>();
 
 
 
 	
-	public static TileEnum takeTileFromTable(){
+	public TileEnum takeTileFromTable(){
 		TileEnum tile = null;
 		while(tile == null){
 			int index = rnd.nextInt(TILE_INDEX_MAX);
@@ -39,14 +39,21 @@ public class TileManager {
 
 		return tile;
 	}
-	public static List<TileEnum> createInitialTiles(){
+	public List<TileEnum> createInitialTiles(){
 		List<TileEnum> tiles = new ArrayList<TileEnum>();
 		int i = 0;
 		while( i < GameConstants.WALL_TILE_MAX_NUM - 1){
 
-			tiles.add(TileManager.takeTileFromTable());
+			tiles.add(takeTileFromTable());
 			i++;
 		}
 		return tiles;
+	}
+	
+	public TileEnum takeDora(){
+		TileEnum displayedDoraTile = takeTileFromTable();
+		TileEnum doraTile = displayedDoraTile.toDoraTile();
+		return doraTile;
+		
 	}
 }

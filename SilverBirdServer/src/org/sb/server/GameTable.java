@@ -15,27 +15,32 @@ import org.sb.mdl.enm.TileEnum;
 public class GameTable {
 	
 	private TileEnum _prevailingWind;
-//	private List<TileEnum> doraList;
+	private List<TileEnum> _doraList;
 	
 	private Map<Integer,TileSet> _playerTileSets = new HashMap<Integer, TileSet>();
 	private Map<Integer,List<TileEnum>> _discardeTiles = new HashMap<Integer, List<TileEnum>>();
 	private Map<Integer,TileEnum> _playerWinds = new HashMap<Integer, TileEnum>();
 	private TileEnum _lastDiscardedTile = null;
-	
+	private TileManager _tileManager = null;
 	public GameTable(){
 		init(TileEnum.EAST);
 	}
 	public void init(TileEnum prevailingWind){
+		_tileManager = new TileManager();
+		_doraList = new ArrayList<TileEnum>();
 		TileEnum[] winds = {TileEnum.EAST,TileEnum.SOUTH,TileEnum.WEST,TileEnum.NORTH};
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){	
 			_discardeTiles.put(i, new ArrayList<TileEnum>());
 			_playerWinds.put(i,winds[i]);
 			TileSet tileSet = new TileSet(_playerWinds.get(i),_prevailingWind);
-			tileSet.setTiles(TileManager.createInitialTiles());
+			tileSet.setTiles(_tileManager.createInitialTiles());
 			
 			_playerTileSets.put(i,tileSet);
 			_prevailingWind = prevailingWind;
+			
+			_doraList.add(_tileManager.takeDora());
 		}
+
 		
 	}
 	public TileEnum getLastDiscardedTile(){
@@ -66,6 +71,10 @@ public class GameTable {
 		return _playerWinds.get(playerId);
 	}
 
+	public List<TileEnum> getDoraTiles(){
+		//TODO deep copy
+		return _doraList;
+	}
 	public void removeWallTile(int playerId,TileEnum tile){
 		List<TileEnum> tiles = _discardeTiles.get(playerId);
 		if(tiles == null){
@@ -98,5 +107,9 @@ public class GameTable {
 	public void addHuro(int playerId, MeldElement melds){
 		TileSet tileSet = _playerTileSets.get(playerId);
 		tileSet.addHuro(melds);
+	}
+	
+	public TileEnum takeTileFromTable(){
+		return _tileManager.takeTileFromTable();
 	}
 }

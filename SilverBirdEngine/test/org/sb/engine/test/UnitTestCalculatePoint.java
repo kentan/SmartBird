@@ -105,11 +105,33 @@ public class UnitTestCalculatePoint {
 	private final static String ANKAN = "##";
 	private final static String MINTSU = "--";
 	private final static String ANTSU= "++";
+	
+	@Test 
+	public void testOnDemand(){
+		TileEnum playerWind = TileEnum.EAST;
+		TileEnum prevailingWind = TileEnum.EAST;
+		TileEnum winningTile = TileEnum.BAMBOO1;
+		String wallTilesInString = "S1, S2, S3, S4, S4, S4, S5, S5, S7, S8, S9, S9, S9, S9";
+		String[] wallTilesInArr = wallTilesInString.split(", ");
+		
+		TileSet tileSet = new TileSet(playerWind, prevailingWind);
+		List<TileEnum> tiles = new ArrayList<TileEnum>();
+		for(String wallTileInString :wallTilesInArr){
+			TileEnum tileEnum = strToTileMap.get(wallTileInString);
+			tiles.add(tileEnum);
+			
+		}
+		tileSet.setTiles(tiles);
+		tileSet.setWinningTile(winningTile);
+		tileSet.calculate();
+		
+	}
 	@Test
-	public void test(){
+	public void testFromDataSheet(){
 
 		try{
-			File file = new File("/Users/kentan/Documents/workspace/galileo/SilverBirdEngine/src/org/sb/engine/test/testdata.tsv");
+
+			File file = new File("./test/testdata.tsv");
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String str = br.readLine();
 			

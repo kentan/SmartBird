@@ -140,12 +140,33 @@ public enum TileEnum {
 	static public TileEnum getEnum(int index){
 		return INDEX_TO_ENUM_MAP.get(index);
 	}
+	public TileEnum toDoraTile(){
+		TileEnum doraTile = this.next();
+		if(doraTile != null){
+			return doraTile;
+		}
+		if(doraTile == TileEnum.CHARACTOR9){
+			return TileEnum.CHARACTOR1;
+		}else if(doraTile == TileEnum.BAMBOO9){
+			return TileEnum.BAMBOO1;
+		}else if(doraTile == TileEnum.CIRCLE9){
+			return TileEnum.CIRCLE1;
+		}else if(doraTile == TileEnum.RED){
+			return TileEnum.WEST;
+		}else{
+			// must not reach at this line
+			return null;
+		}
+			
+		
+	}
 	
 	public TileEnum prev(){
 	
 		if(this.getIndex() >= TileEnum.CHARACTOR2.getIndex() && this.getIndex() <= TileEnum.CHARACTOR9.getIndex() || 
 				this.getIndex() >=TileEnum.BAMBOO2.getIndex() && this.getIndex() <= TileEnum.BAMBOO9.getIndex()||
-				this.getIndex() >=TileEnum.CIRCLE2.getIndex() && this.getIndex() <= TileEnum.CIRCLE9.getIndex()){
+				this.getIndex() >=TileEnum.CIRCLE2.getIndex() && this.getIndex() <= TileEnum.CIRCLE9.getIndex() ||
+				this.getIndex() >=TileEnum.SOUTH.getIndex() && this.getIndex() <= TileEnum.RED.getIndex()){
 			return INDEX_TO_ENUM_MAP.get(this.getIndex() -1);
 		}else{
 			return null;
@@ -155,7 +176,8 @@ public enum TileEnum {
 	public TileEnum next(){
 		if(this.getIndex() >=TileEnum.CHARACTOR1.getIndex() && this.getIndex() <= TileEnum.CHARACTOR8.getIndex() || 
 				this.getIndex() >=TileEnum.BAMBOO1.getIndex() && this.getIndex() <= TileEnum.BAMBOO8.getIndex() ||
-				this.getIndex() >=TileEnum.CIRCLE1.getIndex() && this.getIndex() <= TileEnum.CIRCLE8.getIndex()){
+				this.getIndex() >=TileEnum.CIRCLE1.getIndex() && this.getIndex() <= TileEnum.CIRCLE8.getIndex() ||
+				this.getIndex() >=TileEnum.EAST.getIndex() && this.getIndex() <= TileEnum.GREEN.getIndex()){
 			return INDEX_TO_ENUM_MAP.get(this.getIndex() + 1);
 		}else{
 			return null;
