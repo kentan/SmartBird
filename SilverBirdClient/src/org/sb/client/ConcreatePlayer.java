@@ -34,10 +34,10 @@ public class ConcreatePlayer extends AbstractGamePlayer
 	final static int POINT_KREW_CANDIDATE = 1;
 	final static int POINT_PONG = 3;
 
-	private InputCommand computeNextHand(List<TileEnum> tiles,TileEnum tumoTile){
+	private InputCommand computeNextHand(List<TileEnum> tiles,TileEnum tileAtThisTurn){
 		InputCommand command = new InputCommand();
 
-		if(isWinningHandsValid(tumoTile)){
+		if(isWinningHandsValid(tileAtThisTurn)){
 			command.setCommand(CommandEnum.TUMO);
 			return command;
 		}
