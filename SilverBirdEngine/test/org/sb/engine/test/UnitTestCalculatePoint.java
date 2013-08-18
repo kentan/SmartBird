@@ -14,8 +14,8 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 
-import org.sb.mdl.bean.PointBean;
 import org.sb.mdl.MeldElement;
+import org.sb.mdl.PaidPoint;
 import org.sb.engine.controller.TileSet;
 import org.sb.mdl.enm.TileEnum;
 import org.sb.mdl.enm.MeldEnum;
@@ -111,7 +111,7 @@ public class UnitTestCalculatePoint {
 		TileEnum playerWind = TileEnum.EAST;
 		TileEnum prevailingWind = TileEnum.EAST;
 		TileEnum winningTile = TileEnum.BAMBOO1;
-		String wallTilesInString = "S1, S2, S3, S4, S4, S4, S5, S5, S7, S8, S9, S9, S9, S9";
+		String wallTilesInString = "S3, S4, S5, S5, S6, S7, S7, S7, P4, P5, P6, P7, P7, P7";
 		String[] wallTilesInArr = wallTilesInString.split(", ");
 		
 		TileSet tileSet = new TileSet(playerWind, prevailingWind);
@@ -213,7 +213,7 @@ public class UnitTestCalculatePoint {
 				}else{
 					haiSet.setRon();
 				}
-				PointBean point = haiSet.calculate();
+				PaidPoint point = haiSet.calculate();
 				if(point == null){
 					System.out.println("not winning form");
 				}else{

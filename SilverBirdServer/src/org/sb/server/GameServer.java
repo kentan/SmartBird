@@ -10,9 +10,8 @@ import java.util.Random;
 
 
 import org.sb.server.InputCommand;
-import org.sb.engine.controller.TileSet;
 import org.sb.mdl.MeldElement;
-import org.sb.mdl.bean.PointBean;
+import org.sb.mdl.PaidPoint;
 import org.sb.mdl.cnst.GameConstants;
 import org.sb.mdl.enm.MeldEnum;
 import org.sb.mdl.enm.TileEnum;
@@ -22,11 +21,13 @@ import org.sb.server.CommandEnum;
 
 public class GameServer {
 //	private final boolean DEBUG  = false;
+	private final boolean HARF_GAME = true;
 	List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
 	
-	private static GameTable table = new GameTable();
+	private static GameTable table;
+	GameRoundStatus gameRoundStatus = new GameRoundStatus();
+	GamePointHolder gamePointHolder = new GamePointHolder();
 
-	private boolean isWon = false;
 	private GameServer(){};
 	private static GameServer instance = new GameServer();
 	static public GameServer getInstance(){
@@ -45,64 +46,83 @@ public class GameServer {
 		
 	}
 
-	public TileEnum takeTile(int playerId) {
-		return table.takeTileFromTable();
-
-	}
 	/**
-	 * 判定メソッド提供しないとAI作るプログラマが各々実装する必要が出てくるので、ここに用意する。
-	 * AI User用にUtil.jarとかつくって、そっちに移してもいいのかも。
+	 * In order to avoid implementing the winning hands validation method by each AI programmer,
+	 * we provide the method in GameServer. Although this is not directory related to Game Server function,
+	 * it might be better to crate new jar file.(cf. Util.jar)
 	 * 
 	 * @param tileSet
 	 * @param playerId
 	 * @return
 	 */
 	public boolean isWinningHandsValid(int playerId){
-		TileSet tileSet = new TileSet(table.getPlayerWind(playerId), table.getPrevailingWind());
-		tileSet.setTiles(table.getWallTiles(playerId));
-
-		return tileSet.isWinningHandsValid();
+		return table.isWinningHandsValid(playerId);
 	}
-	private boolean callFinish(TileSet tileSet,int playerId){
-		if(tileSet.isWinningHandsValid()){
-			isWon = true;
-			PointBean point =  tileSet.calculate();
-			
+
+	public boolean callFinishRon(int playerId,TileEnum ron){
+
+		table.setRonTile(playerId,ron,getRonedPlayerId());
+		
+		if(isWinningHandsValid(playerId)){
+			gameRoundStatus.setRoundEnd();
+			PaidPoint point = table.calculate(playerId);
 			if(point != null){
 				
-				int p1=0,p2=0;
-				p1 = point.getPoint1();
-				if(!table.isParent(playerId)){
-					p2 = point.getPoint2();
-				}
 				
-				System.out.println(p1 + "," + p2);
+				int p = point.getPoint1();
+				List<Integer> fromList = point.getPayingPlayerIdOnPoint1();
+				int to = point.getPaidPlayerId();
+				for(int from : fromList){
+					gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p, from, to);				
+				}
+			
+				System.out.println(p + " to " + to);
+
+
 			}
 			return true;
 		}
 		return false;
-	}
-	public boolean callFinishRon(int playerId,TileEnum ron){
-		TileSet tileSet = new TileSet(table.getPlayerWind(playerId), table.getPrevailingWind());
-		tileSet.setTiles(table.getWallTiles(playerId));
-		tileSet.addTile(ron);
-		tileSet.addDoraTiles(table.getDoraTiles());
-		tileSet.setRon();
-		tileSet.setWinningTile(ron);
-	
-		return callFinish(tileSet, playerId);
+
 	}
 	
 	public boolean callFinishTumo(int playerId,TileEnum tumo) {
+				
+		table.setTumoTile(playerId, tumo);
 		
-		TileSet tileSet = new TileSet(table.getPlayerWind(playerId), table.getPrevailingWind());
-		tileSet.setTiles(table.getWallTiles(playerId));
-		tileSet.addDoraTiles(table.getDoraTiles());		
-		tileSet.setTumo();
-		tileSet.setWinningTile(tumo);
-		
-		return callFinish(tileSet, playerId);
+		if(isWinningHandsValid(playerId)){
+			gameRoundStatus.setRoundEnd();
+			PaidPoint point = table.calculate(playerId);
+			if(point != null){
+				int p1=0,p2=0;
+				p1 = point.getPoint1();
+				int to = point.getPaidPlayerId();
 
+				if(gameRoundStatus.getParentPlayerId() == playerId){
+					List<Integer> from1List = point.getPayingPlayerIdOnPoint1();
+
+					for(int from : from1List){
+						gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p1, from,to);
+					}
+				}else{
+					int from1 = point.getPayingPlayerIdOnPoint1().get(0);//from parent
+					gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p1, from1,to);
+					List<Integer> from2List = point.getPayingPlayerIdOnPoint2();
+					
+					p2 = point.getPoint2();
+
+					for(int from : from2List){
+						gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p2, from,to);
+					}
+				}
+				
+				System.out.println(p1 + "," + p2);
+
+
+			}
+			return true;
+		}
+		return false;
 	}
 	public void callRichi(int playerId,TileEnum tile){
 		this.discardTile(playerId, tile);
@@ -133,7 +153,9 @@ public class GameServer {
 		
 	}
 	
-	
+	private int getRonedPlayerId(){
+		return 0;//TODO
+	}
 	private int waitForCommandInput(int currentPlayerId){
 		// decide notifying order,since only next player can chew.
 		// next player
@@ -200,8 +222,11 @@ public class GameServer {
 			players.get(i).initialize(i,table.getWallTiles(i),table.getDoraTiles().get(0),table.getPrevailingWind(),table.getPlayerWind(i));
 		}
 	}
+	private void initTable(){
+		table = new GameTable(gameRoundStatus.getPrevailingWind(),gameRoundStatus.getParentPlayerId());
+	}
 	
-	private boolean validate(int round){
+	private boolean validate(int count){
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
 			List<TileEnum> wallTiles = table.getWallTiles(i);
 			List<MeldElement> huroList = table.getHuroTiles(i);
@@ -215,7 +240,7 @@ public class GameServer {
 			}
 			if(invalid){
 				System.out.println("the number of discarded tiles is invalid:");
-				System.out.println("round:" + round);
+				System.out.println("round:" + count);
 				System.out.println("playerid:" + i);
 				System.out.println("huro tiles:" + huroList.size() * 3);
 				return false;
@@ -228,12 +253,11 @@ public class GameServer {
 	private void printResult(int playerId){
 		System.out.println(playerId + " won");
 	}
-	private void runGame(){
+	private void runRound(){
 		int count = 0;
 		int playerId = 0;
 		while(count < GameConstants.TILE_SUMMARY_NUM){
-				TileEnum tookTile = table.takeTileFromTable();
-				table.addWallTiles(playerId, tookTile);
+				TileEnum tookTile = table.takeTileFromTable(playerId);
 				
 
 				Map<Integer,List<TileEnum>> otherPlayersDiscardedTiles = new HashMap<Integer,List<TileEnum>>();
@@ -247,8 +271,6 @@ public class GameServer {
 					otherPlayersHuroTiles.put(i,table.getHuroTiles(playerId));
 				}
 					
-
-				
 				players.get(playerId).notifyTurn(
 						table.getWallTiles(playerId),
 						tookTile,
@@ -258,7 +280,7 @@ public class GameServer {
 						otherPlayersHuroTiles);
 				
 
-				if(isWon){
+				if(gameRoundStatus.isRoundEnd()){
 					printResult(playerId);
 					break ;
 				}
@@ -271,8 +293,7 @@ public class GameServer {
 				}
 				count++;
 				
-			int round = (count - 1)/4;
-			if(!validate(round)){
+			if(!validate(count)){
 				System.out.println("validation error");
 				break;
 			}
@@ -281,13 +302,29 @@ public class GameServer {
 		if(count == GameConstants.TILE_SUMMARY_NUM){
 			System.out.println("no winner");
 		}
-		System.out.println("Game End");
+
 	}
 	
+	
+	public void runGame(){
+
+		while(gameRoundStatus.isGameRoundFinish(HARF_GAME)){
+			System.out.println("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber());
+			initTable();
+			
+			initPlayers();
+			
+			runRound();
+			
+			gameRoundStatus.nextRound();
+		}
+		System.out.println("Game End");
+		gamePointHolder.showResult();
+	}
 	public void init(String args[]){
 
 		registerPlayers(args);
-		initPlayers();
+
 		
 		runGame();
 	}

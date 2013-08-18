@@ -5,16 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.sb.engine.controller.TileManager;
 import org.sb.engine.controller.TileSet;
 import org.sb.mdl.MeldElement;
+import org.sb.mdl.PaidPoint;
 import org.sb.mdl.cnst.GameConstants;
 import org.sb.mdl.enm.TileEnum;
 
 
 public class GameTable {
 	
+	private int _parentPlayerId;
+	private int _ronedPlayerId;
 	private TileEnum _prevailingWind;
+	
 	private List<TileEnum> _doraList;
 	
 	private Map<Integer,TileSet> _playerTileSets = new HashMap<Integer, TileSet>();
@@ -22,26 +27,37 @@ public class GameTable {
 	private Map<Integer,TileEnum> _playerWinds = new HashMap<Integer, TileEnum>();
 	private TileEnum _lastDiscardedTile = null;
 	private TileManager _tileManager = null;
-	public GameTable(){
-		init(TileEnum.EAST);
+	public GameTable(TileEnum prevailingWind,int parentPlayerId){
+		init(prevailingWind,parentPlayerId);
 	}
-	public void init(TileEnum prevailingWind){
+	public void init(TileEnum prevailingWind,int parentPlayerId){
 		_tileManager = new TileManager();
 		_doraList = new ArrayList<TileEnum>();
 		TileEnum[] winds = {TileEnum.EAST,TileEnum.SOUTH,TileEnum.WEST,TileEnum.NORTH};
-		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){	
-			_discardeTiles.put(i, new ArrayList<TileEnum>());
-			_playerWinds.put(i,winds[i]);
-			TileSet tileSet = new TileSet(_playerWinds.get(i),_prevailingWind);
+		int playerId = parentPlayerId;
+		int count = 0;
+		while(count < GameConstants.PLAYER_NUM){
+//		for(int i = parentPlayerId; i < GameConstants.PLAYER_NUM; i++){	
+			_discardeTiles.put(playerId, new ArrayList<TileEnum>());
+			_playerWinds.put(playerId,winds[playerId]);
+			TileSet tileSet = new TileSet(_playerWinds.get(playerId),_prevailingWind);
 			tileSet.setTiles(_tileManager.createInitialTiles());
 			
-			_playerTileSets.put(i,tileSet);
+			_playerTileSets.put(playerId,tileSet);
 			_prevailingWind = prevailingWind;
 			
 			_doraList.add(_tileManager.takeDora());
+			
+			playerId = (playerId + 1)%GameConstants.PLAYER_NUM;
+			count++;
 		}
-
 		
+		_parentPlayerId = parentPlayerId;
+		
+	}
+
+	public TileSet getPlayerTileSet(int playerId){
+		return _playerTileSets.get(playerId);
 	}
 	public TileEnum getLastDiscardedTile(){
 		return _lastDiscardedTile;
@@ -67,6 +83,11 @@ public class GameTable {
 		return  _playerTileSets.get(playerId).getHuros();
 	}
 	
+	public void addHuro(int playerId, MeldElement melds){
+		TileSet tileSet = _playerTileSets.get(playerId);
+		tileSet.addHuro(melds);
+	}
+	
 	public TileEnum getPlayerWind(int playerId){
 		return _playerWinds.get(playerId);
 	}
@@ -75,20 +96,8 @@ public class GameTable {
 		//TODO deep copy
 		return _doraList;
 	}
-	public void removeWallTile(int playerId,TileEnum tile){
-		List<TileEnum> tiles = _discardeTiles.get(playerId);
-		if(tiles == null){
-			//TODO error handling
-		}
-		tiles.remove(tile);
-	}
+	
 
-	public void addWallTiles(int playerId,TileEnum tile){
-
-
-		 _playerTileSets.get(playerId).addTile(tile);
-
-	}
 	public List<TileEnum> getWallTiles(int playerId){
 
 
@@ -98,18 +107,71 @@ public class GameTable {
 	public TileEnum getPrevailingWind(){
 		return _prevailingWind;
 	}
-	public boolean isParent(int playerId){
-		TileEnum playerWind = getPlayerWind(playerId);
-		return playerWind.equals(TileEnum.EAST);
+//	public boolean isParent(int playerId){
+//		TileEnum playerWind = getPlayerWind(playerId);
+//		return playerWind.equals(TileEnum.EAST);
+//		
+//	}
+	
+	
+	public TileEnum takeTileFromTable(int playerId){
+		TileEnum t = _tileManager.takeTileFromTable();
+		 _playerTileSets.get(playerId).addTile(t);
+		 return t;
+	}
+	
+	
+
+	private List<Integer> getAllPlayerIds(){
+		List<Integer> l = new ArrayList<Integer>();
+		for(int i = 0; i < GameConstants.PLAYER_NUM;i++){
+			l.add(i);
+		}
+		return l;
+	}
+	public PaidPoint calculate(int playerId){
+		TileSet tileSet = _playerTileSets.get(playerId);
+		PaidPoint paidPoint = tileSet.calculate();
+		
+		if(tileSet.isTumo()){
+			if(playerId == _parentPlayerId){
+				List<Integer> payingPlayerIds = getAllPlayerIds();
+				payingPlayerIds.remove(new Integer(playerId));
+				
+				paidPoint.setPayingPlayerIdOnPoint1(payingPlayerIds);
+				
+			}else{
+				paidPoint.setPayingPlayerIdOnPoint1(_parentPlayerId);
+				
+				List<Integer> childPlayerIds = getAllPlayerIds();
+				childPlayerIds.remove(new Integer(playerId));
+				childPlayerIds.remove(childPlayerIds);
+				
+				paidPoint.setPayingPlayerIdOnPoint1(_parentPlayerId);
+			}
+		}else{
+			paidPoint.setPayingPlayerIdOnPoint1(_ronedPlayerId);
+		}
+		
+		return paidPoint;
+	}
+	public void setRonTile(int playerId,TileEnum ronTile,int ronedPlayerId){
+		TileSet tileSet = _playerTileSets.get(playerId);
+		tileSet.addTile(ronTile);
+		tileSet.setRon();
+		tileSet.setWinningTile(ronTile);
+		
+		_ronedPlayerId = ronedPlayerId;
+	}
+	public void setTumoTile(int playerId,TileEnum tumoTile){
+		TileSet tileSet = _playerTileSets.get(playerId);
+//		tileSet.addTile(tumoTile);
+		tileSet.setTumo();
+		tileSet.setWinningTile(tumoTile);
 		
 	}
-	
-	public void addHuro(int playerId, MeldElement melds){
+	public boolean isWinningHandsValid(int playerId){
 		TileSet tileSet = _playerTileSets.get(playerId);
-		tileSet.addHuro(melds);
-	}
-	
-	public TileEnum takeTileFromTable(){
-		return _tileManager.takeTileFromTable();
+		return tileSet.isWinningHandsValid();
 	}
 }

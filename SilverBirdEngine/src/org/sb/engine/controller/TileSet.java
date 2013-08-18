@@ -1,13 +1,13 @@
 package org.sb.engine.controller;
 
-import java.io.ByteArrayOutputStream;
+//import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.sb.mdl.MeldElement;
-import org.sb.mdl.bean.PointBean;
+import org.sb.mdl.PaidPoint;
 import org.sb.mdl.enm.MeldEnum;
 import org.sb.mdl.enm.TileEnum;
 import org.sb.mdl.enm.WinningFormEnum;
@@ -71,7 +71,7 @@ public class TileSet {
 	public void setStolen() {
 		_isStolen = true;
 	}
-
+	
 	public void setTumo() {
 		_isTumo = true;
 	}
@@ -80,6 +80,12 @@ public class TileSet {
 		_isTumo = false;
 	}
 
+	public boolean isTumo(){
+		return _isTumo;
+	}
+	public boolean isRon(){
+		return !_isTumo;
+	}
 	public void setWinningTile(TileEnum tile) {
 		_winningTile = tile;
 	}
@@ -125,7 +131,7 @@ public class TileSet {
 		}
 		return false;
 	}
-	public PointBean calculate() {
+	public PaidPoint calculate() {
 
 		if(winningHandsListCache == null){
 			if(!isWinningHandsValid()){

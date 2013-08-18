@@ -36,7 +36,7 @@ import org.sb.engine.validator.yakuman.SuShihoValidator;
 import org.sb.engine.validator.yakuman.TyurenpotoValidator;
 import org.sb.engine.validator.yakuman.KokushiMusoValidator;
 import org.sb.mdl.MeldElement;
-import org.sb.mdl.bean.PointBean;
+import org.sb.mdl.PaidPoint;
 import org.sb.mdl.enm.MeldEnum;
 import org.sb.mdl.enm.TileEnum;
 import org.sb.mdl.enm.WinningHandsEnum;
@@ -237,7 +237,7 @@ public class PointCalculator {
 		return ceil(hu);
 	}
 
-	public PointBean calculate(WinningHandsList winningHandsList) {
+	public PaidPoint calculate(WinningHandsList winningHandsList) {
 		int maxHan = 0;
 		int maxHu = 0;
 
@@ -267,7 +267,7 @@ public class PointCalculator {
 		}
 		boolean isTumo = winningHandsList.get(0).isTumo();
 		PointHolder pointCalculator = new PointHolder();
-		PointBean point = null;
+		PaidPoint point = null;
 		if (isTumo) {
 			if (isParent()) {
 
