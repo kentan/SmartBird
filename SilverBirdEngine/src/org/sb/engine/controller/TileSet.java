@@ -1,10 +1,9 @@
 package org.sb.engine.controller;
 
-//import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.PaidPoint;
@@ -14,10 +13,8 @@ import org.sb.mdl.enm.WinningFormEnum;
 
 
 public class TileSet {
-
+	private final static Logger LOGGER = Logger.getLogger(TileSet.class.getName());
 	
-//	private PrintStream ps = new PrintStream(new ByteArrayOutputStream());
-	private PrintStream ps = System.out;
 	private List<TileEnum> _tiles = new ArrayList<TileEnum>();
 	private TileEnum _playerWind;
 	private TileEnum _prevailingWind;
@@ -103,16 +100,16 @@ public class TileSet {
 
 	private boolean validateWinningHandsList(WinningHandsList winningHandsList) {
 		if (winningHandsList.getList().size() == 0) {
-			ps.println("error in TileSet#validateWinningHandsList");
+			LOGGER.severe("error : TileSet#validateWinningHandsList");
 			return false;
 		}
 		for (WinningHands winningHands : winningHandsList.getList()) {
 			if (winningHands instanceof WinningHandsBasic) {
 				WinningHandsBasic winningHandsOtherThanKokushi = (WinningHandsBasic) winningHands;
 				if (winningHandsOtherThanKokushi.getWinningFormEnum() == null) {
-					ps.println("assertion error: TileSet#validateWinningHandsList == null");
+					LOGGER.severe("assertion error: TileSet#validateWinningHandsList == null");
 					for (MeldElement m : winningHandsOtherThanKokushi.getList()) {
-						ps.println(m);
+						LOGGER.info(m.toString());
 					}
 					return false;
 				}
@@ -331,7 +328,7 @@ public class TileSet {
 			MeldNode meldTree = makeMeldTree(headPos);
 
 			if (meldTree != null) {
-				ps.println("-Meld Tree:" + meldTree);
+				LOGGER.info("-Meld Tree:" + meldTree);
 				// to List<Yaku>
 				winningHandsList.addAll(meldTree.transformGraphToList(_isStolen, _isTumo));
 			}

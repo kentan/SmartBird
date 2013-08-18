@@ -1,6 +1,7 @@
 package org.sb.engine.controller;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 import org.sb.mdl.MeldElement;
@@ -9,13 +10,14 @@ import org.sb.mdl.enm.WinningFormEnum;
 
 
 public class MeldNode{
-
+	private final static Logger LOGGER = Logger.getLogger(MeldNode.class.getName());
+	
 	private List<MeldNode> children;
 	private MeldElement meld;
 	private boolean isEnd = false;
 	private WinningFormEnum _winningFormEnum;
 
-	
+
 	public MeldNode(){
 		children = new ArrayList<MeldNode>();
 	}
@@ -37,7 +39,9 @@ public class MeldNode{
 				return form;
 			}
 		}
-		System.out.println("assertion error in MeldNode#getWinningFormEnum");
+		
+		LOGGER.severe("assertion error in MeldNode#getWinningFormEnum");
+
 		return null;// Never reach at this line. 
 	}
 
@@ -101,8 +105,8 @@ public class MeldNode{
 	}
 	
 	private void print(String indent){
+		LOGGER.info(indent + this.meld);
 
-		System.out.println(indent + this.meld);
 		for(MeldNode a : this.children){
 			a.print(indent + " ");
 		}

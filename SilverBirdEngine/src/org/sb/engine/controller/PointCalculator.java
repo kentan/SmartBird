@@ -3,6 +3,7 @@ package org.sb.engine.controller;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 
 import org.sb.engine.validator.ChantaValidator;
@@ -44,6 +45,8 @@ import org.sb.mdl.enm.WinningHandsEnum;
 
 @SuppressWarnings("serial")
 public class PointCalculator {
+	private final static Logger LOGGER = Logger.getLogger(PointCalculator.class.getName());
+	
 	private TileEnum _playerWind;
 	private TileEnum _prevailingWind;
 	private List<TileEnum> _doraList;
@@ -67,9 +70,7 @@ public class PointCalculator {
 				}
 			}
 		}
-		for(int i = 0; i < numOfDora; i++){
-			System.out.println("Dora");
-		}
+		
 		return numOfDora;
 	} 
 	/** 
@@ -125,11 +126,9 @@ public class PointCalculator {
 				YakuhaiValidator yakuhaiValidator = (YakuhaiValidator)entry.getValue();
 				for(MeldElement elem : ((WinningHandsBasic)winningHands).getList()){
 					if(yakuhaiValidator.validateEachPlayerWind(elem,status)){
-//						System.out.println(entry.getKey());
 						han += entry.getKey().getHan(winningHands.isStolen());
 					}
 					if(yakuhaiValidator.validateEachPrevailingWind(elem,status)){
-//						System.out.println(entry.getKey());
 						han += entry.getKey().getHan(winningHands.isStolen());
 					}
 				}
@@ -137,7 +136,6 @@ public class PointCalculator {
 			else if(WinningHandsEnum.SANSYOKU_DOJUN.equals(entry.getKey()) ||
 					WinningHandsEnum.SANSYOKU_DOKOKU.equals(entry.getKey())){
 				if(entry.getValue().validate(winningHands,status)){
-//					System.out.println(entry.getKey());
 
 					han += entry.getKey().getHan(status.is3SyokuStolen);
 				}
@@ -145,14 +143,12 @@ public class PointCalculator {
 			else if(WinningHandsEnum.SAN_ANKO.equals(entry.getKey()) ||
 					WinningHandsEnum.SAN_KANTSU.equals(entry.getKey())){
 				if(entry.getValue().validate(winningHands,status)){
-//					System.out.println(entry.getKey());
 
 					han += entry.getKey().getHan(false);
 				}
 			}
 			else {
 				if(entry.getValue().validate(winningHands,status)){
-//					System.out.println(entry.getKey());
 
 					han += entry.getKey().getHan(winningHands.isStolen());
 				}
@@ -253,9 +249,6 @@ public class PointCalculator {
 
 				int han = calculateHan((WinningHandsBasic) winningHand);
 
-				System.out.println("-Han:" + han);
-				System.out.println("-Hu:" + hu);
-
 				if (han > maxHan) {
 					maxHan = han;
 				}
@@ -265,6 +258,8 @@ public class PointCalculator {
 			}
 
 		}
+		LOGGER.info("-Han:" + maxHan);
+		LOGGER.info("-Hu:" + maxHu);
 		boolean isTumo = winningHandsList.get(0).isTumo();
 		PointHolder pointCalculator = new PointHolder();
 		PaidPoint point = null;

@@ -1,6 +1,7 @@
 package org.sb.server;
 
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.sb.server.CommandEnum;
 
 
 public class GameServer {
+	PrintStream ps = System.out;
 //	private final boolean DEBUG  = false;
 	private final boolean HARF_GAME = true;
 	List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
@@ -78,7 +80,7 @@ public class GameServer {
 					gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p, from, to);				
 				}
 			
-				System.out.println(p + " to " + to);
+				ps.println(p + " to " + to);
 
 
 			}
@@ -118,7 +120,7 @@ public class GameServer {
 					}
 				}
 				
-				System.out.println(p1 + "," + p2);
+				ps.println(p1 + "," + p2);
 
 
 			}
@@ -240,10 +242,10 @@ public class GameServer {
 				invalid |=  true;
 			}
 			if(invalid){
-				System.out.println("the number of discarded tiles is invalid:");
-				System.out.println("round:" + count);
-				System.out.println("playerid:" + i);
-				System.out.println("huro tiles:" + huroList.size() * 3);
+				ps.println("the number of discarded tiles is invalid:");
+				ps.println("round:" + count);
+				ps.println("playerid:" + i);
+				ps.println("huro tiles:" + huroList.size() * 3);
 				return false;
 			}
 		}
@@ -252,7 +254,7 @@ public class GameServer {
 		return true;
 	}
 	private void printResult(int playerId){
-		System.out.println(playerId + " won");
+		ps.println(playerId + " won");
 	}
 	private void runRound(){
 		int count = 0;
@@ -295,14 +297,14 @@ public class GameServer {
 				count++;
 				
 			if(!validate(count)){
-				System.out.println("validation error");
+				ps.println("validation error");
 				break;
 			}
 
 		}
 		
 		if(count == GameConstants.TILE_SUMMARY_NUM){
-			System.out.println("no winner");
+			ps.println("no winner");
 		}
 		gamePointHolder.showResult();
 	}
@@ -311,7 +313,7 @@ public class GameServer {
 	public void runGame(){
 
 		while(gameRoundStatus.isGameRoundFinish(HARF_GAME)){
-			System.out.println("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber());
+			ps.println("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber());
 			initTable();
 			
 			initPlayers();
@@ -320,7 +322,7 @@ public class GameServer {
 			
 			gameRoundStatus.nextRound();
 		}
-		System.out.println("Game End");
+		ps.println("Game End");
 		gamePointHolder.showResult();
 	}
 	public void init(String args[]){

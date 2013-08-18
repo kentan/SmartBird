@@ -37,7 +37,6 @@ public class GameTable {
 		int playerId = parentPlayerId;
 		int count = 0;
 		while(count < GameConstants.PLAYER_NUM){
-//		for(int i = parentPlayerId; i < GameConstants.PLAYER_NUM; i++){	
 			_discardeTiles.put(playerId, new ArrayList<TileEnum>());
 			_playerWinds.put(playerId,winds[playerId]);
 			TileSet tileSet = new TileSet(_playerWinds.get(playerId),_prevailingWind);
@@ -107,12 +106,7 @@ public class GameTable {
 	public TileEnum getPrevailingWind(){
 		return _prevailingWind;
 	}
-//	public boolean isParent(int playerId){
-//		TileEnum playerWind = getPlayerWind(playerId);
-//		return playerWind.equals(TileEnum.EAST);
-//		
-//	}
-	
+
 	
 	public TileEnum takeTileFromTable(int playerId){
 		TileEnum t = _tileManager.takeTileFromTable();
@@ -167,7 +161,6 @@ public class GameTable {
 	}
 	public void setTumoTile(int playerId,TileEnum tumoTile){
 		TileSet tileSet = _playerTileSets.get(playerId);
-//		tileSet.addTile(tumoTile);
 		tileSet.setTumo();
 		tileSet.setWinningTile(tumoTile);
 		
