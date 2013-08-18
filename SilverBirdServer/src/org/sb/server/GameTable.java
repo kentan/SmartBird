@@ -145,9 +145,11 @@ public class GameTable {
 				
 				List<Integer> childPlayerIds = getAllPlayerIds();
 				childPlayerIds.remove(new Integer(playerId));
-				childPlayerIds.remove(childPlayerIds);
+				childPlayerIds.remove(new Integer(_parentPlayerId));
 				
 				paidPoint.setPayingPlayerIdOnPoint1(_parentPlayerId);
+				paidPoint.setPayingPlayerIdOnPoint2(childPlayerIds);
+				
 			}
 		}else{
 			paidPoint.setPayingPlayerIdOnPoint1(_ronedPlayerId);

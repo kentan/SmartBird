@@ -34,8 +34,8 @@ public abstract class AbstractGamePlayer {
 		_prevailingWind = prevailingWind;
 		
 	}
-	public boolean isWinningHandsValid(){
-		return _gameServer.isWinningHandsValid(_playerId);
+	public boolean isWinningHandsValid(TileEnum tumoTile){
+		return _gameServer.isWinningHandsValid(_playerId,tumoTile);
 	}
 	public boolean callFinishTumo(TileEnum tumoTile){
 		return _gameServer.callFinishTumo(_playerId,tumoTile);		

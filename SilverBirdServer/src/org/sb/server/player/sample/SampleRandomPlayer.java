@@ -29,8 +29,8 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 		boolean oneMore = true;
 		TileEnum discardTile = null;
 		while(oneMore){
-			System.out.print("Player" + _playerId  + ">");
-			System.out.println(myTiles);
+//			System.out.print("Player" + _playerId  + ">");
+//			System.out.println(myTiles);
 			discardTile = nextInput(myTiles);
 			oneMore = !myTiles.remove(discardTile);
 			
@@ -40,8 +40,8 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 		
 
 
-		System.out.print("Player" + _playerId + ">");
-		System.out.println(discardTile);
+//		System.out.print("Player" + _playerId + ">");
+//		System.out.println(discardTile);
 	}
 	@Override
 	public InputCommand notifySteal() {

@@ -34,10 +34,10 @@ public class ConcreatePlayer extends AbstractGamePlayer
 	final static int POINT_KREW_CANDIDATE = 1;
 	final static int POINT_PONG = 3;
 
-	private InputCommand computeNextHand(List<TileEnum> tiles){
+	private InputCommand computeNextHand(List<TileEnum> tiles,TileEnum tumoTile){
 		InputCommand command = new InputCommand();
 
-		if(isWinningHandsValid()){
+		if(isWinningHandsValid(tumoTile)){
 			command.setCommand(CommandEnum.TUMO);
 			return command;
 		}
@@ -106,11 +106,11 @@ public class ConcreatePlayer extends AbstractGamePlayer
 	
 
 
-		System.out.print("Player" + _playerId + ">");
-		System.out.print(myTiles);
-		System.out.print(" :" + tileAtThisTurn);
-		System.out.println(":" + huroMelds);
-		InputCommand input = computeNextHand(tiles);
+//		System.out.print("Player" + _playerId + ">");
+//		System.out.print(myTiles);
+//		System.out.print(" :" + tileAtThisTurn);
+//		System.out.println(":" + huroMelds);
+		InputCommand input = computeNextHand(tiles,tileAtThisTurn);
 		switch(input.getCommand()){
 			case TUMO:
 				callFinishTumo(tileAtThisTurn);
@@ -129,8 +129,8 @@ public class ConcreatePlayer extends AbstractGamePlayer
 				break;
 		}
 
-		System.out.print("Player" + _playerId + ">");
-		System.out.println(myTiles);
+//		System.out.print("Player" + _playerId + ">");
+//		System.out.println(myTiles);
 	}
 
 	@Override

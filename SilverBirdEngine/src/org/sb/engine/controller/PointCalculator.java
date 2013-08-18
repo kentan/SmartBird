@@ -125,11 +125,11 @@ public class PointCalculator {
 				YakuhaiValidator yakuhaiValidator = (YakuhaiValidator)entry.getValue();
 				for(MeldElement elem : ((WinningHandsBasic)winningHands).getList()){
 					if(yakuhaiValidator.validateEachPlayerWind(elem,status)){
-						System.out.println(entry.getKey());
+//						System.out.println(entry.getKey());
 						han += entry.getKey().getHan(winningHands.isStolen());
 					}
 					if(yakuhaiValidator.validateEachPrevailingWind(elem,status)){
-						System.out.println(entry.getKey());
+//						System.out.println(entry.getKey());
 						han += entry.getKey().getHan(winningHands.isStolen());
 					}
 				}
@@ -137,7 +137,7 @@ public class PointCalculator {
 			else if(WinningHandsEnum.SANSYOKU_DOJUN.equals(entry.getKey()) ||
 					WinningHandsEnum.SANSYOKU_DOKOKU.equals(entry.getKey())){
 				if(entry.getValue().validate(winningHands,status)){
-					System.out.println(entry.getKey());
+//					System.out.println(entry.getKey());
 
 					han += entry.getKey().getHan(status.is3SyokuStolen);
 				}
@@ -145,14 +145,14 @@ public class PointCalculator {
 			else if(WinningHandsEnum.SAN_ANKO.equals(entry.getKey()) ||
 					WinningHandsEnum.SAN_KANTSU.equals(entry.getKey())){
 				if(entry.getValue().validate(winningHands,status)){
-					System.out.println(entry.getKey());
+//					System.out.println(entry.getKey());
 
 					han += entry.getKey().getHan(false);
 				}
 			}
 			else {
 				if(entry.getValue().validate(winningHands,status)){
-					System.out.println(entry.getKey());
+//					System.out.println(entry.getKey());
 
 					han += entry.getKey().getHan(winningHands.isStolen());
 				}

@@ -55,15 +55,17 @@ public class GameServer {
 	 * @param playerId
 	 * @return
 	 */
-	public boolean isWinningHandsValid(int playerId){
+	public boolean isWinningHandsValid(int playerId,TileEnum tumo){
+		table.setTumoTile(playerId, tumo);
 		return table.isWinningHandsValid(playerId);
 	}
+	
 
 	public boolean callFinishRon(int playerId,TileEnum ron){
 
 		table.setRonTile(playerId,ron,getRonedPlayerId());
 		
-		if(isWinningHandsValid(playerId)){
+		if(table.isWinningHandsValid(playerId)){
 			gameRoundStatus.setRoundEnd();
 			PaidPoint point = table.calculate(playerId);
 			if(point != null){
@@ -90,7 +92,7 @@ public class GameServer {
 				
 		table.setTumoTile(playerId, tumo);
 		
-		if(isWinningHandsValid(playerId)){
+		if(table.isWinningHandsValid(playerId)){
 			gameRoundStatus.setRoundEnd();
 			PaidPoint point = table.calculate(playerId);
 			if(point != null){
@@ -235,7 +237,6 @@ public class GameServer {
 			
 			
 			if(wallTiles.size() + (huroList.size() * 3) != GameConstants.WALL_TILE_MAX_NUM - 1){
-				System.out.println(wallTiles);
 				invalid |=  true;
 			}
 			if(invalid){
@@ -299,10 +300,11 @@ public class GameServer {
 			}
 
 		}
+		
 		if(count == GameConstants.TILE_SUMMARY_NUM){
 			System.out.println("no winner");
 		}
-
+		gamePointHolder.showResult();
 	}
 	
 	

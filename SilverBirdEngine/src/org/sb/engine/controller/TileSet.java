@@ -103,7 +103,7 @@ public class TileSet {
 
 	private boolean validateWinningHandsList(WinningHandsList winningHandsList) {
 		if (winningHandsList.getList().size() == 0) {
-			ps.println("error in TileSet#calculate");
+			ps.println("error in TileSet#validateWinningHandsList");
 			return false;
 		}
 		for (WinningHands winningHands : winningHandsList.getList()) {
@@ -122,6 +122,7 @@ public class TileSet {
 	}
 	private WinningHandsList winningHandsListCache = null;
 	public boolean isWinningHandsValid(){
+
 		winningHandsListCache = null;
 		WinningHandsList winningHandsList = parse();
 
@@ -151,7 +152,6 @@ public class TileSet {
 
 	private List<Integer> searchHeadPos() {
 		List<Integer> heads = new ArrayList<Integer>();
-		ps.println("-" + _tiles);
 		for (int i = 0; i < _tiles.size() - 1; i++) {
 			TileEnum h1 = _tiles.get(i);
 			TileEnum h2 = _tiles.get(i + 1);

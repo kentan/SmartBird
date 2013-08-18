@@ -110,8 +110,8 @@ public class UnitTestCalculatePoint {
 	public void testOnDemand(){
 		TileEnum playerWind = TileEnum.EAST;
 		TileEnum prevailingWind = TileEnum.EAST;
-		TileEnum winningTile = TileEnum.BAMBOO1;
-		String wallTilesInString = "S3, S4, S5, S5, S6, S7, S7, S7, P4, P5, P6, P7, P7, P7";
+		TileEnum winningTile = TileEnum.CHARACTOR5;
+		String wallTilesInString = "M1, M1, M2, M2, M2, M3, M3, M3, M4, M4, M4, M5, M5, M5";
 		String[] wallTilesInArr = wallTilesInString.split(", ");
 		
 		TileSet tileSet = new TileSet(playerWind, prevailingWind);
