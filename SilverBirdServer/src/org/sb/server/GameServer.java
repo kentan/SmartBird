@@ -29,7 +29,7 @@ public class GameServer {
 	private static GameTable table;
 	GameRoundStatus gameRoundStatus = new GameRoundStatus();
 	GamePointHolder gamePointHolder = new GamePointHolder();
-
+	GameValidator gameValidator = new GameValidator();
 	private GameServer(){};
 	private static GameServer instance = new GameServer();
 	static public GameServer getInstance(){
@@ -230,36 +230,15 @@ public class GameServer {
 		table = new GameTable(gameRoundStatus.getPrevailingWind(),gameRoundStatus.getParentPlayerId());
 	}
 	
-	private boolean validate(int count){
-		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
-			List<TileEnum> wallTiles = table.getWallTiles(i);
-			List<MeldElement> huroList = table.getHuroTiles(i);
-			boolean invalid = false;
-			
-			
-			
-			if(wallTiles.size() + (huroList.size() * 3) != GameConstants.WALL_TILE_MAX_NUM - 1){
-				invalid |=  true;
-			}
-			if(invalid){
-				ps.println("the number of discarded tiles is invalid:");
-				ps.println("round:" + count);
-				ps.println("playerid:" + i);
-				ps.println("huro tiles:" + huroList.size() * 3);
-				return false;
-			}
-		}
-		
 
-		return true;
-	}
 	private void printResult(int playerId){
 		ps.println(playerId + " won");
 	}
+
 	private void runRound(){
-		int count = 0;
 		int playerId = 0;
-		while(count < GameConstants.TILE_SUMMARY_NUM){
+		int reminder = GameConstants.INIT_MOUNTAIN_TILE_NUM;
+		while(reminder > 0){
 				TileEnum tookTile = table.takeTileFromTable(playerId);
 				
 
@@ -294,36 +273,38 @@ public class GameServer {
 				}else{
 					playerId = (playerId + 1) % GameConstants.PLAYER_NUM;
 				}
-				count++;
+				reminder--;
 				
-			if(!validate(count)){
-				ps.println("validation error");
+			if(!gameValidator.validate(table,GameConstants.INIT_MOUNTAIN_TILE_NUM - reminder)){
 				break;
 			}
 
 		}
 		
-		if(count == GameConstants.TILE_SUMMARY_NUM){
+		if(reminder != 0){
 			ps.println("no winner");
 		}
-		gamePointHolder.showResult();
+
 	}
 	
 	
 	public void runGame(){
 
 		while(gameRoundStatus.isGameRoundFinish(HARF_GAME)){
-			ps.println("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber());
+			ps.println("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has started");
 			initTable();
 			
 			initPlayers();
 			
 			runRound();
 			
+			ps.println("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has finished");
+			gamePointHolder.showScore();
+			
 			gameRoundStatus.nextRound();
 		}
 		ps.println("Game End");
-		gamePointHolder.showResult();
+
 	}
 	public void init(String args[]){
 

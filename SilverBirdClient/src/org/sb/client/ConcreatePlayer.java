@@ -1,5 +1,6 @@
 package org.sb.client;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,7 +17,7 @@ import org.sb.mdl.enm.TileEnum;
 
 public class ConcreatePlayer extends AbstractGamePlayer
 {
-
+	PrintStream ps = System.out;
 	private void sortTiles(List<TileEnum> tiles){
 		
 		Collections.sort(tiles,new Comparator<TileEnum>(){
@@ -106,10 +107,10 @@ public class ConcreatePlayer extends AbstractGamePlayer
 	
 
 
-//		System.out.print("Player" + _playerId + ">");
-//		System.out.print(myTiles);
-//		System.out.print(" :" + tileAtThisTurn);
-//		System.out.println(":" + huroMelds);
+		ps.print("Player" + _playerId + ">");
+		ps.print(myTiles);
+		ps.print(" :" + tileAtThisTurn);
+		ps.println(":" + huroMelds);
 		InputCommand input = computeNextHand(tiles,tileAtThisTurn);
 		switch(input.getCommand()){
 			case TUMO:
@@ -129,8 +130,8 @@ public class ConcreatePlayer extends AbstractGamePlayer
 				break;
 		}
 
-//		System.out.print("Player" + _playerId + ">");
-//		System.out.println(myTiles);
+		ps.print("Player" + _playerId + ">");
+		ps.println(myTiles);
 	}
 
 	@Override

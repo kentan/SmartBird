@@ -20,16 +20,18 @@ public class TileManager {
 	public TileEnum takeTileFromTable(){
 		TileEnum tile = null;
 		while(tile == null){
-			int index = rnd.nextInt(TILE_INDEX_MAX);
+			int index = rnd.nextInt(TILE_INDEX_MAX + 1);
 			tile = TileEnum.getEnum(index);
 			if(tile == null){
 				continue;
 			}
-			
+
 			Integer num = tileHistory.get(tile);
+
 			if(num == null){
 				tileHistory.put(tile,1);				
-			}else if(num >= 5){
+			}else if(num >= GameConstants.EACH_TILE_MAX){
+				tile = null;
 				continue;
 			}else{
 				tileHistory.put(tile,num + 1);				
@@ -37,12 +39,17 @@ public class TileManager {
 		
 		}
 
+		int sum=0;
+		for(int k : tileHistory.values()){
+			sum += k;
+		}
+//		System.out.println(":" + sum + "::" + tileHistory.size() + ":" +  tileHistory.values());		
 		return tile;
 	}
 	public List<TileEnum> createInitialTiles(){
 		List<TileEnum> tiles = new ArrayList<TileEnum>();
 		int i = 0;
-		while( i < GameConstants.WALL_TILE_MAX_NUM - 1){
+		while( i < GameConstants.MAX_WALL_TILE_NUM - 1){
 
 			tiles.add(takeTileFromTable());
 			i++;

@@ -45,12 +45,12 @@ public class GameTable {
 			_playerTileSets.put(playerId,tileSet);
 			_prevailingWind = prevailingWind;
 			
-			_doraList.add(_tileManager.takeDora());
+
 			
 			playerId = (playerId + 1)%GameConstants.PLAYER_NUM;
 			count++;
 		}
-		
+		_doraList.add(_tileManager.takeDora());		
 		_parentPlayerId = parentPlayerId;
 		
 	}

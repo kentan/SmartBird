@@ -11,26 +11,26 @@ import org.sb.mdl.cnst.GameConstants;
 
 public class GamePointHolder {
 	PrintStream ps = System.out;
-	private Map<Integer,Integer> pointSummaryMap = new HashMap<Integer, Integer>();
+	private Map<Integer,Integer> scoreMap = new HashMap<Integer, Integer>();
 	
 	private List<Map<Integer,Integer>> pointDetailList = new ArrayList<Map<Integer,Integer>>();
 	
 	public GamePointHolder(){
 		for(int playerId = 0; playerId < GameConstants.PLAYER_NUM; playerId++){
-			pointSummaryMap.put(playerId, GameConstants.INITIAL_POINT);
+			scoreMap.put(playerId, GameConstants.INIT_POINT);
 		}
 	}
 	
 	public void payPoint(int round,int point,int playerIdFrom,int playerIdTo){
-		int currentPayerPoint = pointSummaryMap.get(playerIdFrom) == null ? 0 : pointSummaryMap.get(playerIdFrom);
-		int currentReceiverPoint= pointSummaryMap.get(playerIdTo) == null ? 0 : pointSummaryMap.get(playerIdTo);
+		int currentPayerPoint = scoreMap.get(playerIdFrom) == null ? 0 : scoreMap.get(playerIdFrom);
+		int currentReceiverPoint= scoreMap.get(playerIdTo) == null ? 0 : scoreMap.get(playerIdTo);
 				
 		
 		int updatedPayerPoint = currentPayerPoint - point;
 		int updatedReciverPoint = currentReceiverPoint + point;
 		
-		pointSummaryMap.put(playerIdFrom,updatedPayerPoint);
-		pointSummaryMap.put(playerIdTo,updatedReciverPoint);
+		scoreMap.put(playerIdFrom,updatedPayerPoint);
+		scoreMap.put(playerIdTo,updatedReciverPoint);
 		
 //		recodePointDetail(round, point, playerIdFrom, playerIdTo);
 	}
@@ -50,10 +50,12 @@ public class GamePointHolder {
 //		m.put(playerIdTo, point);
 //
 //	}
-	public void showResult(){
+	public void showScore(){
+		ps.println("=======Score Status at this round=======");
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
-			ps.println(pointSummaryMap.get(i));
-		}	
+			ps.println(scoreMap.get(i));
+		}
+		ps.println("=======Score Status at this round=======");
 	}
 	@Test
 	public void test(){
@@ -66,7 +68,7 @@ public class GamePointHolder {
 		}
 		payPoint(16, 48000, 3, 0);
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
-			ps.println(pointSummaryMap.get(i));
+			ps.println(scoreMap.get(i));
 		}
 		for(int i = 0 ; i < pointDetailList.size(); i++){
 			ps.println("round :" + i);
