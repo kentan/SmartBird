@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.sb.server.InputCommand;
 import org.sb.server.player.AbstractGamePlayer;
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.enm.TileEnum;
@@ -36,7 +35,7 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 			
 		}
 		
-		discardTile(discardTile);
+		discard(discardTile);
 		
 
 

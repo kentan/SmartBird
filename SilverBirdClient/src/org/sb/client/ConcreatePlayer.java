@@ -114,15 +114,15 @@ public class ConcreatePlayer extends AbstractGamePlayer
 		InputCommand input = computeNextHand(tiles,tileAtThisTurn);
 		switch(input.getCommand()){
 			case TUMO:
-				callTumo(tileAtThisTurn);
+				tumo(tileAtThisTurn);
 				break;
 			case RICHI:
 				TileEnum richiTile = input.getRichiTile();
-				callRichi(richiTile);
+				richi(richiTile);
 				break;				
 			case DISCARD:
 				TileEnum discardingTile  = input.getDiscardedTile();
-				discardTile(discardingTile);
+				discard(discardingTile);
 				myTiles.remove(discardingTile);
 				break;
 			case KONG_BY_WALL:

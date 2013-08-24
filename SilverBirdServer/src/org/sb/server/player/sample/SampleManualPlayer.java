@@ -84,18 +84,18 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 		InputCommand input = nextInput(tiles);
 		switch(input.getCommand()){
 			case TUMO:
-				callTumo(tileAtThisTurn);
+				tumo(tileAtThisTurn);
 
 				break;
 			case RICHI:
 				TileEnum richiTile = input.getRichiTile();
 
-				callRichi(richiTile);
+				richi(richiTile);
 				break;				
 			case DISCARD:
 				TileEnum discardingTile  = input.getDiscardedTile();
 
-				discardTile(discardingTile);
+				discard(discardingTile);
 				myTiles.remove(discardingTile);
 				break;
 			case CHOW:
@@ -148,14 +148,14 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 //				command.setStolenTile(stolenTile);
 //				command.addHuroTile(huro1);
 //				command.addHuroTile(huro2);
-				callChow(stolenTile,huro1,huro2,discardingTile);
+				chow(stolenTile,huro1,huro2,discardingTile);
 //				return command;
 
 			} else if ("P".equals(steal)) {
 				//TODO validate user input 
 				String discarding = commands[5];
 				TileEnum discardingTile = GameUtil.getTileEnum(discarding);
-				callPong(stolenTile,huro1,huro2,discardingTile);
+				pong(stolenTile,huro1,huro2,discardingTile);
 
 //				InputCommand command = new InputCommand();
 //				command.setCommand(CommandEnum.PONG);
@@ -171,7 +171,7 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 
 				String discarding = commands[6];
 				TileEnum discardingTile = GameUtil.getTileEnum(discarding);
-				callKongBySteal(stolenTile,huro1,huro2,huro3,discardingTile);
+				kongBySteal(stolenTile,huro1,huro2,huro3,discardingTile);
 //				InputCommand command = new InputCommand();
 //				command.setCommand(CommandEnum.CHOW);
 //				command.setDiscardedTile(discardedTile);
@@ -182,7 +182,7 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 //				return command;
 			} else if ("R".equals(steal)){
 
-				if(callRon(stolenTile)){
+				if(ron(stolenTile)){
 					System.out.println("Player " + playerId + "win");
 					return ;
 				}

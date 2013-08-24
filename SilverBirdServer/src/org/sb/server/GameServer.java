@@ -10,14 +10,13 @@ import java.util.Random;
 
 
 
-import org.sb.server.InputCommand;
+
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.PaidPoint;
 import org.sb.mdl.cnst.GameConstants;
 import org.sb.mdl.enm.MeldEnum;
 import org.sb.mdl.enm.TileEnum;
 import org.sb.server.player.AbstractGamePlayer;
-import org.sb.server.CommandEnum;
 
 
 public class GameServer {
@@ -147,7 +146,14 @@ public class GameServer {
 		discardTile(playerId, discardedTile);
 		return true;
 	}
-
+	
+	public boolean callKongByWall(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2, TileEnum huro3,TileEnum discardedTile) {
+		MeldElement melds = new MeldElement(MeldEnum.WALL_KONG, stolenTile, huro1, huro2, huro3);
+		table.addHuro(playerId,melds);
+		discardTile(playerId, discardedTile);
+		return true;
+	}
+	
 	public boolean callKongBySteal(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2, TileEnum huro3,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_KONG, stolenTile, huro1, huro2, huro3);
 		table.addHuro(playerId,melds);

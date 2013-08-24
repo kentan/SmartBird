@@ -35,31 +35,31 @@ public abstract class AbstractGamePlayer {
 	public boolean isWinningHandsValid(TileEnum tumoTile){
 		return _gameServer.isWinningHandsValid(_playerId,tumoTile);
 	}
-	public boolean callTumo(TileEnum tumoTile){
+	public boolean tumo(TileEnum tumoTile){
 		return _gameServer.callTumo(_playerId,tumoTile);		
 	}
-	public boolean callRon(TileEnum ronTile){
+	public boolean ron(TileEnum ronTile){
 		return _gameServer.callRon(_playerId, ronTile);	
 	}
 
-	public boolean callPong(TileEnum pongTile,TileEnum huro1,TileEnum huro2,TileEnum discardingTile){
+	public boolean pong(TileEnum pongTile,TileEnum huro1,TileEnum huro2,TileEnum discardingTile){
 		return _gameServer.callPong(_playerId,pongTile,huro1,huro2,discardingTile);
 	}
-	public boolean callKongByWall(TileEnum kongTile,TileEnum huro1,TileEnum huro2,TileEnum huro3,TileEnum discardingTile){
-		return false;
+	public boolean kongByWall(TileEnum kongTile,TileEnum huro1,TileEnum huro2,TileEnum huro3,TileEnum discardingTile){
+		return _gameServer.callKongByWall(_playerId,kongTile,huro1,huro2,huro3,discardingTile);
 	}	
-	public boolean callKongBySteal(TileEnum kongTile,TileEnum huro1,TileEnum huro2,TileEnum huro3,TileEnum discardingTile){
+	public boolean kongBySteal(TileEnum kongTile,TileEnum huro1,TileEnum huro2,TileEnum huro3,TileEnum discardingTile){
 		return _gameServer.callKongBySteal(_playerId,kongTile,huro1,huro2,huro3,discardingTile);
 	}
-	public boolean callChow(TileEnum chowTile,TileEnum huro1,TileEnum huro2,TileEnum discardingTile){
+	public boolean chow(TileEnum chowTile,TileEnum huro1,TileEnum huro2,TileEnum discardingTile){
 		return _gameServer.callChow(_playerId,chowTile,huro1,huro2,discardingTile);
 	}
 	
-	public void callRichi(TileEnum richiTile){
+	public void richi(TileEnum richiTile){
 		_gameServer.callRichi(_playerId,richiTile);		
 	}
 
-	public void discardTile(TileEnum discardingTile){		
+	public void discard(TileEnum discardingTile){		
 		_gameServer.discardTile(_playerId,discardingTile);
 	}
 	public int getPlayerId(){

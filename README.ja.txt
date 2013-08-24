@@ -22,11 +22,11 @@ Gameサーバ的なもの。
 d. SilverBirdClient
 AIを実装するプログラマーが唯一コードを各必要があるのがこのプロジェクト。
 いまcommitしてあるConcreateGamePlayerは俺が５分で考えたAIが入ってる。
-まあSampleRandomPlayer相手なら上がりまで持ってくことができるので、とりあえず参考用に。
+まあSampleRandomPlayer相手ならたまに上がりまで持ってくことができるので、とりあえず参考用に。
 
 ちなみにa~cは実はjarだけあればよい。また後述の実装手順6で指定するクラス指定と一致していれば、プロジェクト名、クラス名ともになんでもいい。
 
-AbstructGamePlayerを継承して実装すること。GameServerとのインタラクション(ツモ宣言とか牌捨てとか)はAbstructGamePlayerがもつメソッドを通じて行う。
+AbstructGamePlayerを継承して実装すること。GameServerとのinteractionは(ツモ宣言とか牌捨てとか)はAbstructGamePlayerがもつメソッドを通じて行う。
 
 
 
@@ -41,7 +41,7 @@ AbstructGamePlayerを継承して実装すること。GameServerとのインタ�
 例)
 public static void main(String args[]){
 
-String debugArgs[] = {<4で作ったクラス>,
+String playerDefs[] = {<4で作ったクラス>,
 
 "org.sb.server.player.sample.SampleRandomPlayer",// ランダムに牌をきるだけのPlayer
 
@@ -83,5 +83,4 @@ Map<Integer,List<MeldElement>> otherPlayerHuroTiles。他のプレイヤー副�
 2.notifySteal();
 Steal=鳴き。
 他プレイヤーが捨てるたびに、notifyStrealが呼び出される。
-ポン、ロン、チーしたいときは、InputCommandにそれっぽい値を詰めて返す。
-鳴かないときはnullを返す。
+ポン、ロン、カン,チーしたいときは、それぞれAbstractGamePlayerのメソッドのpong(),ron(),kong(),chow()を呼び出す。
