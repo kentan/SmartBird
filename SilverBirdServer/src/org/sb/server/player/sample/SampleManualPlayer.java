@@ -84,7 +84,7 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 		InputCommand input = nextInput(tiles);
 		switch(input.getCommand()){
 			case TUMO:
-				callFinishTumo(tileAtThisTurn);
+				callTumo(tileAtThisTurn);
 
 				break;
 			case RICHI:
@@ -108,24 +108,24 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 	}
 
 	@Override
-	public InputCommand notifySteal() {
-		return handleStdInput();
+	public void notifySteal() {
+		handleStdInput();
 	}
 
-	protected InputCommand handleStdInput() {
+	protected void handleStdInput() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print(">");
 		String input = scanner.next();
 		if ("a".equals(input)) {
-			return null;
+			return ;
 		} else {
 			String commands[] = input.split(",");
 			if (commands.length <= 5) {
-				return null;
+				return ;
 			}
 			String playerIdString = commands[0];
 			int playerId = Integer.parseInt(playerIdString);
-			String naki = commands[1];
+			String steal = commands[1];
 			String discardedTileString = commands[2];
 			TileEnum stolenTile = GameUtil.getTileEnum(discardedTileString);
 			String huro1String = commands[3];
@@ -135,59 +135,62 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 			TileEnum huro1 = GameUtil.getTileEnum(huro1String);
 			TileEnum huro2 = GameUtil.getTileEnum(huro2String);
 
-			if ("C".equals(naki)) {
+			if ("C".equals(steal)) {
+				
 				//TODO validate user input 
-				String discarded = commands[5];
-				TileEnum discardedTile = GameUtil.getTileEnum(discarded);
+				String discarding = commands[5];
+				TileEnum discardingTile = GameUtil.getTileEnum(discarding);
 
-				InputCommand command = new InputCommand();
-				command.setCommand(CommandEnum.MELD);
-				command.setDiscardedTile(discardedTile);
-				command.setStolenTile(stolenTile);
-				command.addHuroTile(huro1);
-				command.addHuroTile(huro2);
-				return command;
 
-			} else if ("P".equals(naki)) {
+//				InputCommand command = new InputCommand();
+//				command.setCommand(CommandEnum.MELD);
+//				command.setDiscardedTile(discardingTile);
+//				command.setStolenTile(stolenTile);
+//				command.addHuroTile(huro1);
+//				command.addHuroTile(huro2);
+				callChow(stolenTile,huro1,huro2,discardingTile);
+//				return command;
+
+			} else if ("P".equals(steal)) {
 				//TODO validate user input 
-				String discarded = commands[5];
-				TileEnum discardedTile = GameUtil.getTileEnum(discarded);
+				String discarding = commands[5];
+				TileEnum discardingTile = GameUtil.getTileEnum(discarding);
+				callPong(stolenTile,huro1,huro2,discardingTile);
 
-
-				InputCommand command = new InputCommand();
-				command.setCommand(CommandEnum.PONG);
-				command.setDiscardedTile(discardedTile);
-				command.setStolenTile(stolenTile);
-				command.addHuroTile(huro1);
-				command.addHuroTile(huro2);
-				return command;
-			} else if ("K".equals(naki)) {
+//				InputCommand command = new InputCommand();
+//				command.setCommand(CommandEnum.PONG);
+//				command.setDiscardedTile(discardedTile);
+//				command.setStolenTile(stolenTile);
+//				command.addHuroTile(huro1);
+//				command.addHuroTile(huro2);
+//				return command;
+			} else if ("K".equals(steal)) {
 				//TODO validate user input 
 				String huro3String = commands[5];
 				TileEnum huro3 = GameUtil.getTileEnum(huro3String);
 
-				String discarded = commands[6];
-				TileEnum discardedTile = GameUtil.getTileEnum(discarded);
+				String discarding = commands[6];
+				TileEnum discardingTile = GameUtil.getTileEnum(discarding);
+				callKongBySteal(stolenTile,huro1,huro2,huro3,discardingTile);
+//				InputCommand command = new InputCommand();
+//				command.setCommand(CommandEnum.CHOW);
+//				command.setDiscardedTile(discardedTile);
+//				command.setStolenTile(stolenTile);
+//				command.addHuroTile(huro1);
+//				command.addHuroTile(huro2);
+//				command.addHuroTile(huro3);
+//				return command;
+			} else if ("R".equals(steal)){
 
-				InputCommand command = new InputCommand();
-				command.setCommand(CommandEnum.CHOW);
-				command.setDiscardedTile(discardedTile);
-				command.setStolenTile(stolenTile);
-				command.addHuroTile(huro1);
-				command.addHuroTile(huro2);
-				command.addHuroTile(huro3);
-				return command;
-			} else if ("R".equals(naki)){
-
-				if(callFinishRon(stolenTile)){
+				if(callRon(stolenTile)){
 					System.out.println("Player " + playerId + "win");
-					return null;
+					return ;
 				}
 
 			}
 
 		}
-		return null;		
+		return ;		
 	}
 
 

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
-import org.sb.server.InputCommand;
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.enm.TileEnum;
 import org.sb.server.GameServer;
@@ -14,7 +12,7 @@ public abstract class AbstractGamePlayer {
 
 	abstract public void notifyTurn(final List<TileEnum> tiles,final TileEnum tileAtThisTurn,List<MeldElement> huroMelds,List<TileEnum> discardeTiles,Map<Integer,List<TileEnum>> otherPlayerDiscardedTiles,Map<Integer,List<MeldElement>> otherPlayerHuroTiles);
 
-	abstract public InputCommand notifySteal();
+	abstract public void notifySteal();
 	
 	protected int _playerId;
 	protected List<TileEnum> _tiles;
@@ -37,13 +35,25 @@ public abstract class AbstractGamePlayer {
 	public boolean isWinningHandsValid(TileEnum tumoTile){
 		return _gameServer.isWinningHandsValid(_playerId,tumoTile);
 	}
-	public boolean callFinishTumo(TileEnum tumoTile){
-		return _gameServer.callFinishTumo(_playerId,tumoTile);		
+	public boolean callTumo(TileEnum tumoTile){
+		return _gameServer.callTumo(_playerId,tumoTile);		
 	}
-	public boolean callFinishRon(TileEnum ronTile){
-		return _gameServer.callFinishRon(_playerId, ronTile);	
+	public boolean callRon(TileEnum ronTile){
+		return _gameServer.callRon(_playerId, ronTile);	
 	}
 
+	public boolean callPong(TileEnum pongTile,TileEnum huro1,TileEnum huro2,TileEnum discardingTile){
+		return _gameServer.callPong(_playerId,pongTile,huro1,huro2,discardingTile);
+	}
+	public boolean callKongByWall(TileEnum kongTile,TileEnum huro1,TileEnum huro2,TileEnum huro3,TileEnum discardingTile){
+		return false;
+	}	
+	public boolean callKongBySteal(TileEnum kongTile,TileEnum huro1,TileEnum huro2,TileEnum huro3,TileEnum discardingTile){
+		return _gameServer.callKongBySteal(_playerId,kongTile,huro1,huro2,huro3,discardingTile);
+	}
+	public boolean callChow(TileEnum chowTile,TileEnum huro1,TileEnum huro2,TileEnum discardingTile){
+		return _gameServer.callChow(_playerId,chowTile,huro1,huro2,discardingTile);
+	}
 	
 	public void callRichi(TileEnum richiTile){
 		_gameServer.callRichi(_playerId,richiTile);		

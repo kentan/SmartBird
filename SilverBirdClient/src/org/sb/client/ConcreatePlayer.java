@@ -114,7 +114,7 @@ public class ConcreatePlayer extends AbstractGamePlayer
 		InputCommand input = computeNextHand(tiles,tileAtThisTurn);
 		switch(input.getCommand()){
 			case TUMO:
-				callFinishTumo(tileAtThisTurn);
+				callTumo(tileAtThisTurn);
 				break;
 			case RICHI:
 				TileEnum richiTile = input.getRichiTile();
@@ -125,8 +125,7 @@ public class ConcreatePlayer extends AbstractGamePlayer
 				discardTile(discardingTile);
 				myTiles.remove(discardingTile);
 				break;
-			case CHOW:
-				//ANKAN
+			case KONG_BY_WALL:
 				break;
 		}
 
@@ -135,8 +134,8 @@ public class ConcreatePlayer extends AbstractGamePlayer
 	}
 
 	@Override
-	public InputCommand notifySteal() {
-		return null;
+	public void notifySteal() {
+		return ;
 		
 	}
 

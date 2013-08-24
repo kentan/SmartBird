@@ -44,9 +44,9 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 //		System.out.println(discardTile);
 	}
 	@Override
-	public InputCommand notifySteal() {
+	public void notifySteal() {
 
-		return null;
+		return ;
 	}
 
 }

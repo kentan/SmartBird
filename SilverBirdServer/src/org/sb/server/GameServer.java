@@ -63,7 +63,7 @@ public class GameServer {
 	}
 	
 
-	public boolean callFinishRon(int playerId,TileEnum ron){
+	public boolean callRon(int playerId,TileEnum ron){
 
 		table.setRonTile(playerId,ron,getRonedPlayerId());
 		
@@ -90,7 +90,7 @@ public class GameServer {
 
 	}
 	
-	public boolean callFinishTumo(int playerId,TileEnum tumo) {
+	public boolean callTumo(int playerId,TileEnum tumo) {
 				
 		table.setTumoTile(playerId, tumo);
 		
@@ -132,24 +132,27 @@ public class GameServer {
 		this.discardTile(playerId, tile);
 		table.setRichi(playerId);
 	}
-	private void callChi(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
+	public boolean callChow(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_CHOW, stolenTile, huro1, huro2);
 		table.addHuro(playerId,melds);
 		
 		discardTile(playerId, discardedTile);
 
+		return true;
 	}
 
-	private void callPon(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
+	public boolean callPong(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_PONG, stolenTile, huro1, huro2);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
+		return true;
 	}
 
-	private void callKong(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2, TileEnum huro3,TileEnum discardedTile) {
+	public boolean callKongBySteal(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2, TileEnum huro3,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_KONG, stolenTile, huro1, huro2, huro3);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
+		return true;
 	}
 	private int waitForSteal(int currentPlayerId){
 
@@ -173,29 +176,29 @@ public class GameServer {
 		for(int playerId : order){
 			AbstractGamePlayer player = players.get(playerId);
 			
-			InputCommand command = player.notifySteal();
-			if(command == null){
-				continue;
-			}
-			TileEnum stolenTile = command.getStolenTile();
-			TileEnum huro1 = command.getHuroTile().get(0);
-			TileEnum huro2 = command.getHuroTile().get(1);
-			TileEnum discardedTile = command.getDiscardedTile();
-			if(CommandEnum.PONG.equals(command.getCommand())){
-
-				callPon(playerId,stolenTile,huro1,huro2,discardedTile);
-				return playerId;
-			}
-
-			else if(CommandEnum.MELD.equals(command.getCommand())){
-				callChi(playerId,stolenTile,huro1,huro2,discardedTile);
-				return playerId;
-			}
-			else if(CommandEnum.CHOW.equals(command.getCommand())){
-				TileEnum huro3 = command.getHuroTile().get(2);
-				callKong(playerId,stolenTile,huro1,huro2,huro3,discardedTile);
-				return playerId;
-			}
+			player.notifySteal();
+//			if(command == null){
+//				continue;
+//			}
+//			TileEnum stolenTile = command.getStolenTile();
+//			TileEnum huro1 = command.getHuroTile().get(0);
+//			TileEnum huro2 = command.getHuroTile().get(1);
+//			TileEnum discardedTile = command.getDiscardedTile();
+//			if(CommandEnum.PONG.equals(command.getCommand())){
+//
+//				callPon(playerId,stolenTile,huro1,huro2,discardedTile);
+//				return playerId;
+//			}
+//
+//			else if(CommandEnum.MELD.equals(command.getCommand())){
+//				callChow(playerId,stolenTile,huro1,huro2,discardedTile);
+//				return playerId;
+//			}
+//			else if(CommandEnum.CHOW.equals(command.getCommand())){
+//				TileEnum huro3 = command.getHuroTile().get(2);
+//				callKong(playerId,stolenTile,huro1,huro2,huro3,discardedTile);
+//				return playerId;
+//			}
 		}
 
 		return -1;
@@ -320,12 +323,12 @@ public class GameServer {
 //				"org.sb.server.player.sample.SampleRandomPlayer",
 //				"org.sb.server.player.sample.SampleRandomPlayer"
 //		};
-		String debugArgs[] = {"org.sb.client.ConcreatePlayer",
+		String playerDefs[] = {"org.sb.client.ConcreatePlayer",
 				"org.sb.server.player.sample.SampleRandomPlayer",
 				"org.sb.server.player.sample.SampleRandomPlayer",
 				"org.sb.server.player.sample.SampleRandomPlayer"
 		};
-		getInstance().init(debugArgs);
+		getInstance().init(playerDefs);
 		
 	}
 }
