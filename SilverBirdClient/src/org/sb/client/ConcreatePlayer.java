@@ -92,10 +92,10 @@ public class ConcreatePlayer extends AbstractGamePlayer
 	}
 	
 	@Override
-	public void notifyTurn(List<TileEnum> tiles, TileEnum tileAtThisTurn, List<MeldElement> huroMelds, List<TileEnum> discardeTiles,
+	public void notifyTurn(List<TileEnum> tiles, TileEnum tileAtThisTurn, List<MeldElement> huroMelds, List<TileEnum> discardedTiles,
 			Map<Integer, List<TileEnum>> otherPlayerDiscardedTiles, Map<Integer, List<MeldElement>> otherPlayerHuroTiles) {
 
-
+		TileEnum discardingTile = null;
 		List<TileEnum> myTiles = new ArrayList<TileEnum>();
 		for(TileEnum tile :tiles){
 			// don't need to clone because tile is enum
@@ -121,7 +121,7 @@ public class ConcreatePlayer extends AbstractGamePlayer
 				richi(richiTile);
 				break;				
 			case DISCARD:
-				TileEnum discardingTile  = input.getDiscardedTile();
+				discardingTile  = input.getDiscardedTile();
 				discard(discardingTile);
 				myTiles.remove(discardingTile);
 				break;
@@ -130,7 +130,7 @@ public class ConcreatePlayer extends AbstractGamePlayer
 		}
 
 		ps.print("Player" + _playerId + ">");
-		ps.println(myTiles);
+		ps.println("Discard:" + discardingTile);
 	}
 
 	@Override

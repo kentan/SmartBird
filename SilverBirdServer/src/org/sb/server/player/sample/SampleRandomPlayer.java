@@ -17,7 +17,7 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 		return tiles.get(rndInt);
 	}
 	@Override
-	public void notifyTurn(List<TileEnum> tiles, TileEnum tileAtThisTurn, List<MeldElement> huroMelds, List<TileEnum> discardeTiles,
+	public void notifyTurn(List<TileEnum> tiles, TileEnum tileAtThisTurn, List<MeldElement> huroMelds, List<TileEnum> discardedTiles,
 			Map<Integer, List<TileEnum>> otherPlayerDiscardedTiles, Map<Integer, List<MeldElement>> otherPlayerHuroTiles) {
 
 		List<TileEnum> myTiles = new ArrayList<TileEnum>();
@@ -28,8 +28,8 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 		boolean oneMore = true;
 		TileEnum discardTile = null;
 		while(oneMore){
-//			System.out.print("Player" + _playerId  + ">");
-//			System.out.println(myTiles);
+			System.out.print("Player" + _playerId  + ">");
+			System.out.println(myTiles + " :" + tileAtThisTurn + ":" + huroMelds);
 			discardTile = nextInput(myTiles);
 			oneMore = !myTiles.remove(discardTile);
 			
@@ -39,8 +39,8 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 		
 
 
-//		System.out.print("Player" + _playerId + ">");
-//		System.out.println(discardTile);
+		System.out.print("Player" + _playerId + ">");
+		System.out.println("Discard:" + discardTile);
 	}
 	@Override
 	public void notifySteal() {
