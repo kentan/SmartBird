@@ -11,8 +11,9 @@ import org.sb.server.GameServer;
 public abstract class AbstractGamePlayer {
 
 	abstract public void notifyTurn(final List<TileEnum> tiles,final TileEnum tileAtThisTurn,List<MeldElement> huroMelds,List<TileEnum> discardedTiles,Map<Integer,List<TileEnum>> otherPlayerDiscardedTiles,Map<Integer,List<MeldElement>> otherPlayerHuroTiles);
+	
+	abstract public void notifySteal(final List<TileEnum> tiles,List<MeldElement> huroMelds,List<TileEnum> discardedTiles,Map<Integer,List<TileEnum>> otherPlayerDiscardedTiles,Map<Integer,List<MeldElement>> otherPlayerHuroMelds,TileEnum currentDiscardedTile);
 
-	abstract public void notifySteal();
 	
 	protected int _playerId;
 	protected List<TileEnum> _tiles;

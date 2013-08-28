@@ -133,6 +133,7 @@ public class GameServer {
 	}
 	public boolean callChow(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_CHOW, stolenTile, huro1, huro2);
+		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		
 		discardTile(playerId, discardedTile);
@@ -142,6 +143,7 @@ public class GameServer {
 
 	public boolean callPong(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_PONG, stolenTile, huro1, huro2);
+		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
 		return true;
@@ -149,6 +151,7 @@ public class GameServer {
 	
 	public boolean callKongByWall(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2, TileEnum huro3,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.WALL_KONG, stolenTile, huro1, huro2, huro3);
+		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
 		return true;
@@ -156,6 +159,7 @@ public class GameServer {
 	
 	public boolean callKongBySteal(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2, TileEnum huro3,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_KONG, stolenTile, huro1, huro2, huro3);
+		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
 		return true;
@@ -182,7 +186,14 @@ public class GameServer {
 		for(int playerId : order){
 			AbstractGamePlayer player = players.get(playerId);
 			
-			player.notifySteal();
+
+			player.notifySteal(
+					table.getWallTiles(playerId),
+					table.getHuroTiles(playerId),
+					table.getDiscardedTiles(playerId),
+					table.getOtherPlayersDiscardedTiles(playerId),
+					table.getOtherPlayersHuroTiles(playerId),
+					table.getLastDiscardedTile());
 //			if(command == null){
 //				continue;
 //			}
@@ -251,24 +262,24 @@ public class GameServer {
 				TileEnum tookTile = table.takeTileFromTable(playerId);
 				
 
-				Map<Integer,List<TileEnum>> otherPlayersDiscardedTiles = new HashMap<Integer,List<TileEnum>>();
-				Map<Integer,List<MeldElement>> otherPlayersHuroTiles = new HashMap<Integer,List<MeldElement>>();
-				for(int i=0 ; i < GameConstants.PLAYER_NUM; i++){
-					if(i == playerId){
-						continue;
-					}
-
-					otherPlayersDiscardedTiles.put(i,table.getDiscardedTiles(playerId));
-					otherPlayersHuroTiles.put(i,table.getHuroTiles(playerId));
-				}
+//				Map<Integer,List<TileEnum>> otherPlayersDiscardedTiles = new HashMap<Integer,List<TileEnum>>();
+//				Map<Integer,List<MeldElement>> otherPlayersHuroTiles = new HashMap<Integer,List<MeldElement>>();
+//				for(int i=0 ; i < GameConstants.PLAYER_NUM; i++){
+//					if(i == playerId){
+//						continue;
+//					}
+//
+//					otherPlayersDiscardedTiles.put(i,table.getDiscardedTiles(playerId));
+//					otherPlayersHuroTiles.put(i,table.getHuroTiles(playerId));
+//				}
 					
 				players.get(playerId).notifyTurn(
 						table.getWallTiles(playerId),
 						tookTile,
 						table.getHuroTiles(playerId),
 						table.getDiscardedTiles(playerId),
-						otherPlayersDiscardedTiles,
-						otherPlayersHuroTiles);
+						table.getOtherPlayersDiscardedTiles(playerId),
+						table.getOtherPlayersHuroTiles(playerId));
 				
 
 				if(gameRoundStatus.isRoundEnd()){

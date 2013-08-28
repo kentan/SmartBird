@@ -78,6 +78,30 @@ public class GameTable {
 		return _discardeTiles.get(playerId);
 	}
 	
+	public Map<Integer,List<MeldElement>> getOtherPlayersHuroTiles(int playerId){
+
+		Map<Integer,List<MeldElement>> otherPlayersHuroTiles = new HashMap<Integer,List<MeldElement>>();
+		for(int i=0 ; i < GameConstants.PLAYER_NUM; i++){
+			if(i == playerId){
+				continue;
+			}
+
+			otherPlayersHuroTiles.put(i,getHuroTiles(playerId));
+		}
+		return otherPlayersHuroTiles;
+	}
+	
+	public Map<Integer,List<TileEnum>> getOtherPlayersDiscardedTiles(int playerId){
+		Map<Integer,List<TileEnum>> otherPlayersDiscardedTiles = new HashMap<Integer,List<TileEnum>>();
+		for(int i=0 ; i < GameConstants.PLAYER_NUM; i++){
+			if(i == playerId){
+				continue;
+			}
+			otherPlayersDiscardedTiles.put(i,getDiscardedTiles(playerId));
+		}
+		return otherPlayersDiscardedTiles;
+	}
+	
 	public List<MeldElement> getHuroTiles(int playerId){
 		return  _playerTileSets.get(playerId).getHuros();
 	}

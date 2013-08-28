@@ -107,10 +107,7 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 		System.out.println(myTiles);
 	}
 
-	@Override
-	public void notifySteal() {
-		handleStdInput();
-	}
+
 
 	protected void handleStdInput() {
 		Scanner scanner = new Scanner(System.in);
@@ -191,6 +188,14 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 
 		}
 		return ;		
+	}
+
+	@Override
+	public void notifySteal(List<TileEnum> tiles, List<MeldElement> huroMelds, List<TileEnum> discardedTiles,
+			Map<Integer, List<TileEnum>> otherPlayerDiscardedTiles, Map<Integer, List<MeldElement>> otherPlayerHuroMelds,
+			TileEnum currentDiscardedTile) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

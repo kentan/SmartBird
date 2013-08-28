@@ -43,9 +43,13 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 		System.out.println("Discard:" + discardTile);
 	}
 	@Override
-	public void notifySteal() {
-
-		return ;
+	public void notifySteal(List<TileEnum> tiles, List<MeldElement> huroMelds, List<TileEnum> discardedTiles,
+			Map<Integer, List<TileEnum>> otherPlayerDiscardedTiles, Map<Integer, List<MeldElement>> otherPlayerHuroMelds,
+			TileEnum currentDiscardedTile) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	
 
 }

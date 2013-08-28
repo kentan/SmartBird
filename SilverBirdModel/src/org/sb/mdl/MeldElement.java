@@ -27,7 +27,7 @@ public class MeldElement{
                 }else{
                         _tileSuite = TileSuiteEnum.WINDS_AND_DRAGONS;
                 }
-                _stolenTile = hai[0];
+ //               _stolenTile = hai[0];
                 _list.addAll(Arrays.asList(hai));
         }
         public TileSuiteEnum getTileSuite(){
@@ -42,7 +42,9 @@ public class MeldElement{
         public TileEnum getStolenTile(){
         	return _stolenTile;
         }
-        
+        public void setStolenTile(TileEnum stolenTile){
+        	_stolenTile = stolenTile;
+        }
         @Override
         public String toString(){
                 StringBuffer sb = new StringBuffer();
