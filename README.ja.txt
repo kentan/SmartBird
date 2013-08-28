@@ -65,22 +65,34 @@ SilberBirdServerのGameServer#mainを起動する。
 1.notifyTurn()
 手順が来ると呼び出されるメソッド。
 引数の内容は以下。
-List<TileEnum> tiles, 手牌。tileAtThisTurnも含んでる。
+List<TileEnum> tiles, 自分の手牌。tileAtThisTurnも含んでる。
 
 TileEnum tileAtThisTurn。このターンで取得した牌。
 
-List<MeldElement> huroMelds。副路。
+List<MeldElement> huroMelds。自分の副路。
 
-List<TileEnum> discardeTiles。今までに捨てた牌
+List<TileEnum> discardeTiles。自分の捨て牌
 
-Map<Integer,List<TileEnum>> otherPlayerDiscardedTiles。他のプレイヤーが今までに捨てた牌のリスト。keyはplayerId。自プレイヤーの捨て牌は含まれてない。
+Map<Integer,List<TileEnum>> otherPlayerDiscardedTiles。他家の捨て牌。keyはplayerId。自プレイヤーの捨て牌は含まれてない。
 
-Map<Integer,List<MeldElement>> otherPlayerHuroTiles。他のプレイヤー副路。keyはplayerId。自プレイヤーの副路は含まれてない。
+Map<Integer,List<MeldElement>> otherPlayerHuroTiles。他家の副路。keyはplayerId。自プレイヤーの副路は含まれてない。
 
 
 これらの情報を元に、ツモ宣言したり、牌を捨てたりする。
 
 2.notifySteal();
+List<TileEnum> tiles,自分の手牌。
+
+List<MeldElement> huroMelds。自分の副路。
+
+List<TileEnum> discardedTiles。自分の捨て牌。
+
+Map<Integer,List<TileEnum>> otherPlayerDiscardedTiles。他家の捨て牌。keyはplayerId。自プレイヤーの捨て牌は含まれてない。
+
+Map<Integer,List<MeldElement>> otherPlayerHuroTiles。他家の副路。keyはplayerId。自プレイヤーの副路は含まれてない>
+
+TileEnum currentDiscardedTile　上家の捨てた胚。
+
 Steal=鳴き。
 他プレイヤーが捨てるたびに、notifyStrealが呼び出される。
 ポン、ロン、カン,チーしたいときは、それぞれAbstractGamePlayerのメソッドのpong(),ron(),kong(),chow()を呼び出す。
