@@ -16,28 +16,41 @@ public class MeldElement{
         private List<TileEnum> _list = new ArrayList<TileEnum>();
         private TileSuiteEnum _tileSuite;
         
-        public MeldElement(MeldEnum meld,TileEnum... hai){
+        public MeldElement(){
+        	
+        }
+        public MeldElement(MeldEnum meld,TileEnum... tile){
                 _meldEnum = meld;
-                if(hai[0].isCharactor()){
+                if(tile[0].isCharactor()){
                         _tileSuite = TileSuiteEnum.CHARACTORS;
-                }else if(hai[0].isBamboo()){
+                }else if(tile[0].isBamboo()){
                         _tileSuite = TileSuiteEnum.BAMBOOS;
-                }else if(hai[0].isCircle()){
+                }else if(tile[0].isCircle()){
                         _tileSuite = TileSuiteEnum.CIRCLES;
                 }else{
                         _tileSuite = TileSuiteEnum.WINDS_AND_DRAGONS;
                 }
  //               _stolenTile = hai[0];
-                _list.addAll(Arrays.asList(hai));
+                _list.addAll(Arrays.asList(tile));
         }
         public TileSuiteEnum getTileSuite(){
                 return _tileSuite;
         }
+        public void setTileSuite(TileSuiteEnum tileSuite){
+        	_tileSuite = tileSuite;
+        }
+        
         public MeldEnum getMeldEnum(){
                 return _meldEnum;
         }
+        public void setMeldEnum(MeldEnum meldEnum){
+            _meldEnum = meldEnum;
+        }
         public List<TileEnum> getList(){
                 return _list;
+        }
+        public void setList(List<TileEnum> tiles){
+        	_list = tiles;
         }
         public TileEnum getStolenTile(){
         	return _stolenTile;

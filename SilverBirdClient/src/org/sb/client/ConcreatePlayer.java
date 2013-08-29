@@ -133,51 +133,6 @@ public class ConcreatePlayer extends AbstractGamePlayer
 		ps.println("Discard:" + discardingTile);
 	}
 
-	private Map<Integer,MeldCandidate2> findMeldCandidate(List<TileEnum> tiles){
-		Map<Integer,MeldCandidate2> candidatePosMap = new HashMap<Integer, MeldCandidate2>();
-		for(int i = 0 ; i < tiles.size() - 2; i++){
-			TileEnum t0 = tiles.get(i);
-			TileEnum t1 = tiles.get(i + 1);
-
-			List<TileEnum> candidates = new ArrayList<TileEnum>();
-			MeldCandidateEnum kind = null;
-			if(t0 == t1){
-				// pong Candidate
-				TileEnum t2 = tiles.get(i + 2);
-				if(t0 != t2){
-					kind = MeldCandidateEnum.PONG_CANDIDATE;
-				}else{
-					candidates.add(t2);
-					kind = MeldCandidateEnum.KONG_CANDIDATE;
-				}
-			}else if(t0.next() == t1){
-				// chow Candidate;
-				kind = MeldCandidateEnum.CHOW_CANDIDATE_BOTH_SIDE;
-
-			}else if(t0.next() != null && t0.next().next() == t1){
-
-				kind = MeldCandidateEnum.CHOW_CANDIDATE_MIDDLE;
-				// chow Candidate;
-			}else{
-				continue;				
-			}
-			candidates.add(t0);
-			candidates.add(t1);
-
-			MeldCandidate2 meldCandidate = new MeldCandidate2();
-			meldCandidate.setMeldCandidateEnum(kind);
-			meldCandidate.setTiles(candidates);
-
-			candidatePosMap.put(i, meldCandidate);
-			
-		}
-		return candidatePosMap;
-	}	
-	
-	private boolean isSteal(List<TileEnum> tiles){
-		
-		return false;
-	}
 
 	@Override
 	public void notifySteal(List<TileEnum> tiles, List<MeldElement> huroMelds, List<TileEnum> discardedTiles,
@@ -185,7 +140,7 @@ public class ConcreatePlayer extends AbstractGamePlayer
 			TileEnum currentDiscardedTile) {
 		// TODO Auto-generated method stub
 
-		Map<Integer,MeldCandidate2> map = findMeldCandidate(tiles);
+
 		
 	}
 
