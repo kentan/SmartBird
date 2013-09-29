@@ -150,7 +150,7 @@ public class GameTable {
 	public PaidPoint calculate(int playerId){
 		TileSet tileSet = _playerTileSets.get(playerId);
 		PaidPoint paidPoint = tileSet.calculate();
-		
+		paidPoint.setPaidPlayerId(playerId);
 		if(tileSet.isTumo()){
 			if(playerId == _parentPlayerId){
 				List<Integer> payingPlayerIds = getAllPlayerIds();
@@ -159,7 +159,6 @@ public class GameTable {
 				paidPoint.setPayingPlayerIdOnPoint1(payingPlayerIds);
 				
 			}else{
-				paidPoint.setPayingPlayerIdOnPoint1(_parentPlayerId);
 				
 				List<Integer> childPlayerIds = getAllPlayerIds();
 				childPlayerIds.remove(new Integer(playerId));
