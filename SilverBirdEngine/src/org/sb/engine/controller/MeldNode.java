@@ -67,10 +67,10 @@ public class MeldNode{
 	}
 	
 	/*for unit test*/	
-	public List<WinningHands> transformGraphToList(boolean isNaki,boolean isTumo){
+	public List<WinningHands> transformGraphToList(boolean isNaki,boolean isTumo,boolean isRichi){
 		List<WinningHands> winningHandsList = new ArrayList<WinningHands>();
 
-		WinningHandsBasic winnningHands = new WinningHandsBasic(isNaki,isTumo);
+		WinningHandsBasic winnningHands = new WinningHandsBasic(isNaki,isTumo,isRichi);
 		winnningHands.setWinningForm(getWinningFormEnum());
 
 		this.transformGraphToList(winningHandsList,winnningHands);
@@ -92,7 +92,7 @@ public class MeldNode{
 		}
 		for(MeldNode child: children){
 
-			WinningHandsBasic newWinningHands = new WinningHandsBasic(winningHands.isStolen(),winningHands.isTumo());
+			WinningHandsBasic newWinningHands = new WinningHandsBasic(winningHands.isStolen(),winningHands.isTumo(),winningHands.isRichi());
 			newWinningHands.setWinningForm(winningHands.getWinningFormEnum());
 			newWinningHands.addAll(winningHands.getList()); //TODO deep copy
 			child.transformGraphToList(winningHandsList,newWinningHands);

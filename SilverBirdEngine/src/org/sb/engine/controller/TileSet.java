@@ -287,7 +287,7 @@ public class TileSet {
 		if(_tiles.size() != 14){
 			return winningHandsList;
 		}
-		WinningHandsBasic winningHandsBasic = new WinningHandsBasic(_isStolen,_isTumo);
+		WinningHandsBasic winningHandsBasic = new WinningHandsBasic(_isStolen,_isTumo,_isRichi);
 		for (int i = 0; i < _tiles.size(); i = i + 2) {
 			TileEnum h1 = _tiles.get(i);
 			TileEnum h2 = _tiles.get(i + 1);
@@ -304,7 +304,7 @@ public class TileSet {
 
 	private WinningHandsList parseKokushiMusou() {
 		WinningHandsList winningHandsList = new WinningHandsList();
-		WinningHandsKokushiMuso winningHands = new WinningHandsKokushiMuso(_isStolen, _isTumo);
+		WinningHandsKokushiMuso winningHands = new WinningHandsKokushiMuso(_isStolen, _isTumo,_isRichi);
 		TileEnum[] kokushiTileCandidates = { TileEnum.CHARACTOR1, TileEnum.CHARACTOR9,
 				TileEnum.BAMBOO1, TileEnum.BAMBOO9, TileEnum.CIRCLE1, TileEnum.CIRCLE9,
 				TileEnum.EAST, TileEnum.SOUTH, TileEnum.WEST, TileEnum.NORTH,
@@ -330,7 +330,7 @@ public class TileSet {
 			if (meldTree != null) {
 				LOGGER.info("-Meld Tree:" + meldTree);
 				// to List<Yaku>
-				winningHandsList.addAll(meldTree.transformGraphToList(_isStolen, _isTumo));
+				winningHandsList.addAll(meldTree.transformGraphToList(_isStolen, _isTumo,_isRichi));
 			}
 		}
 

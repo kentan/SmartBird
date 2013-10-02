@@ -119,6 +119,9 @@ public class PointCalculator {
 	}};
 	private int calculateHan(WinningHands winningHands){
 		int han = 0;
+		if(winningHands.isRichi()){
+			han += 1;
+		}
 		WinningHandsStatus status = new WinningHandsStatus(_playerWind,_prevailingWind);
 		for(Map.Entry<WinningHandsEnum,WinningHandsValidator> entry: orderedWinningHandsMap.entrySet()){
 			

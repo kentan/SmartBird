@@ -26,6 +26,7 @@ public class GameServer {
 	List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
 	
 	private static GameTable table;
+	private int _lastPlayerId = 0;
 	GameRoundStatus gameRoundStatus = new GameRoundStatus();
 	GamePointHolder gamePointHolder = new GamePointHolder();
 	GameValidator gameValidator = new GameValidator();
@@ -64,7 +65,7 @@ public class GameServer {
 
 	public boolean callRon(int playerId,TileEnum ron){
 
-		table.setRonTile(playerId,ron,getRonedPlayerId());
+		table.setRonTile(playerId,ron,_lastPlayerId);
 		
 		if(table.isWinningHandsValid(playerId)){
 			gameRoundStatus.setRoundEnd();
@@ -170,9 +171,6 @@ public class GameServer {
 		
 	}
 	
-	private int getRonedPlayerId(){
-		return 0;//TODO
-	}
 	private int waitForCommandInput(int currentPlayerId){
 		// decide notifying order,since only next player can chew.
 		// next player
@@ -195,7 +193,7 @@ public class GameServer {
 					table.getOtherPlayersHuroTiles(playerId),
 					table.getLastDiscardedTile());
 		}
-
+		_lastPlayerId = currentPlayerId;
 		return -1;
 	}
 	@SuppressWarnings("unchecked")
@@ -233,6 +231,22 @@ public class GameServer {
 		ps.println(playerId + " won");
 	}
 
+	private boolean isTumo(){
+		return gameRoundStatus.isRoundEnd();
+	}
+	private boolean isRon(){
+		return gameRoundStatus.isRoundEnd();
+	}
+	private int getNextPlayerOnSteal(int currentPlayerId,int stealingPlayerId){
+		int playerId;
+		if(stealingPlayerId != -1){
+			playerId = (stealingPlayerId + 1) % GameConstants.PLAYER_NUM;
+		}else{
+			playerId = (currentPlayerId + 1) % GameConstants.PLAYER_NUM;
+		}
+		return playerId;
+
+	}
 	private void runRound(){
 		int playerId = 0;
 		int reminder = GameConstants.INIT_MOUNTAIN_TILE_NUM;
@@ -249,17 +263,17 @@ public class GameServer {
 						table.getOtherPlayersDiscardedTiles(playerId),
 						table.getOtherPlayersHuroTiles(playerId));
 				
-
-				if(gameRoundStatus.isRoundEnd()){
+				if(isTumo()){
 					printResult(playerId);
 					break ;
 				}
 				
 				int stealingPlayerId = waitForSteal(playerId);
-				if(stealingPlayerId != -1){
-					playerId = (stealingPlayerId + 1) % GameConstants.PLAYER_NUM;
-				}else{
-					playerId = (playerId + 1) % GameConstants.PLAYER_NUM;
+				playerId = getNextPlayerOnSteal(playerId, stealingPlayerId);
+
+				if(isRon()){
+					printResult(_lastPlayerId);
+					break ;
 				}
 				reminder--;
 				
@@ -269,7 +283,7 @@ public class GameServer {
 
 		}
 		
-		if(reminder != 0){
+		if(reminder == 0){
 			ps.println("no winner");
 		}
 
@@ -311,7 +325,7 @@ public class GameServer {
 		String playerDefs[] = {
 				"org.sb.server.player.sample.SampleRandomPlayer",
 				"org.sb.client.ConcreatePlayer",
-				"org.sb.server.player.sample.SampleRandomPlayer",
+				"org.sb.client.ShizimilyPlayer",
 				"org.sb.server.player.sample.SampleRandomPlayer"
 		};
 		getInstance().init(playerDefs);
