@@ -1,11 +1,16 @@
 package org.sb.server;
 
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
 
@@ -23,6 +28,7 @@ public class GameServer {
 	PrintStream ps = System.out;
 //	private final boolean DEBUG  = false;
 	private final boolean HARF_GAME = true;
+	private final static String PLAYER_DEF_FILES = "PlayerDefs.conf";
 	List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
 	
 	private static GameTable table;
@@ -197,12 +203,12 @@ public class GameServer {
 		return -1;
 	}
 	@SuppressWarnings("unchecked")
-	private void registerPlayers(String className[]){
-
+	private void registerPlayers(){
+		String playerDefs[] = loadPlayerDefs();
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
 			Class c;
 			try {
-				c = Class.forName(className[i]);
+				c = Class.forName(playerDefs[i]);
 				Object inst = (Object)c.newInstance();
 				players.add((AbstractGamePlayer)inst);
 			} catch (ClassNotFoundException e) {
@@ -308,27 +314,41 @@ public class GameServer {
 		ps.println("Game End");
 
 	}
-	public void init(String args[]){
-
-		registerPlayers(args);
+	private String[] loadPlayerDefs(){
+        InputStream inStream = null;
+        Properties prop = null;
+        try {
+            inStream = new BufferedInputStream(new FileInputStream(PLAYER_DEF_FILES));
+    		prop = new Properties();
+    		prop.load(inStream);
+        }catch(IOException e){
+        	e.printStackTrace();
+        }finally{
+        	try{
+        		inStream.close();
+        	}catch(IOException e){
+        		e.printStackTrace();
+        	}
+        }
+        String playerDefs[] = new String[4];
+        playerDefs[0] = prop.getProperty("player0");
+        playerDefs[1] = prop.getProperty("player1");
+        playerDefs[2] = prop.getProperty("player2");
+        playerDefs[3] = prop.getProperty("player3");
+        
+        return playerDefs;
+	}
+	
+	public void init(){
+		registerPlayers();
 
 		
 		runGame();
 	}
-	public static void main(String args[]){
 
-//		String debugArgs[] = {"org.sb.server.player.sample.SampleManualPlayer",
-//				"org.sb.server.player.sample.SampleRandomPlayer",
-//				"org.sb.server.player.sample.SampleRandomPlayer",
-//				"org.sb.server.player.sample.SampleRandomPlayer"
-//		};
-		String playerDefs[] = {
-				"org.sb.server.player.sample.SampleRandomPlayer",
-				"org.sb.client.ConcreatePlayer",
-				"org.sb.client.ShizimilyPlayer",
-				"org.sb.server.player.sample.SampleRandomPlayer"
-		};
-		getInstance().init(playerDefs);
+	public static void main(String args[]){
+		
+		getInstance().init();
 		
 	}
 }

@@ -36,23 +36,17 @@ AbstructGamePlayerを継承して実装すること。GameServerとのinteractio
 2. SilverBirdEngineをbuild (build.xmlを叩く)
 3. SilverBirdServerをbuild(build.xmlを叩く)
 4. SilverBirdClientにAbstuctGamePlayerを継承したGamePlayerを作成する。
-5. SilberBirdClientをbuild(build.xmlを叩く)
-6. SilberBirdServerのGameServer#mainクラスの第一引数に4で作ったclassを記述する。
+5. SilverBirdClientをbuild(build.xmlを叩く)
+6. SilverBirdServerのPlayerDefs.confに4で作ったclassを記述する。player0〜player3のうちどれをつかってもよい。 
 例)
-public static void main(String args[]){
 
-String playerDefs[] = {<4で作ったクラス>,
+player0 = <4で作ったクラス>
+player1 = org.sb.server.player.sample.SampleRandomPlayer
+player2 = org.sb.server.player.sample.SampleRandomPlayer
+player3 = org.sb.server.player.sample.SampleRandomPlayer
 
-"org.sb.server.player.sample.SampleRandomPlayer",// ランダムに牌をきるだけのPlayer
 
-"org.sb.server.player.sample.SampleRandomPlayer",
-
-"org.sb.server.player.sample.SampleRandomPlayer"
-
-};
-
-7. SilverBirdServerをもう一度build(build.xmlを叩く)
-SilberBirdServerのGameServer#mainを起動する。
+7. SilverBirdServerのGameServer#mainを起動する。
 
 以上でゲームスタート。
 
