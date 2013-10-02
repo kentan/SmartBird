@@ -194,28 +194,6 @@ public class GameServer {
 					table.getOtherPlayersDiscardedTiles(playerId),
 					table.getOtherPlayersHuroTiles(playerId),
 					table.getLastDiscardedTile());
-//			if(command == null){
-//				continue;
-//			}
-//			TileEnum stolenTile = command.getStolenTile();
-//			TileEnum huro1 = command.getHuroTile().get(0);
-//			TileEnum huro2 = command.getHuroTile().get(1);
-//			TileEnum discardedTile = command.getDiscardedTile();
-//			if(CommandEnum.PONG.equals(command.getCommand())){
-//
-//				callPon(playerId,stolenTile,huro1,huro2,discardedTile);
-//				return playerId;
-//			}
-//
-//			else if(CommandEnum.MELD.equals(command.getCommand())){
-//				callChow(playerId,stolenTile,huro1,huro2,discardedTile);
-//				return playerId;
-//			}
-//			else if(CommandEnum.CHOW.equals(command.getCommand())){
-//				TileEnum huro3 = command.getHuroTile().get(2);
-//				callKong(playerId,stolenTile,huro1,huro2,huro3,discardedTile);
-//				return playerId;
-//			}
 		}
 
 		return -1;
@@ -262,17 +240,7 @@ public class GameServer {
 				TileEnum tookTile = table.takeTileFromTable(playerId);
 				
 
-//				Map<Integer,List<TileEnum>> otherPlayersDiscardedTiles = new HashMap<Integer,List<TileEnum>>();
-//				Map<Integer,List<MeldElement>> otherPlayersHuroTiles = new HashMap<Integer,List<MeldElement>>();
-//				for(int i=0 ; i < GameConstants.PLAYER_NUM; i++){
-//					if(i == playerId){
-//						continue;
-//					}
-//
-//					otherPlayersDiscardedTiles.put(i,table.getDiscardedTiles(playerId));
-//					otherPlayersHuroTiles.put(i,table.getHuroTiles(playerId));
-//				}
-					
+	
 				players.get(playerId).notifyTurn(
 						table.getWallTiles(playerId),
 						tookTile,
@@ -340,8 +308,9 @@ public class GameServer {
 //				"org.sb.server.player.sample.SampleRandomPlayer",
 //				"org.sb.server.player.sample.SampleRandomPlayer"
 //		};
-		String playerDefs[] = {"org.sb.client.ConcreatePlayer",
+		String playerDefs[] = {
 				"org.sb.server.player.sample.SampleRandomPlayer",
+				"org.sb.client.ConcreatePlayer",
 				"org.sb.server.player.sample.SampleRandomPlayer",
 				"org.sb.server.player.sample.SampleRandomPlayer"
 		};
