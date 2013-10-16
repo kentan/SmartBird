@@ -11,6 +11,7 @@ import org.sb.engine.controller.TileSet;
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.PaidPoint;
 import org.sb.mdl.cnst.GameConstants;
+import org.sb.mdl.enm.MeldEnum;
 import org.sb.mdl.enm.TileEnum;
 
 
@@ -109,6 +110,11 @@ public class GameTable {
 	public void addHuro(int playerId, MeldElement melds){
 		TileSet tileSet = _playerTileSets.get(playerId);
 		tileSet.addHuro(melds);
+		if(melds.getMeldEnum() == MeldEnum.STEAL_CHOW || 
+				melds.getMeldEnum() == MeldEnum.STEAL_PONG ||
+				melds.getMeldEnum() == MeldEnum.STEAL_KONG){
+			tileSet.setStolen();
+		}
 	}
 	
 	public TileEnum getPlayerWind(int playerId){
@@ -190,6 +196,8 @@ public class GameTable {
 	}
 	public boolean isWinningHandsValid(int playerId){
 		TileSet tileSet = _playerTileSets.get(playerId);
-		return tileSet.isWinningHandsValid();
+//		return tileSet.isWinningHandsValid();
+		PaidPoint paidPoint = tileSet.calculate();
+		return paidPoint != null;
 	}
 }

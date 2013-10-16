@@ -56,7 +56,7 @@ public enum WinningHandsEnum {
 
 
 		put(WinningHandsEnum.HONROUTOU,4);
-		put(WinningHandsEnum.SYOSANGEN,4);
+		put(WinningHandsEnum.SYOSANGEN,2);
 
 		put(WinningHandsEnum.CHINITSU,6);
 		
@@ -95,7 +95,7 @@ public enum WinningHandsEnum {
 
 
 		put(WinningHandsEnum.HONROUTOU,4);
-		put(WinningHandsEnum.SYOSANGEN,4);
+		put(WinningHandsEnum.SYOSANGEN,2);
 
 		put(WinningHandsEnum.CHINITSU,6);
 		
@@ -112,6 +112,7 @@ public enum WinningHandsEnum {
 
 	}};
 	public int getHan(boolean isStolen){
+		System.out.println(">>>>" + this);
 		try{
 			if(isStolen){
 				return YAKU_TO_HAN_STOLEN_MAP.get(this);

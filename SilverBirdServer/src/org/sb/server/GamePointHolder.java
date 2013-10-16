@@ -51,10 +51,13 @@ public class GamePointHolder {
 //
 //	}
 	public void showScore(){
+		int sum = 0;
 		ps.println("=======Score Status at this round=======");
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
 			ps.println(scoreMap.get(i));
+			sum += scoreMap.get(i);
 		}
+		ps.println("sum:" + sum);
 		ps.println("=======Score Status at this round=======");
 	}
 	@Test

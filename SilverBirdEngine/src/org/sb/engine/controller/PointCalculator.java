@@ -134,6 +134,15 @@ public class PointCalculator {
 					if(yakuhaiValidator.validateEachPrevailingWind(elem,status)){
 						han += entry.getKey().getHan(winningHands.isStolen());
 					}
+					if(yakuhaiValidator.validateEachWhite(elem,status)){
+						han += entry.getKey().getHan(winningHands.isStolen());
+					}
+					if(yakuhaiValidator.validateEachRed(elem,status)){
+						han += entry.getKey().getHan(winningHands.isStolen());
+					}
+					if(yakuhaiValidator.validateEachGreen(elem,status)){
+						han += entry.getKey().getHan(winningHands.isStolen());
+					}
 				}
 			}
 			else if(WinningHandsEnum.SANSYOKU_DOJUN.equals(entry.getKey()) ||

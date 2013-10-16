@@ -16,6 +16,9 @@ public class YakuhaiValidator extends WinningHandsValidator {
 		for(MeldElement elem : ((WinningHandsBasic)winningHands).getList()){
 			isYakuhai |= validateEachPlayerWind(elem,status);
 			isYakuhai |= validateEachPrevailingWind(elem,status);
+			isYakuhai |= validateEachWhite(elem,status);
+			isYakuhai |= validateEachRed(elem,status);
+			isYakuhai |= validateEachGreen(elem,status);
 		}
 		return isYakuhai;
 	}
@@ -26,6 +29,18 @@ public class YakuhaiValidator extends WinningHandsValidator {
 	public boolean validateEachPrevailingWind(MeldElement mentsu,WinningHandsStatus status) {
 		
 		return validateEach(mentsu, status, status.getPrevailingWind());
+	}
+	public boolean validateEachWhite(MeldElement mentsu,WinningHandsStatus status) {
+		
+		return validateEach(mentsu, status, TileEnum.WHITE);
+	}
+	public boolean validateEachRed(MeldElement mentsu,WinningHandsStatus status) {
+			
+			return validateEach(mentsu, status, TileEnum.RED);
+	}
+	public boolean validateEachGreen(MeldElement mentsu,WinningHandsStatus status) {
+		
+		return validateEach(mentsu, status, TileEnum.GREEN);
 	}
 	private boolean validateEach(MeldElement mentsu,WinningHandsStatus status,TileEnum wind) {
 		

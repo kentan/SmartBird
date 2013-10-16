@@ -90,6 +90,9 @@ public class TyurenpotoValidator extends WinningHandsValidator {
 	}
 	@Override
 	public boolean validate(WinningHands winningHands,WinningHandsStatus status){
+		if(winningHands.isStolen()){
+			return false;
+		}
 		WinningHandsBasic hands = (WinningHandsBasic)winningHands;
 		List<MeldElement> melds = hands.getList();
 		

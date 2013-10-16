@@ -84,9 +84,10 @@ public class GameServer {
 				int to = point.getPaidPlayerId();
 				for(int from : fromList){
 					gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p, from, to);				
+					ps.println(p + " to " + to + " from " + from);
 				}
 			
-				ps.println(p + " to " + to);
+
 
 
 			}
@@ -199,7 +200,7 @@ public class GameServer {
 					table.getOtherPlayersHuroTiles(playerId),
 					table.getLastDiscardedTile());
 		}
-		_lastPlayerId = currentPlayerId;
+
 		return -1;
 	}
 	@SuppressWarnings("unchecked")
@@ -269,6 +270,7 @@ public class GameServer {
 						table.getOtherPlayersDiscardedTiles(playerId),
 						table.getOtherPlayersHuroTiles(playerId));
 				
+				_lastPlayerId = playerId;
 				if(isTumo()){
 					printResult(playerId);
 					break ;

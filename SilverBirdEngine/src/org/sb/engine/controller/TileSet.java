@@ -119,7 +119,7 @@ public class TileSet {
 	}
 	private WinningHandsList winningHandsListCache = null;
 	public boolean isWinningHandsValid(){
-
+		System.out.println("isWinningHandsValid");
 		winningHandsListCache = null;
 		WinningHandsList winningHandsList = parse();
 
@@ -185,23 +185,24 @@ public class TileSet {
 
 	}
 
-	private boolean makeMeldKong(MeldNode mTree, List<MeldElement> kongs) {
-		if (kongs.size() == 0) {
+	private boolean makeMeldFromHuro(MeldNode mTree, List<MeldElement> huroList) {
+		if (huroList.size() == 0) {
 			return true;
 		}
-		MeldElement meld = kongs.remove(0);
+		MeldElement meld = huroList.remove(0);
 		MeldNode child = new MeldNode();
 		child.setMeld(meld);
 
 		mTree.addChild(child);
 
-		return makeMeldKong(child, kongs);
+		return makeMeldFromHuro(child, huroList);
 	}
 
 	private boolean makeMeldOtherThanHead(List<TileEnum> list, MeldNode parent) {
 
 		if (list.size() == 0) {
-			return makeMeldKong(parent, _huroList);
+			List<MeldElement> huroList = new ArrayList<MeldElement>(_huroList);
+ 			return makeMeldFromHuro(parent, huroList);
 		}
 		boolean rv = false;
 		TileEnum h1 = list.remove(0);
@@ -238,7 +239,8 @@ public class TileSet {
 		// CHOW
 		TileEnum h2 = h1.next();
 		TileEnum h3 = h2 == null ? null : h2.next();
-		if (list.contains(h2) && list.contains(h3)) {
+		
+		if (!h1.isWindAndDragon() && list.contains(h2) && list.contains(h3)) {
 			// CHOW
 			h2 = list.remove(list.indexOf(h2));
 			h3 = list.remove(list.indexOf(h3));
@@ -337,8 +339,8 @@ public class TileSet {
 		return winningHandsList;
 	}
 	private WinningHandsList parse() {
-		// 副路は上がり前に宣言され確定しているため別扱い。
-		deleteHuro();
+//		// 副路は上がり前に宣言され確定しているため別扱い。
+//		deleteHuro();
 		sort();
 		WinningHandsList winningHandsList= new WinningHandsList();
 		// 国士無双
