@@ -112,7 +112,6 @@ public enum WinningHandsEnum {
 
 	}};
 	public int getHan(boolean isStolen){
-		System.out.println(">>>>" + this);
 		try{
 			if(isStolen){
 				return YAKU_TO_HAN_STOLEN_MAP.get(this);

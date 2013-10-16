@@ -119,7 +119,6 @@ public class TileSet {
 	}
 	private WinningHandsList winningHandsListCache = null;
 	public boolean isWinningHandsValid(){
-		System.out.println("isWinningHandsValid");
 		winningHandsListCache = null;
 		WinningHandsList winningHandsList = parse();
 
