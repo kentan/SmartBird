@@ -10,6 +10,7 @@ import org.sb.engine.controller.TileManager;
 import org.sb.engine.controller.TileSet;
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.PaidPoint;
+import org.sb.mdl.Point;
 import org.sb.mdl.cnst.GameConstants;
 import org.sb.mdl.enm.MeldEnum;
 import org.sb.mdl.enm.TileEnum;
@@ -155,7 +156,8 @@ public class GameTable {
 	}
 	public PaidPoint calculate(int playerId){
 		TileSet tileSet = _playerTileSets.get(playerId);
-		PaidPoint paidPoint = tileSet.calculate();
+		Point point = tileSet.calculate();
+		PaidPoint paidPoint = new PaidPoint(point.getPoint1(),point.getPoint2());
 		paidPoint.setPaidPlayerId(playerId);
 		if(tileSet.isTumo()){
 			if(playerId == _parentPlayerId){
@@ -197,7 +199,7 @@ public class GameTable {
 	public boolean isWinningHandsValid(int playerId){
 		TileSet tileSet = _playerTileSets.get(playerId);
 //		return tileSet.isWinningHandsValid();
-		PaidPoint paidPoint = tileSet.calculate();
-		return paidPoint != null;
+		Point point = tileSet.calculate();
+		return point != null;
 	}
 }

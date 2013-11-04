@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
@@ -22,27 +20,35 @@ import org.sb.mdl.cnst.GameConstants;
 import org.sb.mdl.enm.MeldEnum;
 import org.sb.mdl.enm.TileEnum;
 import org.sb.server.player.AbstractGamePlayer;
+import org.sb.server.stat.GameStatisticAnalyzer;
 
 
 public class GameServer {
 	PrintStream ps = System.out;
+
+	
 //	private final boolean DEBUG  = false;
 	private final boolean HARF_GAME = true;
 	private final static String PLAYER_DEF_FILES = "PlayerDefs.conf";
-	List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
+	private static List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
 	
 	private static GameTable table;
 	private int _lastPlayerId = 0;
 	GameRoundStatus gameRoundStatus = new GameRoundStatus();
 	GamePointHolder gamePointHolder = new GamePointHolder();
 	GameValidator gameValidator = new GameValidator();
-	private GameServer(){};
+	private GameServer()  {
+	};
 	private static GameServer instance = new GameServer();
+	private static GameStatisticAnalyzer _gameStaticAnalyzer = new GameStatisticAnalyzer();
+	private int _gameNumber = 0;
+	private int _roundNumber = 0;
 	static public GameServer getInstance(){
 		return instance;
 	}
 
-	Random rnd = new Random();
+	Random rnd;
+	long seed;
 
 	public void discardTile(int playerId, TileEnum tile) {
 
@@ -82,9 +88,12 @@ public class GameServer {
 				int p = point.getPoint1();
 				List<Integer> fromList = point.getPayingPlayerIdOnPoint1();
 				int to = point.getPaidPlayerId();
+//				stat.put(to, stat.get(to) == null ? 1 :stat.get(to) + 1 );
+				_gameStaticAnalyzer.incrementWinnerCount(to);
+				_gameStaticAnalyzer.recodeRoundResult(_gameNumber, _roundNumber, point);
 				for(int from : fromList){
-					gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p, from, to);				
-					ps.println(p + " to " + to + " from " + from);
+					gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p, from, to);
+					GameServerLogger.write(p + " to " + to + " from " + from);
 				}
 			
 
@@ -108,7 +117,9 @@ public class GameServer {
 				int p1=0,p2=0;
 				p1 = point.getPoint1();
 				int to = point.getPaidPlayerId();
-
+//				stat.put(to, stat.get(to) == null ? 1 :stat.get(to) + 1 );
+				_gameStaticAnalyzer.incrementWinnerCount(to);
+				_gameStaticAnalyzer.recodeRoundResult(_gameNumber, _roundNumber, point);
 				if(gameRoundStatus.getParentPlayerId() == playerId){
 					List<Integer> from1List = point.getPayingPlayerIdOnPoint1();
 
@@ -127,7 +138,7 @@ public class GameServer {
 					}
 				}
 				
-				ps.println(p1 + "," + p2);
+				GameServerLogger.write(p1 + "," + p2);
 
 
 			}
@@ -235,7 +246,7 @@ public class GameServer {
 	
 
 	private void printResult(int playerId){
-		ps.println(playerId + " won");
+		GameServerLogger.write(playerId + " won");
 	}
 
 	private boolean isTumo(){
@@ -292,7 +303,7 @@ public class GameServer {
 		}
 		
 		if(reminder == 0){
-			ps.println("no winner");
+			GameServerLogger.writeln("no winner");
 		}
 
 	}
@@ -301,19 +312,22 @@ public class GameServer {
 	public void runGame(){
 
 		while(gameRoundStatus.isGameRoundFinish(HARF_GAME)){
-			ps.println("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has started");
+			GameServerLogger.writeln("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has started");
 			initTable();
 			
 			initPlayers();
 			
 			runRound();
 			
-			ps.println("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has finished");
+			GameServerLogger.writeln("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has finished");
 			gamePointHolder.showScore();
 			
 			gameRoundStatus.nextRound();
+			_roundNumber = gameRoundStatus.getRoundNumber();
 		}
-		ps.println("Game End");
+		GameServerLogger.writeln("Game End");
+
+		_gameStaticAnalyzer.recodeGameResult(_gameNumber, gamePointHolder.getScore());
 
 	}
 	private String[] loadPlayerDefs(){
@@ -342,15 +356,28 @@ public class GameServer {
 	}
 	
 	public void init(){
-		registerPlayers();
 
+		gameRoundStatus = new GameRoundStatus();
+		gamePointHolder = new GamePointHolder();
+		gameValidator = new GameValidator();
 		
-		runGame();
+		seed = System.currentTimeMillis();
+		
+		rnd = new Random(seed);
 	}
 
 	public static void main(String args[]){
-		
-		getInstance().init();
-		
+		GameServer gameServer = getInstance();
+		gameServer.registerPlayers();
+		for(int i = 0; i < 100; i++){
+			gameServer._gameNumber = i;
+
+			gameServer.init();			
+			gameServer.runGame();
+		}
+		_gameStaticAnalyzer.showRecodeResult();
+		System.out.println(gameServer.seed);
+//		System.out.println(stat);
+		GameServerLogger.close();
 	}
 }

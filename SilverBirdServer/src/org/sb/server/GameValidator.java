@@ -30,10 +30,10 @@ public class GameValidator {
 			
 			if(wallTiles.size() + (huroList.size() * 3) != GameConstants.MAX_WALL_TILE_NUM - 1){
 
-				ps.println("the number of discarded tiles is invalid:");
-				ps.println("round:" + count);
-				ps.println("playerid:" + i);
-				ps.println("huro tiles:" + huroList.size() * 3);
+				GameServerLogger.writeln("the number of discarded tiles is invalid:");
+				GameServerLogger.writeln("round:" + count);
+				GameServerLogger.writeln("playerid:" + i);
+				GameServerLogger.writeln("huro tiles:" + huroList.size() * 3);
 				return false;
 			}
 		}
@@ -64,9 +64,9 @@ public class GameValidator {
 				m.put(tile, 1);
 			}else{
 				if(i >= 5){
-					ps.println("the number of tile is invalid. 5 tiles for :" + tile);
-					ps.println("round:" + count);
-					ps.println("playerid:" + i);
+					GameServerLogger.writeln("the number of tile is invalid. 5 tiles for :" + tile);
+					GameServerLogger.writeln("round:" + count);
+					GameServerLogger.writeln("playerid:" + i);
 					return false;
 				}
 				m.put(tile, i + 1);

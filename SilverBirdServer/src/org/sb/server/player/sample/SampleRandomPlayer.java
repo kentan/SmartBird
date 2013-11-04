@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.sb.server.GameServerLogger;
 import org.sb.server.player.AbstractGamePlayer;
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.enm.TileEnum;
@@ -28,8 +29,8 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 		boolean oneMore = true;
 		TileEnum discardTile = null;
 		while(oneMore){
-			System.out.print("Player" + _playerId  + ">");
-			System.out.println(myTiles + " :" + tileAtThisTurn + ":" + huroMelds);
+			GameServerLogger.write("Player" + _playerId  + ">");
+			GameServerLogger.writeln(myTiles + " :" + tileAtThisTurn + ":" + huroMelds);
 			discardTile = nextInput(myTiles);
 			oneMore = !myTiles.remove(discardTile);
 			
@@ -39,8 +40,8 @@ public class SampleRandomPlayer extends AbstractGamePlayer{
 		
 
 
-		System.out.print("Player" + _playerId + ">");
-		System.out.println("Discard:" + discardTile);
+		GameServerLogger.write("Player" + _playerId + ">");
+		GameServerLogger.writeln("Discard:" + discardTile);
 	}
 	@Override
 	public void notifySteal(List<TileEnum> tiles, List<MeldElement> huroMelds, List<TileEnum> discardedTiles,

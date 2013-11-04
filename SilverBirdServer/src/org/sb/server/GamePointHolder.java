@@ -50,15 +50,18 @@ public class GamePointHolder {
 //		m.put(playerIdTo, point);
 //
 //	}
+	public Map<Integer,Integer> getScore(){
+		return scoreMap;
+	}
 	public void showScore(){
 		int sum = 0;
-		ps.println("=======Score Status at this round=======");
+		GameServerLogger.writeln("=======Score Status at this round=======");
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
-			ps.println(scoreMap.get(i));
+			GameServerLogger.writeln(scoreMap.get(i));
 			sum += scoreMap.get(i);
 		}
-		ps.println("sum:" + sum);
-		ps.println("=======Score Status at this round=======");
+		GameServerLogger.writeln("sum:" + sum);
+		GameServerLogger.writeln("=======Score Status at this round=======");
 	}
 	@Test
 	public void test(){
@@ -71,13 +74,13 @@ public class GamePointHolder {
 		}
 		payPoint(16, 48000, 3, 0);
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
-			ps.println(scoreMap.get(i));
+			GameServerLogger.writeln(scoreMap.get(i));
 		}
 		for(int i = 0 ; i < pointDetailList.size(); i++){
-			ps.println("round :" + i);
+			GameServerLogger.writeln("round :" + i);
 			Map<Integer,Integer> map = pointDetailList.get(i);
 			for(int key : map.keySet()){
-				ps.println(key + ":" + map.get(key));
+				GameServerLogger.writeln(key + ":" + map.get(key));
 			}
 		}
 	}
