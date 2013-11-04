@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.PaidPoint;
+import org.sb.mdl.Point;
 import org.sb.engine.controller.TileSet;
 import org.sb.mdl.enm.TileEnum;
 import org.sb.mdl.enm.MeldEnum;
@@ -111,7 +112,8 @@ public class UnitTestCalculatePoint {
 		TileEnum playerWind = TileEnum.EAST;
 		TileEnum prevailingWind = TileEnum.EAST;
 		TileEnum winningTile = TileEnum.CHARACTOR5;
-		String wallTilesInString = "M1, M1, M2, M2, M2, M3, M3, M3, M4, M4, M4, M5, M5, M5";
+//		[S9,S9,][P5,P3,P4,][S5,S3,S4,][P7,P5,P6,][M9,M7,M8,]
+		String wallTilesInString = "S9, S9, P5, P3, P4, S3, S4, S5, P5, P6, P7, M7, M8, M9";
 		String[] wallTilesInArr = wallTilesInString.split(", ");
 		
 		TileSet tileSet = new TileSet(playerWind, prevailingWind);
@@ -144,7 +146,7 @@ public class UnitTestCalculatePoint {
 				}
 				
 				System.out.println("■ Test Case ID:" + elem[0]);
-				if("19".equals(elem[0])){
+				if("85".equals(elem[0])){
 					System.out.println("");
 				}
 				if(elem[2].length() == 2){
@@ -213,7 +215,7 @@ public class UnitTestCalculatePoint {
 				}else{
 					haiSet.setRon();
 				}
-				PaidPoint point = haiSet.calculate();
+				Point point = haiSet.calculate();
 				if(point == null){
 					System.out.println("not winning form");
 				}else{

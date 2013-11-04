@@ -3,7 +3,7 @@ package org.sb.mdl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaidPoint {
+public class PaidPoint extends Point{
 	private int _point1;
 	private int _point2;
 	private List<Integer> _from1 = new ArrayList<Integer>();
@@ -11,10 +11,12 @@ public class PaidPoint {
 	private int _to;
 	
 	public PaidPoint (int point1){
+		super(point1);
 		_point1 = point1;
 		_point2 = 0;
 	}
 	public PaidPoint (int point1, int point2){
+		super(point1,point2);
 		_point1 = point1;
 		_point2 = point2;
 	}

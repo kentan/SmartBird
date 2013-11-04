@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.sb.mdl.MeldElement;
 import org.sb.mdl.PaidPoint;
+import org.sb.mdl.Point;
 import org.sb.mdl.enm.MeldEnum;
 import org.sb.mdl.enm.TileEnum;
 import org.sb.mdl.enm.WinningFormEnum;
@@ -128,7 +129,7 @@ public class TileSet {
 		}
 		return false;
 	}
-	public PaidPoint calculate() {
+	public Point calculate() {
 
 		if(winningHandsListCache == null){
 			if(!isWinningHandsValid()){
