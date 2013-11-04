@@ -5,6 +5,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SilverBirdEngine"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SilverBirdModel"/>
-	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/galileo/SilverBirdOrePlayerClient/sbclient.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

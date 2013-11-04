@@ -9,7 +9,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 
 
 
@@ -47,9 +46,8 @@ public class GameServer {
 		return instance;
 	}
 
-	Random rnd;
-	long seed;
 
+	private static int numOfGames = 10;
 	public void discardTile(int playerId, TileEnum tile) {
 
 		List<TileEnum> tiles = table.getWallTiles(playerId);
@@ -361,23 +359,20 @@ public class GameServer {
 		gamePointHolder = new GamePointHolder();
 		gameValidator = new GameValidator();
 		
-		seed = System.currentTimeMillis();
 		
-		rnd = new Random(seed);
 	}
 
 	public static void main(String args[]){
 		GameServer gameServer = getInstance();
 		gameServer.registerPlayers();
-		for(int i = 0; i < 100; i++){
+		for(int i = 0; i < numOfGames; i++){
 			gameServer._gameNumber = i;
 
 			gameServer.init();			
 			gameServer.runGame();
 		}
 		_gameStaticAnalyzer.showRecodeResult();
-		System.out.println(gameServer.seed);
-//		System.out.println(stat);
+
 		GameServerLogger.close();
 	}
 }
