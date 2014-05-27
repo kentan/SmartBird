@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Insert title here</title>
+	<title>Your New Application</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src='tileUtil.js'></script>
+    <script>
+//       document.write("<script src='tileUtil.js'><\/script>");
+       function onStartClick(){
+    	   init();
+       }
+    
+    </script>
+</head>
+<body>
+
+	<button onClick="init()">start game</button>
+	<button onClick="getNextMessage()">debug game</button>
+
+	<!-- content goes here-->
+	<div id = 'discarded'>
+		<div id='d1' style="position:absolute; top:50px; left:0px; z-index:1">
+		   <canvas id="dt0" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:50px; left:50px; z-index:1">
+		   <canvas id="dt1" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:50px; left:100px; z-index:1">
+		   <canvas id="dt2" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:50px; left:150px; z-index:1">
+		   <canvas id="dt3" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:50px; left:200px; z-index:1">
+		   <canvas id="dt4" width="300" height="200"></canvas>
+		</div>
+	    <div id='d1' style="position:absolute; top:50px; left:250px; z-index:1">
+	       <canvas id="dt5" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:100px; left:0px; z-index:1">
+	       <canvas id="dt6" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:100px; left:50px; z-index:1">
+		   <canvas id="dt7" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:100px; left:100px; z-index:1">
+	       <canvas id="dt8" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:100px; left:150px; z-index:1">
+	       <canvas id="dt9" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:100px; left:200px; z-index:1">
+	       <canvas id="dt10" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:100px; left:250px; z-index:1">
+	       <canvas id="dt11" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:150px; left:0px; z-index:1">
+	       <canvas id="dt12" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:150px; left:50px; z-index:1">
+	       <canvas id="dt13" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:150px; left:100px; z-index:1">
+	       <canvas id="dt14" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:150px; left:150px; z-index:1">
+	       <canvas id="dt15" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:150px; left:200px; z-index:1">
+	       <canvas id="dt16" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:150px; left:250px; z-index:1">
+	       <canvas id="dt17" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:200px; left:0px; z-index:1">
+	       <canvas id="dt18" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:200px; left:50px; z-index:1">
+	       <canvas id="dt19" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:200px; left:100px; z-index:1">
+	       <canvas id="dt20" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:200px; left:150px; z-index:1">
+	       <canvas id="dt21" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:200px; left:200px; z-index:1">
+	       <canvas id="dt22" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:200px; left:250px; z-index:1">
+	       <canvas id="dt23" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:0px; z-index:1">
+	       <canvas id="d24" width="300" height="200"></canvas>
+	    </div>
+
+
+	</div>
+	<div id = 'wall'>
+		<div id='d1' style="position:absolute; top:250px; left:0px; z-index:1">
+		   <canvas id="myCanvas0" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:250px; left:50px; z-index:1">
+		   <canvas id="myCanvas1" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:250px; left:100px; z-index:1">
+		   <canvas id="myCanvas2" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:250px; left:150px; z-index:1">
+		   <canvas id="myCanvas3" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:250px; left:200px; z-index:1">
+		   <canvas id="myCanvas4" width="300" height="200"></canvas>
+		</div>
+	    <div id='d1' style="position:absolute; top:250px; left:250px; z-index:1">
+	       <canvas id="myCanvas5" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:300px; z-index:1">
+	       <canvas id="myCanvas6" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:350px; z-index:1">
+		   <canvas id="myCanvas7" width="300" height="200"></canvas>
+		</div>
+		<div id='d1' style="position:absolute; top:250px; left:400px; z-index:1">
+	       <canvas id="myCanvas8" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:450px; z-index:1">
+	       <canvas id="myCanvas9" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:500px; z-index:1">
+	       <canvas id="myCanvas10" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:550px; z-index:1">
+	       <canvas id="myCanvas11" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:600px; z-index:1">
+	       <canvas id="myCanvas12" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:650px; z-index:1">
+	       <canvas id="myCanvas13" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:250px; left:700px; z-index:1">
+	       <canvas id="myCanvas14" width="300" height="200"></canvas>
+	    </div>
+	    <div id='d1' style="position:absolute; top:1000px; left:0px; z-index:1">
+		   <div id="log"></div>
+		</div>
+	</div>
+	
+	<iframe style="height:0px;width:0px;visibility:hidden" src="about:blank">
+	this frame prevents back forward cache
+    </iframe>
+</body>
+</html>

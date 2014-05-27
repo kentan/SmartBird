@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSocketテスト</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+       	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<!-- <script src="tileUtil.js"></script> -->	    
+       
+       <script type="text/javascript">
+       var recWidth = 28;
+       var recHeight = 36;
+       var radius = 8;
+       var id = 1;
+       var dt_pos = 0;
+       var pos = 0;
+       var bar_len_harf = 4;
+       function drawRoundRect(context, x, y, width, height, radius, fill, stroke,strokeStyle) {
+    	      if (typeof stroke == "undefined" ) {
+    	    	  stroke = true;
+    	      }
+    		  context.beginPath();
+    		  context.moveTo(x + radius, y);
+    		  context.lineTo(x + width - radius, y);
+    		  context.quadraticCurveTo(x + width, y, x + width, y + radius);
+    		  context.lineTo(x + width, y + height - radius);
+    		  context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    		  context.lineTo(x + radius, y + height);
+    		  context.quadraticCurveTo(x, y + height, x, y + height - radius);
+    		  context.lineTo(x, y + radius);
+    		  context.quadraticCurveTo(x, y, x + radius, y);
+    		  context.closePath();
+    		  context.strokeStyle = strokeStyle;
+    		  if (stroke) {
+    		    context.stroke();
+    		  }
+//    	          if (fill) {
+//    		  context.lineWidth = 15;
+//    	            context.fill();
+//    	          }        
+    	   	}
+       function drawCircle1(id,x,strokeStyle){
+    	      var canvas = document.getElementById(id);
+    	      var context = canvas.getContext('2d');
+//    		  var centerX = x;
+    		  var centerX = 3;
+    		  var centerY = canvas.height/2;
+    	  //drawCircle(context,centerX,centerY);
+    	      drawRoundRect(context,centerX,centerY,recWidth,recHeight,radius,false,true,strokeStyle);
+    	      context.beginPath();
+    	      context.moveTo(centerX + recWidth/2,centerY + recHeight/2 - bar_len_harf);
+    	      context.lineTo(centerX + recWidth/2,centerY + recHeight/2 + bar_len_harf);
+    	      context.stroke();
+    	  }
+       function drawCircle2(id,x,strokeStyle){
+    	      var canvas = document.getElementById(id);
+    	      var context = canvas.getContext('2d');
+//    		  var centerX = x;
+    		  var centerX = 3;
+    		  var centerY = canvas.height/2;
+    		  //drawCircle(context,centerX,centerY);
+    	      drawRoundRect(context,centerX,centerY,recWidth,recHeight,radius,false,true,strokeStyle);
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2,centerY + recHeight/2 - 20);
+    	      context.moveTo(centerX + recWidth/2,centerY + recHeight/2 - bar_len_harf * 2);
+    	      //      context.lineTo(centerX + recWidth/2,centerY + recHeight/2 - 10);
+    	      context.lineTo(centerX + recWidth/2,centerY + recHeight/2 - bar_len_harf);
+    	      context.stroke();
+    	      
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2,centerY + recHeight/2 + 10);
+//    	      context.lineTo(centerX + recWidth/2,centerY + recHeight/2 + 20);
+    	      context.moveTo(centerX + recWidth/2,centerY + recHeight/2 + bar_len_harf);
+    	      context.lineTo(centerX + recWidth/2,centerY + recHeight/2 + bar_len_harf * 2);
+    	      context.stroke();
+    	  }
+    	    
+    	  function drawCircle3(id,x,strokeStyle){
+    	      var canvas = document.getElementById(id);
+    	      var context = canvas.getContext('2d');
+//    		  var centerX = x;
+    		  var centerX = 3;
+    	      var centerY = canvas.height/2;
+
+    	      drawRoundRect(context,centerX,centerY,recWidth,recHeight,radius,false,true,strokeStyle);
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2,centerY + recHeight/2 - 20);
+//    	      context.lineTo(centerX + recWidth/2,centerY + recHeight/2 - 10);
+    	      context.moveTo(centerX + recWidth/2,centerY + recHeight/2 - bar_len_harf * 2);
+    	      context.lineTo(centerX + recWidth/2,centerY + recHeight/2 - bar_len_harf);
+    	      context.stroke();
+    	      
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2 - 10,centerY + recHeight/2 + 10);
+//    	      context.lineTo(centerX + recWidth/2 - 10,centerY + recHeight/2 + 20);
+    	      context.moveTo(centerX + recWidth/2 - bar_len_harf,centerY + recHeight/2 + bar_len_harf);
+    	      context.lineTo(centerX + recWidth/2 - bar_len_harf,centerY + recHeight/2 + bar_len_harf * 2);
+    	      context.stroke();
+
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2 + 10,centerY + recHeight/2 + 10);
+//    	      context.lineTo(centerX + recWidth/2 + 10,centerY + recHeight/2 + 20);
+    	      context.moveTo(centerX + recWidth/2 + bar_len_harf,centerY + recHeight/2 + bar_len_harf);
+    	      context.lineTo(centerX + recWidth/2 + bar_len_harf,centerY + recHeight/2 + bar_len_harf * 2);
+    	      context.stroke();
+
+    	  } 
+
+    	  function drawCircle4(id,x,strokeStyle){
+    	      var canvas = document.getElementById(id);
+    	      var context = canvas.getContext('2d');
+//    		  var centerX = x;
+    		  var centerX = 3;
+    	      var centerY = canvas.height/2;
+
+    	      drawRoundRect(context,centerX,centerY,recWidth,recHeight,radius,false,true,strokeStyle);
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2 - 10,centerY + recHeight/2 - 20);
+//    	      context.lineTo(centerX + recWidth/2 - 10,centerY + recHeight/2 - 10);
+    	      context.moveTo(centerX + recWidth/2 - bar_len_harf,centerY + recHeight/2 - bar_len_harf * 2);
+    	      context.lineTo(centerX + recWidth/2 - bar_len_harf,centerY + recHeight/2 - bar_len_harf);
+    	      context.stroke();
+
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2 + 10,centerY + recHeight/2 - 20);
+//    	      context.lineTo(centerX + recWidth/2 + 10,centerY + recHeight/2 - 10);
+    	      context.moveTo(centerX + recWidth/2 + bar_len_harf,centerY + recHeight/2 - bar_len_harf * 2);
+    	      context.lineTo(centerX + recWidth/2 + bar_len_harf,centerY + recHeight/2 - bar_len_harf);
+
+    	      context.stroke();
+
+    	      
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2 - 10,centerY + recHeight/2 + 10);
+//    	      context.lineTo(centerX + recWidth/2 - 10,centerY + recHeight/2 + 20);
+    	      context.moveTo(centerX + recWidth/2 - bar_len_harf,centerY + recHeight/2 + bar_len_harf);
+    	      context.lineTo(centerX + recWidth/2 - bar_len_harf,centerY + recHeight/2 + bar_len_harf * 2);
+    	      context.stroke();
+
+    	      context.beginPath();
+//    	      context.moveTo(centerX + recWidth/2 + 10,centerY + recHeight/2 + 10);
+//    	      context.lineTo(centerX + recWidth/2 + 10,centerY + recHeight/2 + 20);
+    	      context.moveTo(centerX + recWidth/2 + bar_len_harf,centerY + recHeight/2 + bar_len_harf);
+    	      context.lineTo(centerX + recWidth/2 + bar_len_harf,centerY + recHeight/2 + bar_len_harf * 2);
+    	      context.stroke();
+
+    	  } 
+
+    	  function drawCircle5(id,x,strokeStyle){
+    	      var canvas = document.getElementById(id);
+    	      var context = canvas.getContext('2d');
+//    		  var centerX = x;
+    		  var centerX = 3;
+    	      var centerY = canvas.height/2;
+
+    	      drawRoundRect(context,centerX,centerY,recWidth,recHeight,radius,false,true,strokeStyle);
+    	      context.beginPath();
+    	      context.moveTo(centerX + recWidth/2 - 15,centerY + recHeight/2 - 20);
+    	      context.lineTo(centerX + recWidth/2 - 15,centerY + recHeight/2 - 10);
+    	      context.stroke();
+
+    	      context.beginPath();
+    	      context.moveTo(centerX + recWidth/2 + 15,centerY + recHeight/2 - 20);
+    	      context.lineTo(centerX + recWidth/2 + 15,centerY + recHeight/2 - 10);
+    	      context.stroke();
+
+    	      
+    	      context.beginPath();
+    	      context.moveTo(centerX + recWidth/2 - 15,centerY + recHeight/2 + 10);
+    	      context.lineTo(centerX + recWidth/2 - 15,centerY + recHeight/2 + 20);
+    	      context.stroke();
+
+    	      context.beginPath();
+    	      context.moveTo(centerX + recWidth/2 + 15,centerY + recHeight/2 + 10);
+    	      context.lineTo(centerX + recWidth/2 + 15,centerY + recHeight/2 + 20);
+    	      context.stroke();
+
+    	      context.beginPath();
+    	      context.moveTo(centerX + recWidth/2,centerY + recHeight/2 - 5);
+    	      context.lineTo(centerX + recWidth/2,centerY + recHeight/2 + 5);
+    	      context.stroke();
+
+    	  } 
+    	    
+/*             var socket;
+            $(document).ready(function(){
+            	
+				function init(){
+					var host="ws://localhost:8080/SmartBirdRestfulServer/endpoint";;
+	                socket = new WebSocket(host);
+	                
+	                socket.onmessage = function(message){
+	                    $('#log').append(message.data + "<br/>");
+	                }	
+				}
+                
+                init();
+                
+            }); */
+        </script>        
+    </head>
+    <body onload="drawCircle2('dt0',0,0)">
+        <h1>WebSocketテスト</h1>
+	<button onclick="alert('OK')">OK</button>
+		<div id='d1' style="position:absolute; top:0px; left:0px; z-index:1">
+		   <canvas id="dt0" width="300" height="200"></canvas>
+		</div>
+
+    </body>
+</html>
