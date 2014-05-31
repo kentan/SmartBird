@@ -20,9 +20,17 @@ import org.smartbird.dao.SBMessageDaoFactory;
 import org.smartbird.exception.SBException;
 import org.smartbird.message.SBMessage;
 import org.smartbird.message.SBMessageAddTile;
+import org.smartbird.message.SBMessageChow;
 import org.smartbird.message.SBMessageDiscardTile;
 import org.smartbird.message.SBMessageFinishRound;
 import org.smartbird.message.SBMessageInitTile;
+import org.smartbird.message.SBMessagePong;
+import org.smartbird.message.SBMessageRichi;
+import org.smartbird.message.SBMessageRon;
+import org.smartbird.message.SBMessageStartRound;
+import org.smartbird.message.SBMessageStealKong;
+import org.smartbird.message.SBMessageTumo;
+import org.smartbird.message.SBMessageWallKong;
 import org.smartbird.server.player.AbstractGamePlayer;
 import org.smartbird.server.stat.GameStatisticAnalyzer;
 
@@ -99,6 +107,7 @@ public class GameServer extends Thread{
 
 
 			}
+			writeMessage(new SBMessageRon(playerId, ron));
 			return true;
 		}
 		return false;
@@ -141,6 +150,7 @@ public class GameServer extends Thread{
 
 
 			}
+			writeMessage(new SBMessageTumo(playerId, tumo));
 			return true;
 		}
 		return false;
@@ -148,7 +158,7 @@ public class GameServer extends Thread{
 	public void callRichi(int playerId,TileEnum tile){
 		this.discardTile(playerId, tile);
 		table.setRichi(playerId);
-
+		writeMessage(new SBMessageRichi(playerId, tile));
 	}
 	public boolean callChow(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_CHOW, stolenTile, huro1, huro2);
@@ -156,7 +166,7 @@ public class GameServer extends Thread{
 		table.addHuro(playerId,melds);
 		
 		discardTile(playerId, discardedTile);
-
+		writeMessage(new SBMessageChow(playerId, stolenTile, huro1, huro2, discardedTile));
 		return true;
 	}
 
@@ -165,6 +175,7 @@ public class GameServer extends Thread{
 		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
+		writeMessage(new SBMessagePong(playerId, stolenTile, huro1, huro2, discardedTile));
 		return true;
 	}
 	
@@ -173,6 +184,7 @@ public class GameServer extends Thread{
 		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
+		writeMessage(new SBMessageWallKong(playerId, stolenTile, huro1, huro2, huro3, discardedTile));
 		return true;
 	}
 	
@@ -181,6 +193,7 @@ public class GameServer extends Thread{
 		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
+		writeMessage(new SBMessageStealKong(playerId, stolenTile, huro1, huro2, huro3, discardedTile));
 		return true;
 	}
 	private int waitForSteal(int currentPlayerId){
@@ -243,6 +256,7 @@ public class GameServer extends Thread{
 	}
 	private void initTable(){
 		table = new GameTable(gameRoundStatus.getPrevailingWind(),gameRoundStatus.getParentPlayerId());
+		writeMessage(new SBMessageStartRound(gameRoundStatus.getPrevailingWind(), gameRoundStatus.getParentPlayerId(),gameRoundStatus.getRoundNumber()));
 	}
 	
 
@@ -329,7 +343,7 @@ public class GameServer extends Thread{
 			gameRoundStatus.nextRound();
 			_roundNumber = gameRoundStatus.getRoundNumber();
 			
-			return;
+			return;// For Deubg
 		}
 		GameServerLogger.writeln("Game End");
 

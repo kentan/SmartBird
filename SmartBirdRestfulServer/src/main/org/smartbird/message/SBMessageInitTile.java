@@ -9,6 +9,7 @@ public class SBMessageInitTile extends SBMessage {
 	List<TileEnum> initTiles;
 
 	final private static String OPERATION = "init";
+	final private static String JSON_KEY_INIT_TILES = "initTiles";
 //	public SBMessageInitTile(int playerId, String operation){
 //		
 //	}
@@ -18,12 +19,12 @@ public class SBMessageInitTile extends SBMessage {
 		this.playerId = playerId;
 		this.initTiles = initTiles;
 		
-		this.jsonDataMap.put(JSON_KEY_PLAYERID, playerId);
 		JSONArray array = new JSONArray();
 		for(TileEnum tile : initTiles){
 			array.add(tile.toString());
 		}
-		this.jsonDataMap.put(JSON_KEY_VALUES, array);
+		this.jsonValueMap.put(JSON_KEY_INIT_TILES, array);
+
 		
 
 	}

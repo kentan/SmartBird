@@ -10,10 +10,11 @@ public class SBMessage implements Serializable{
 	final protected static String JSON_KEY_PLAYERID = "playerId";
 	final protected static String JSON_KEY_VALUES = "value";
 	final protected static String JSON_KEY_OPERATION = "operation";
-	
+
 	protected int playerId;
 	protected String operation;
-	protected Map<String, Object> jsonDataMap = new HashMap<String, Object>();
+	protected Map<String,Object> jsonDataMap = new HashMap<String, Object>();
+	protected Map<String,Object> jsonValueMap = new HashMap<String, Object>();
 	public SBMessage(){
 		
 	}
@@ -23,6 +24,8 @@ public class SBMessage implements Serializable{
 		
 		this.playerId = playerId;
 		this.operation = operation;
+		
+		this.jsonDataMap.put(JSON_KEY_VALUES, this.jsonValueMap);
 		
 	}
 	public String toJson(){
