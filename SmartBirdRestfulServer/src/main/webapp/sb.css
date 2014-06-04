@@ -1,0 +1,13 @@
+div.tile 
+{ 
+  position:absolute;
+  top:0px; 
+  left:0px; 
+  width:60px;
+  height:40px;
+}
+
+
+canvas.tile
+{
+}
