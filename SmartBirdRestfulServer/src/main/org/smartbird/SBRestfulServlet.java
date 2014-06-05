@@ -21,10 +21,11 @@ public class SBRestfulServlet {
 	@Path("start")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String start(){
+        SBMessageDaoFactory.getInstance().createDao("").init("testMessage");
 		_gameServer = new GameServer();
         _gameServer.init(0,"testMessage");
         _gameServer.start();
-        SBMessageDaoFactory.getInstance().createDao("").init("testMessage");
+
         return (new File("test").getAbsolutePath());
 	}
 	

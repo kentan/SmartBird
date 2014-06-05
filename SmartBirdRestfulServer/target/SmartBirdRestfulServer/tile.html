@@ -21,12 +21,26 @@
 
 	<!-- content goes here-->
 	<div id="table" style="background-color:#98FB98;with:1000px;height:1000px">
-		<div id="info" style="background-color:#FFFFFF;position:absolute; top:390px;left:500px;width:300px;height:100px;font-family:Verdana;border-width: thick;border-color: #000000;border-style: solid;">
-		   West 1 50 remained	
-		   <canvas id="test" width = "500px" height="500px">		
+		<div id="info" class="info">
+		    <label> West 1 50 remained	</label>
+		   	<div style="position:absolute; top:20px; left:0px; height:60px;width:50px;z-index:1">
+				<canvas id="dora0" width="45px" height="55px"></canvas>
+			</div>
+		   	<div style="position:absolute; top:20px; left:45px; height:60px;width:50px;z-index:1">
+				<canvas id="dora1" width="45px" height="55px"></canvas>
+			</div>
+		   	<div style="position:absolute; top:20px; left:90px; height:60px;width:50px;z-index:1">
+				<canvas id="dora2" width="45px" height="55px"></canvas>
+			</div>
+		   	<div style="position:absolute; top:20px; left:135px; height:60px;width:50px;z-index:1">
+				<canvas id="dora3" width="45px" height="55px"></canvas>
+			</div>
+
+			<label style="position:absolute; top:90px;left:0px;"> 1000 x 3, 500 x 2</label>
+				
 		</div>
-		<div id="p0" style="position:absolute; top:600px;left:300px;width:650px;height:300px;border-width: thick;border-color: #000000;border-style: solid;">
-			<div id = 'discarded' style="position:absolute; top:0px; left:0px; width:800px;height:200px;z-index:1">
+		<div id="p0" class="p0">
+			<div id = 'discarded'>
 				<div id='d1' style="position:absolute; top:0px; left:0px; height:60px;width:50px;z-index:1">
 				   <canvas id="p0dt0" width="45px" height="55px"></canvas>
 				</div>
@@ -154,7 +168,7 @@
 				</div>
 			</div>
 	    </div>
-	    <div id="p1" style="position:absolute; top:300px;left:-200px;width:650px;height:300px;border-width: thick;border-color: #000000;border-style: solid;-webkit-transform: rotate(90deg);-moz-transform: rotate(90deg);">
+	    <div id="p1" class="p1">
 			<div id = 'discarded' >
 				<div id='d1' style="position:absolute; top:0px; left:0px; height:60px;width:50px;z-index:1">
 				   <canvas id="p1dt0" width="45px" height="55px"></canvas>
@@ -280,7 +294,7 @@
 			    </div>
 			</div>
 		</div>
-		<div id="p2" style="position:absolute; top:50px;left:300px;width:650px;height:300px;border-width: thick;border-color: #000000;border-style: solid;-webkit-transform: rotate(180deg);-moz-transform: rotate(180deg);">
+		<div id="p2" class="p2">
 			<div id = 'discarded' >
 				<div id='d1' style="position:absolute; top:0px; left:0px; height:60px;width:50px;z-index:1">
 				   <canvas id="p2dt0" width="45px" height="55px"></canvas>
@@ -406,7 +420,7 @@
 			    </div>
 			</div>
 		</div>
-		<div id="p3" style="position:absolute; top:300px;left:800px;width:650px;height:300px;border-width: thick;border-color: #000000;border-style: solid;-webkit-transform: rotate(270deg);-moz-transform: rotate(270deg);">
+		<div id="p3" class="p3">
 			<div id = 'discarded' >
 				<div id='d1' style="position:absolute; top:0px; left:0px; height:60px;width:50px;z-index:1">
 				   <canvas id="p3dt0" width="45px" height="55px"></canvas>

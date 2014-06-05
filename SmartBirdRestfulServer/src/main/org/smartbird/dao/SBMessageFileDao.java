@@ -47,9 +47,9 @@ public class SBMessageFileDao extends SBMessageDao {
 		FileOutputStream outFile = null;
 		ObjectOutputStream outObject = null;
 		// TOOD error handling
-//		if(tailNumber.get(id) == null){
-//			tailNumber.put(id, 0l);
-//		}
+		if(tailNumber.get(id) == null){
+			tailNumber.put(id, 0l);
+		}
 		
 		String fileName = id + "/" + FILE_NAME_PREFIX + "_" + tailNumber.get(id);
 		try {

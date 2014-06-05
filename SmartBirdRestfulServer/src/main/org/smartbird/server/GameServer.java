@@ -256,7 +256,12 @@ public class GameServer extends Thread{
 	}
 	private void initTable(){
 		table = new GameTable(gameRoundStatus.getPrevailingWind(),gameRoundStatus.getParentPlayerId());
-		writeMessage(new SBMessageStartRound(gameRoundStatus.getPrevailingWind(), gameRoundStatus.getParentPlayerId(),gameRoundStatus.getRoundNumber()));
+		
+		SBMessage message = new SBMessageStartRound(gameRoundStatus.getPrevailingWind(), 
+				table.getDoraTiles().get(0),
+				gameRoundStatus.getParentPlayerId(),
+				gameRoundStatus.getRoundNumber());
+		writeMessage(message);
 	}
 	
 
@@ -343,7 +348,7 @@ public class GameServer extends Thread{
 			gameRoundStatus.nextRound();
 			_roundNumber = gameRoundStatus.getRoundNumber();
 			
-			return;// For Deubg
+			return;// For Debug
 		}
 		GameServerLogger.writeln("Game End");
 

@@ -53,6 +53,7 @@ var tileUtil = (function() {
 
 		drawAllTiles(playerId, tiles);
 	}
+	
 	function drawTile(playerId, tile, pos, emphasize) {
 		if (pos > 14) {
 			return;
@@ -94,8 +95,11 @@ var tileUtil = (function() {
 	function initTiles(playerId, values) {
 		drawAllTiles(playerId, values.initTiles);
 	}
-	function startRound(playerId, value) {
-
+	function startRound(playerId, values) {
+		var dora = values.dora;
+		
+		var canvasId = "dora0";
+		tileDrawing.drawTile(dora, canvasId);
 	}
 	var timerId;
 	function finishRound(playerId, value) {
