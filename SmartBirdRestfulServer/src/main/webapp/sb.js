@@ -1,4 +1,4 @@
-var tileUtil = (function() {
+var sb = (function() {
 	var dt_pos = {
 		0 : 0,
 		1 : 0,
