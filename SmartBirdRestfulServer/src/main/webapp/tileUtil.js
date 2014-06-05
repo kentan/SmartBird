@@ -8,43 +8,43 @@ var tileUtil = (function() {
 	var tilePos = {};
 
 	var operationFunc = {
-		add : addTile,
-		chow : chow,
-		pong : pong,
-		richi : richi,
-		ron : ron,
-		tumo : tumo,
-		stealKong : stealKong,
-		wallKong : wallKong,
-		discard : discardTile,
-		init : initTiles,
-		startRound : startRound,
-		finishRound : finishRound,
+		add : ofAddTile,
+		chow : ofChow,
+		pong : ofPong,
+		richi : ofRichi,
+		ron : ofRon,
+		tumo : ofTumo,
+		stealKong : ofStealKong,
+		wallKong : ofWallKong,
+		discard : ofDiscardTile,
+		init : ofInitTiles,
+		startRound : ofStartRound,
+		finishRound : ofFinishRound,
 	};
-	function addTile(playerId, values) {
+	function ofAddTile(playerId, values) {
 		clearAllTiles(playerId);
 
 		drawAllTiles(playerId, values.wall);
 	}
-	function chow(playerId, values) {
+	function ofChow(playerId, values) {
 
 	}
-	function pong(playerId, values) {
+	function ofPong(playerId, values) {
 
 	}
-	function richi(playerId, values) {
+	function ofRichi(playerId, values) {
 
 	}
-	function ron(playerId, values) {
+	function ofRon(playerId, values) {
 
 	}
-	function tumo(playerId, values) {
+	function ofTumo(playerId, values) {
 
 	}
-	function stealKong(playerId, values) {
+	function ofStealKong(playerId, values) {
 
 	}
-	function wallKong(playerId, values) {
+	function ofWallKong(playerId, values) {
 
 	}
 
@@ -73,7 +73,7 @@ var tileUtil = (function() {
 		dt_pos[playerId] = dt_pos[playerId] + 1;
 	}
 
-	function discardTile(playerId, values) {
+	function ofDiscardTile(playerId, values) {
 		var tile = values.discardedTile;
 		var posOfTheTile = tilePos[tile];
 		var canvasId = "p" + playerId + "w" + posOfTheTile;
@@ -92,17 +92,17 @@ var tileUtil = (function() {
 
 	}
 
-	function initTiles(playerId, values) {
+	function ofInitTiles(playerId, values) {
 		drawAllTiles(playerId, values.initTiles);
 	}
-	function startRound(playerId, values) {
+	function ofStartRound(playerId, values) {
 		var dora = values.dora;
 		
 		var canvasId = "dora0";
 		tileDrawing.drawTile(dora, canvasId);
 	}
 	var timerId;
-	function finishRound(playerId, value) {
+	function ofFinishRound(playerId, value) {
 		clearAllTiles(playerId);
 		clearAllDiscardedTiles(playerId);
 		clearTimeout(timerId);
@@ -162,7 +162,7 @@ var tileUtil = (function() {
 		},
 		startGame : function startGame() {
 			var host = "http://localhost:8080/SmartBirdRestfulServer/webapi/endpoint/start";
-			;
+			
 			// socket = new WebSocket(host);
 			$.ajax({
 				type : 'GET',
