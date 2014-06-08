@@ -6,6 +6,11 @@ import org.json.simple.JSONArray;
 import org.sb.mdl.enm.TileEnum;
 
 public class SBMessageInitTile extends SBMessage {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6921917288344485512L;
+
 	List<TileEnum> initTiles;
 
 	final private static String OPERATION = "init";

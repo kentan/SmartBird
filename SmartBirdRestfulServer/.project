@@ -43,12 +43,12 @@
 		<link>
 			<name>WebContent/WEB-INF/lib/sbengine.jar</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/galileo/SilverBird/SilverBirdEngine/sbengine.jar</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/SilverBird/SilverBirdEngine/sbengine.jar</locationURI>
 		</link>
 		<link>
 			<name>WebContent/WEB-INF/lib/sbmodel.jar</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/galileo/SilverBird/SilverBirdModel/sbmodel.jar</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/SilverBird/SilverBirdModel/sbmodel.jar</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
