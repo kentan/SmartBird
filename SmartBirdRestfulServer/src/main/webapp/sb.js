@@ -5,6 +5,12 @@ var sb = (function() {
 		2 : 0,
 		3 : 0
 	};
+	var huroIndexMap = {
+			0 : 0,
+			1 : 0,
+			2 : 0,
+			3 : 0
+	};
 	var tilePos = {};
 
 	var operationFunc = {
@@ -37,18 +43,22 @@ var sb = (function() {
 		var j = 0;
 		while(i < tiles.length + 1){
 			if(i == stolenPos){
-				drawHuroTile(playerId,stolenTile,i,true);
+				drawHuroTile(playerId,stolenTile,i , huroIndexMap[playerId],tiles.length + 1, true);
 			}else{	
-				drawHuroTile(playerId,tiles[j],i,false);
+				drawHuroTile(playerId,tiles[j],i ,huroIndexMap[playerId],tiles.length + 1,false);
 				j++;
 			}
+
 			i++;
 		}
+		huroIndexMap[playerId] = huroIndexMap[playerId] + 1;
+		
 	}
-	function ofChow(playerId, values) {
+	function naki(playerId,values){
 		var stolenTile = values.stolenTile;
 		var huro1 = values.huro1;
 		var huro2 = values.huro2;
+		var huro3 = values.huro3;
 		var discardingTile = values.discardedTile;
 		var wall = values.wall;
 		var stolenPlayerId = values.stolenPlayerId;
@@ -57,11 +67,33 @@ var sb = (function() {
 		drawAllTiles(playerId, wall);
 		
 		var pos = stolenPosMap[playerId][stolenPlayerId];
-		drawHuro(playerId,stolenTile,pos,[huro1,huro2]);
+		var tiles = [];
+		if(huro3 === undefined){
+			tiles = [huro1,huro2];
+		}else{
+			tiles = [huro1,huro2,huro3];
+		}
+		drawHuro(playerId,stolenTile,pos,tiles);
 		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId]);
 	}
+	function ofChow(playerId, values) {
+		naki(playerId,values);
+//		var stolenTile = values.stolenTile;
+//		var huro1 = values.huro1;
+//		var huro2 = values.huro2;
+//		var discardingTile = values.discardedTile;
+//		var wall = values.wall;
+//		var stolenPlayerId = values.stolenPlayerId;
+//		
+//		clearAllTiles(playerId);
+//		drawAllTiles(playerId, wall);
+//		
+//		var pos = stolenPosMap[playerId][stolenPlayerId];
+//		drawHuro(playerId,stolenTile,pos,[huro1,huro2]);
+//		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId]);
+	}
 	function ofPong(playerId, values) {
-
+		naki(playerId,values);
 	}
 	function ofRichi(playerId, values) {
 
@@ -73,7 +105,7 @@ var sb = (function() {
 
 	}
 	function ofStealKong(playerId, values) {
-
+		naki(playerId,values);
 	}
 	function ofWallKong(playerId, values) {
 
@@ -215,34 +247,38 @@ var sb = (function() {
 
 	}
 	
-	function drawHuroTile(playerId,tile,index,isStolen){
-//		var divTop = "200px";
-		var divLeft = (45 * index) + "px";
-		var divHeight = isStolen? "54px" : "45px";
-		var divWidth = isStolen? "45px" : "54px";
+	function drawHuroTile(playerId,tile,index,huroIndex,huroTileNumber,isStolen){
 
+		var divLeft = ((-120 * (huroIndex - 1) - 40 * huroTileNumber)  + (36 * index)) + "px";
+		var divHeight = isStolen? "45px" : "37px";
+		var divWidth = isStolen? "37px" : "45px";
+
+		
 		var div = $("<div/>");
 		
 		div.css("position","absolute");
 		if(isStolen){
-			div.css("top","8px");
+			div.css("top","4px");
 		}
 		div.css("left",divLeft);
 
 		if(isStolen){
 			div.css("-webkit-transform","rotate(90deg)");
+			div.css("-moz-transform","rotate(90deg)");
 		}
 		div.css("height",divHeight);
 		div.css("width",divWidth);
 	
 		
-		var canvasWidth = isStolen? "41px" : "50px";
-		var canvasHeight = isStolen? "50px" : "41px";
-		var canvasId = "p" + playerId + "s" + index;
+//		var canvasWidth = isStolen? "37px" : "45px";
+//		var canvasHeight = isStolen? "45px" : "37px";
+		var canvasWidth = "37px";
+		var canvasHeight = "45px";
+		var canvasId = "p" + playerId + "s" + huroIndex + "" + index;
 		var canvas = $("<canvas/>");
 		canvas.attr("id",canvasId);
-		canvas.attr("width",canvasHeight);
-		canvas.attr("height",canvasWidth);
+		canvas.attr("width",canvasWidth);
+		canvas.attr("height",canvasHeight);
 		
 	
 		div.append(canvas);

@@ -177,7 +177,7 @@ public class GameServer extends Thread{
 		discardTile(playerId, discardedTile);
 		// TODO Bug exists.
 		// It dosen't have information about who the tile is stolen by.
-		writeMessage(new SBMessagePong(playerId, -1, stolenTile, huro1, huro2, discardedTile));
+		writeMessage(new SBMessagePong(playerId, -1, stolenTile, huro1, huro2, discardedTile,table.getWallTiles(playerId)));
 		return true;
 	}
 	
@@ -189,7 +189,7 @@ public class GameServer extends Thread{
 		// TODO Bug exists.
 		// It dosen't have information about who the tile is stolen by.
 
-		writeMessage(new SBMessageWallKong(playerId, stolenTile, huro1, huro2, huro3, discardedTile));
+		writeMessage(new SBMessageWallKong(playerId, stolenTile, huro1, huro2, huro3, discardedTile,table.getWallTiles(playerId)));
 		return true;
 	}
 	
@@ -201,7 +201,7 @@ public class GameServer extends Thread{
 		// TODO Bug exists.
 		// It dosen't have information about who the tile is stolen by.
 
-		writeMessage(new SBMessageStealKong(playerId, -1,stolenTile, huro1, huro2, huro3, discardedTile));
+		writeMessage(new SBMessageStealKong(playerId, -1,stolenTile, huro1, huro2, huro3, discardedTile,table.getWallTiles(playerId)));
 		return true;
 	}
 	private int waitForSteal(int currentPlayerId){
