@@ -11,6 +11,12 @@ var sb = (function() {
 			2 : 0,
 			3 : 0
 	};
+	var richiFlagMap = {
+			0 : [false,false,false,false],
+			1 : [false,false,false,false],
+			2 : [false,false,false,false],
+			3 : [false,false,false,false]
+	};
 	var tilePos = {};
 
 	var operationFunc = {
@@ -93,7 +99,12 @@ var sb = (function() {
 		naki(playerId,values);
 	}
 	function ofRichi(playerId, values) {
-
+		var tile = values.richiTile;
+		var posOfTheTile = tilePos[tile];
+		var canvasId = "p" + playerId + "d" + posOfTheTile;
+		tileDrawing.clearTile(canvasId);
+		drawDiscardedTile(playerId, tile,dt_pos[playerId],true);
+		dt_pos[playerId] = dt_pos[playerId] + 1;
 	}
 	function ofRon(playerId, values) {
 
@@ -118,7 +129,7 @@ var sb = (function() {
 		var tiles = [huro1,huro2,huro3,huro4];
 
 		drawHuro(playerId,tiles);
-		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId]);
+		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId],false);
 		dt_pos[playerId] = dt_pos[playerId] + 1;
 	}
 
@@ -150,9 +161,9 @@ var sb = (function() {
 	function ofDiscardTile(playerId, values) {
 		var tile = values.discardedTile;
 		var posOfTheTile = tilePos[tile];
-		var canvasId = "p" + playerId + "w" + posOfTheTile;
+		var canvasId = "p" + playerId + "d" + posOfTheTile;
 		tileDrawing.clearTile(canvasId);
-		drawDiscardedTile(playerId, tile,dt_pos[playerId]);
+		drawDiscardedTile(playerId, tile,dt_pos[playerId],false);
 		dt_pos[playerId] = dt_pos[playerId] + 1;
 
 	}
@@ -199,17 +210,17 @@ var sb = (function() {
 	
 
 	
-	function drawDiscardedTile(playerId,tile,discardedIndex){
-		var a = 0;
+	function drawDiscardedTile(playerId,tile,discardedIndex,isRichi){
+		var column = 0;
 		var b = discardedIndex;
 		while(b >= 6 ){
 			b = b- 6;
-			a++;
+			column++;
 		}
-		var divTop = (60 * a) + "px";
-		var divLeft = (45 * (discardedIndex % 6)) + "px";
-		var divHeight = "60px";
-		var divWidth = "50px";
+		var divTop = (60 * column + (isRichi ? 8 : 0)) + "px";
+		var divLeft = ((45 * (discardedIndex % 6)) + (richiFlagMap[playerId][column] ? 15 : 0)) + "px";
+		var divHeight = isRichi ? "50px" : "60px";
+		var divWidth =  isRichi ? "60px" : "50px";
 		
 		var div = $("<div/>");
 		div.css("position","absolute");
@@ -217,7 +228,13 @@ var sb = (function() {
 		div.css("left",divLeft);
 		div.css("height",divHeight);
 		div.css("width",divWidth);
-		
+
+	
+		if(isRichi){
+			div.css("-webkit-transform","rotate(90deg)");
+			div.css("-moz-transform","rotate(90deg)");
+		}
+				
 		var canvasWidth = "45px";
 		var canvasHeight = "55px";
 		var canvasId = "p" + playerId + "d" + discardedIndex;
@@ -230,16 +247,17 @@ var sb = (function() {
 		$( "#discarded" + playerId).append(div);
 		tileDrawing.drawTile(tile, canvasId);	
 		
+		if(isRichi){
+			richiFlagMap[playerId][column] = true;
+		}
 	}
 	function drawWallTile(playerId,tile,wallIndex){
-//		var divTop = "200px";
 		var divLeft = (45 * wallIndex) + "px";
 		var divHeight = "60px";
 		var divWidth = "50px";
 		
 		var div = $("<div/>");
 		div.css("position","absolute");
-//		div.css("top",divTop);
 		div.css("left",divLeft);
 		div.css("height",divHeight);
 		div.css("width",divWidth);
