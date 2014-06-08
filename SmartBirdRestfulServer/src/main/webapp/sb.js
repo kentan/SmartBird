@@ -34,11 +34,20 @@ var sb = (function() {
 	}
 	var stolenPosMap = {};
 	stolenPosMap[0] = {1:0,2:1,3:2};
-	stolenPosMap[1] = {1:0,2:1, "-1":2};
-	stolenPosMap[2] = {1:0,"-2":1,"-1":2};
-	stolenPosMap[3] = {"-1":0,"-2":1,"-3":2};
+	stolenPosMap[1] = {2:0,3:1,0:2};
+	stolenPosMap[2] = {3:0,0:1,1:2};
+	stolenPosMap[3] = {0:0,1:1,2:2};
 	
-	function drawHuro(playerId,stolenTile,stolenPos,tiles){
+	function drawHuro(playerId,tiles){
+		var i = 0;
+		while(i < tiles.length){	
+			drawHuroTile(playerId,tiles[i],i ,huroIndexMap[playerId],tiles.length + 1,false);
+			i++;
+		}
+		huroIndexMap[playerId] = huroIndexMap[playerId] + 1;
+		
+	}
+	function drawStolenHuro(playerId,stolenTile,stolenPos,tiles){
 		var i = 0;
 		var j = 0;
 		while(i < tiles.length + 1){
@@ -73,24 +82,12 @@ var sb = (function() {
 		}else{
 			tiles = [huro1,huro2,huro3];
 		}
-		drawHuro(playerId,stolenTile,pos,tiles);
+		drawStolenHuro(playerId,stolenTile,pos,tiles);
 		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId]);
+		dt_pos[playerId] = dt_pos[playerId] + 1;
 	}
 	function ofChow(playerId, values) {
 		naki(playerId,values);
-//		var stolenTile = values.stolenTile;
-//		var huro1 = values.huro1;
-//		var huro2 = values.huro2;
-//		var discardingTile = values.discardedTile;
-//		var wall = values.wall;
-//		var stolenPlayerId = values.stolenPlayerId;
-//		
-//		clearAllTiles(playerId);
-//		drawAllTiles(playerId, wall);
-//		
-//		var pos = stolenPosMap[playerId][stolenPlayerId];
-//		drawHuro(playerId,stolenTile,pos,[huro1,huro2]);
-//		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId]);
 	}
 	function ofPong(playerId, values) {
 		naki(playerId,values);
@@ -108,7 +105,21 @@ var sb = (function() {
 		naki(playerId,values);
 	}
 	function ofWallKong(playerId, values) {
+		var huro1 = values.huro1;
+		var huro2 = values.huro2;
+		var huro3 = values.huro3;
+		var huro4 = values.huro4;
+		var discardingTile = values.discardedTile;
+		var wall = values.wall;
+		
+		clearAllTiles(playerId);
+		drawAllTiles(playerId, wall);
+		
+		var tiles = [huro1,huro2,huro3,huro4];
 
+		drawHuro(playerId,tiles);
+		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId]);
+		dt_pos[playerId] = dt_pos[playerId] + 1;
 	}
 
 	function refreshTiles(playerId, tiles) {
