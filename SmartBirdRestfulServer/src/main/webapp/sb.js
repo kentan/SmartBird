@@ -1,5 +1,5 @@
 var sb = (function() {
-	var dt_pos = {
+	var discardedTilePosMap = {
 		0 : 0,
 		1 : 0,
 		2 : 0,
@@ -38,11 +38,6 @@ var sb = (function() {
 
 		drawAllTiles(playerId, values.wall);
 	}
-	var stolenPosMap = {};
-	stolenPosMap[0] = {1:0,2:1,3:2};
-	stolenPosMap[1] = {2:0,3:1,0:2};
-	stolenPosMap[2] = {3:0,0:1,1:2};
-	stolenPosMap[3] = {0:0,1:1,2:2};
 	
 	function drawHuro(playerId,tiles){
 		var i = 0;
@@ -89,8 +84,8 @@ var sb = (function() {
 			tiles = [huro1,huro2,huro3];
 		}
 		drawStolenHuro(playerId,stolenTile,pos,tiles);
-		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId]);
-		dt_pos[playerId] = dt_pos[playerId] + 1;
+		drawDiscardedTile(playerId, discardingTile,discardedTilePosMap[playerId]);
+		discardedTilePosMap[playerId] = discardedTilePosMap[playerId] + 1;
 	}
 	function ofChow(playerId, values) {
 		naki(playerId,values);
@@ -101,10 +96,10 @@ var sb = (function() {
 	function ofRichi(playerId, values) {
 		var tile = values.richiTile;
 		var posOfTheTile = tilePos[tile];
-		var canvasId = "p" + playerId + "d" + posOfTheTile;
+		var canvasId = "p" + playerId + "w" + posOfTheTile;
 		tileDrawing.clearTile(canvasId);
-		drawDiscardedTile(playerId, tile,dt_pos[playerId],true);
-		dt_pos[playerId] = dt_pos[playerId] + 1;
+		drawDiscardedTile(playerId, tile,discardedTilePosMap[playerId],true);
+		discardedTilePosMap[playerId] = discardedTilePosMap[playerId] + 1;
 	}
 	function ofRon(playerId, values) {
 
@@ -148,50 +143,23 @@ var sb = (function() {
 		var tiles = [huro1,huro2,huro3,huro4];
 
 		drawHuro(playerId,tiles);
-		drawDiscardedTile(playerId, discardingTile,dt_pos[playerId],false);
-		dt_pos[playerId] = dt_pos[playerId] + 1;
+		drawDiscardedTile(playerId, discardingTile,discardedTilePosMap[playerId],false);
+		discardedTilePosMap[playerId] = discardedTilePosMap[playerId] + 1;
 	}
-
-	function refreshTiles(playerId, tiles) {
-		clearAllTiles(playerId);
-
-		drawAllTiles(playerId, tiles);
-	}
-	
-//	function drawTile(playerId, tile, pos, emphasize) {
-//		if (pos > 14) {
-//			return;
-//		}
-//
-//		var canvasId = "p" + playerId + "w" + pos;
-//		tileDrawing.drawTile(tile, canvasId);
-//	}
-
-//	function drawDiscardedTile(playerId, tile) {
-//		if (dt_pos[playerId] > 24) {
-//			return;
-//		}
-//		var canvasId = "p" + playerId + "dt" + dt_pos[playerId];
-//		// tileFunc[tile](canvasId);
-//		tileDrawing.drawTile(tile, canvasId);
-//		dt_pos[playerId] = dt_pos[playerId] + 1;
-//	}
 
 	function ofDiscardTile(playerId, values) {
 		var tile = values.discardedTile;
 		var posOfTheTile = tilePos[tile];
-		var canvasId = "p" + playerId + "d" + posOfTheTile;
+		var canvasId = "p" + playerId + "w" + posOfTheTile;
 		tileDrawing.clearTile(canvasId);
-		drawDiscardedTile(playerId, tile,dt_pos[playerId],false);
-		dt_pos[playerId] = dt_pos[playerId] + 1;
+		drawDiscardedTile(playerId, tile,discardedTilePosMap[playerId],false);
+		discardedTilePosMap[playerId] = discardedTilePosMap[playerId] + 1;
 
 	}
 	function drawAllTiles(playerId, tiles) {
 
 		for ( var i = 0; i < tiles.length; i++) {
 			var tile = tiles[i];
-
-			//drawTile(playerId, tile, i);
 			drawWallTile(playerId, tile,i);
 			tilePos[tile] = i;
 		}
@@ -320,9 +288,6 @@ var sb = (function() {
 		div.css("height",divHeight);
 		div.css("width",divWidth);
 	
-		
-//		var canvasWidth = isStolen? "37px" : "45px";
-//		var canvasHeight = isStolen? "45px" : "37px";
 		var canvasWidth = "37px";
 		var canvasHeight = "45px";
 		var canvasId = "p" + playerId + "s" + huroIndex + "" + index;
@@ -348,8 +313,7 @@ var sb = (function() {
 		},
 
 		getNextMessage : function getNextMessage() {
-			var host = "http://localhost:8080/SmartBirdRestfulServer/webapi/endpoint/next/" + clientId;
-
+			var host = "/SmartBirdRestfulServer/webapi/endpoint/next/" + clientId;
 			$.ajax({
 				type : 'GET',
 				url : host,
@@ -371,8 +335,7 @@ var sb = (function() {
 		},
 		startGame : function startGame(_clientId) {
 			clientId = _clientId;
-			var	host = "http://localhost:8080/SmartBirdRestfulServer/webapi/endpoint/start/" + clientId;
-			// socket = new WebSocket(host);
+			var	host = "/SmartBirdRestfulServer/webapi/endpoint/start/" + clientId;
 			$.ajax({
 				type : 'GET',
 				url : host,
