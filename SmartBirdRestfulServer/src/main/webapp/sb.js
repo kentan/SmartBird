@@ -181,6 +181,7 @@ var sb = (function() {
 	var timerId;
 	function ofFinishRound(playerId, value) {
 		clearInterval(timerId);
+		alert("finished");
 	}
 
 	function clearAllTiles(playerId) {
