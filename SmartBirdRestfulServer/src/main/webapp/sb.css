@@ -12,7 +12,7 @@ div.info
 	background-color:#FFFFFF;
 	position:absolute;
 	top:320px;
-	left:500px;
+	left:350px;
 	width:300px;
 	height:130px;
 	font-family:Verdana;
@@ -36,7 +36,7 @@ div.p0
  	
 }
 
-div.p1
+div.p3
 {
     background-color:#00FF7F;
 	position:absolute; 
@@ -67,7 +67,7 @@ div.p2
 	-moz-transform: rotate(180deg);
 }
 
-div.p3
+div.p1
 {
 	background-color:#00FF7F;
 	position:absolute; 

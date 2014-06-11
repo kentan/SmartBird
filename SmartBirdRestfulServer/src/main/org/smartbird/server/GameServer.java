@@ -150,7 +150,7 @@ public class GameServer extends Thread{
 
 
 			}
-			writeMessage(new SBMessageTumo(playerId, tumo));
+			writeMessage(new SBMessageTumo(playerId, tumo,point));
 			return true;
 		}
 		return false;
@@ -259,7 +259,7 @@ public class GameServer extends Thread{
 	private void initPlayers(){
 		for(int i = 0 ; i < GameConstants.PLAYER_NUM; i++){
 			players.get(i).initialize(i,table.getWallTiles(i),table.getDoraTiles().get(0),table.getPrevailingWind(),table.getPlayerWind(i),this);
-			writeMessage(new SBMessageInitTile(i,table.getWallTiles(i)));
+			writeMessage(new SBMessageInitTile(i,table.getWallTiles(i),table.getPlayerWind(i)));
 		}
 	}
 	private void initTable(){

@@ -15,10 +15,11 @@ public class SBMessageInitTile extends SBMessage {
 
 	final private static String OPERATION = "init";
 	final private static String JSON_KEY_INIT_TILES = "initTiles";
+	final private static String JSON_KEY_WIND = "wind";
 //	public SBMessageInitTile(int playerId, String operation){
 //		
 //	}
-	public SBMessageInitTile(int playerId,List<TileEnum> initTiles){
+	public SBMessageInitTile(int playerId,List<TileEnum> initTiles,TileEnum wind){
 		super(playerId,OPERATION);
 		
 		this.playerId = playerId;
@@ -29,6 +30,7 @@ public class SBMessageInitTile extends SBMessage {
 			array.add(tile.toString());
 		}
 		this.jsonValueMap.put(JSON_KEY_INIT_TILES, array);
+		this.jsonValueMap.put(JSON_KEY_WIND, wind.toString());
 
 		
 

@@ -110,7 +110,26 @@ var sb = (function() {
 
 	}
 	function ofTumo(playerId, values) {
-
+		var tumo = values.tumoTile;
+		var player0payment = values.player0payment;
+		var player1payment = values.player1payment;
+		var player2payment = values.player2payment;
+		var player3payment = values.player3payment;
+		
+		var message = "Player" + playerId + " has won. " + tumo;
+		if(player0payment != undefined){
+			message += " Player 0: -" + player0payment;
+		}
+		if(player1payment != undefined){
+			message += " Player 1: - " + player1payment;
+		}
+		if(player2payment != undefined){
+			message += " Player 2: - " + player2payment;
+		}
+		if(player3payment != undefined){
+			message += " Player 3: - " + player3payment;
+		}
+		alert(message);
 	}
 	function ofStealKong(playerId, values) {
 		naki(playerId,values);
@@ -181,10 +200,13 @@ var sb = (function() {
 
 	function ofInitTiles(playerId, values) {
 		drawAllTiles(playerId, values.initTiles);
+		$("#info" + playerId).append("<h2>" + values.wind + "</h2>");
 	}
 	function ofStartRound(playerId, values) {
 		var dora = values.dora;
-		
+		var wind = values.prevailingWind;
+		var round = values.roundNumber + 1;
+		$("#round").append(wind + round);
 		var canvasId = "dora0";
 		tileDrawing.drawTile(dora, canvasId);
 	}
