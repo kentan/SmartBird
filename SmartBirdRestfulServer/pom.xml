@@ -3,10 +3,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
+   <parent>
+       <groupId>org.smartbirdpj</groupId>
+       <artifactId>SmartBird</artifactId>
+       <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>SmartBirdRestfulServer</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
     <name>SmartBirdRestfulServer</name>
     <properties>
         <src.dir>src/main/</src.dir>
@@ -63,6 +67,7 @@
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
         -->
+<!--
         <dependency>
            <groupId>org.smartbird1</groupId>
            <artifactId>SmartBirdModel</artifactId>
@@ -77,6 +82,7 @@
            <scope>system</scope>
            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/sbengine.jar</systemPath>
         </dependency>
+-->
         <dependency>
            <groupId>org.junit</groupId>
            <artifactId>SmartBirdEngine</artifactId>
@@ -90,8 +96,17 @@
            <version>1.0</version>
            <scope>system</scope>
            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/json-simple-1.1.1.jar</systemPath>
-        </dependency>
-
+       </dependency>
+       <dependency>
+          <groupId>org.smartbirdpj</groupId>
+          <artifactId>SmartBirdModel</artifactId>
+          <version>1.0-SNAPSHOT</version>
+       </dependency>
+       <dependency>
+          <groupId>org.smartbirdpj</groupId>
+          <artifactId>SmartBirdEngine</artifactId>
+          <version>1.0-SNAPSHOT</version>
+       </dependency>
    </dependencies>
 
 </project>

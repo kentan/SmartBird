@@ -17,6 +17,11 @@ var sb = (function() {
 			2 : [false,false,false,false],
 			3 : [false,false,false,false]
 	};
+	var stolenPosMap = {};
+	stolenPosMap[0] = {1:0,2:1,3:2};
+	stolenPosMap[1] = {1:0,2:1, "-1":2};
+	stolenPosMap[2] = {1:0,"-2":1,"-1":2};
+	stolenPosMap[3] = {"-1":0,"-2":1,"-3":2};
 	var tilePos = {};
 
 	var operationFunc = {
