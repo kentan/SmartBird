@@ -10,10 +10,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 
+import org.smartbirdpj.test.SBTestMessageGenerator;
+
 import org.smartbirdpj.dao.SBMessageDaoFactory;
 import org.smartbirdpj.message.SBMessage;
 import org.smartbirdpj.server.GameServer;
-import org.smartbirdpj.test.SBTestMessageGenerator;
 
 @Path("endpoint")
 public class SBRestfulServlet {

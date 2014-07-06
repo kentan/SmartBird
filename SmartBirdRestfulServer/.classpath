@@ -11,7 +11,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/juno/SmartBirdRestfulServer/WebContent/WEB-INF/lib/javax.ws.rs-api-2.0.jar"/>
@@ -35,22 +34,20 @@
 	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/juno/SmartBirdRestfulServer/WebContent/WEB-INF/lib/jersey-container-servlet-core.jar"/>
 	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/juno/SmartBirdRestfulServer/WebContent/WEB-INF/lib/jersey-container-servlet.jar"/>
 	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/juno/SmartBirdRestfulServer/WebContent/WEB-INF/lib/jersey-server.jar"/>
-	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/galileo/SilverBird/SilverBirdModel/sbmodel.jar"/>
-	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/galileo/SilverBird/SilverBirdEngine/sbengine.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/kentan/Documents/workspace/juno/SmartBirdRestfulServer2/src/main/webapp/WEB-INF/lib/json-simple-1.1.1.jar"/>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
-			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
+			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>

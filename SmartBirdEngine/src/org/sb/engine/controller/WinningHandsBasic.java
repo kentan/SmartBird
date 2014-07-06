@@ -12,6 +12,7 @@ public class WinningHandsBasic extends WinningHands {
         private WinningFormEnum _winningHandsFormEnum;
         private boolean _is7Toitsu = false;
 
+        public WinningHandsBasic(){}
         public WinningHandsBasic(boolean isNaki,boolean isTumo,boolean isRichi){
         	super(isNaki,isTumo,isRichi);                
 

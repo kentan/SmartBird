@@ -271,8 +271,8 @@ public class PointCalculator {
 			}
 
 		}
-		LOGGER.info("-Han:" + maxHan);
-		LOGGER.info("-Hu:" + maxHu);
+//		LOGGER.info("-Han:" + maxHan);
+//		LOGGER.info("-Hu:" + maxHu);
 		boolean isTumo = winningHandsList.get(0).isTumo();
 		PointHolder pointCalculator = new PointHolder();
 		Point point = null;

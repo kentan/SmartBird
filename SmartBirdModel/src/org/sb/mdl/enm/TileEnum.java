@@ -145,6 +145,7 @@ public enum TileEnum {
 		if(doraTile != null){
 			return doraTile;
 		}
+		//TODO this should change to "this == TileEnum.CHARACTOR9"
 		if(doraTile == TileEnum.CHARACTOR9){
 			return TileEnum.CHARACTOR1;
 		}else if(doraTile == TileEnum.BAMBOO9){

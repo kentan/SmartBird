@@ -8,6 +8,7 @@ import org.sb.mdl.enm.TileEnum;
 
 public class WinningHandsKokushiMuso extends WinningHands {
 	private List<TileEnum> _tiles = new ArrayList<TileEnum>();
+	public WinningHandsKokushiMuso(){};
     public WinningHandsKokushiMuso(boolean isStolen,boolean isTumo,boolean isRichi){
     	super(isStolen,isTumo,isRichi);                
     }

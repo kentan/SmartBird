@@ -67,10 +67,10 @@ public class MeldNode{
 	}
 	
 	/*for unit test*/	
-	public List<WinningHands> transformGraphToList(boolean isNaki,boolean isTumo,boolean isRichi){
+	public List<WinningHands> transformGraphToList(){
 		List<WinningHands> winningHandsList = new ArrayList<WinningHands>();
 
-		WinningHandsBasic winnningHands = new WinningHandsBasic(isNaki,isTumo,isRichi);
+		WinningHandsBasic winnningHands = new WinningHandsBasic();
 		winnningHands.setWinningForm(getWinningFormEnum());
 
 		this.transformGraphToList(winningHandsList,winnningHands);

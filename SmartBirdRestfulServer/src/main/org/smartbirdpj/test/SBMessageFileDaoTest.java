@@ -7,6 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.sb.mdl.enm.TileEnum;
+
 import org.smartbirdpj.dao.SBMessageFileDao;
 import org.smartbirdpj.message.SBMessage;
 import org.smartbirdpj.message.SBMessageAddTile;
