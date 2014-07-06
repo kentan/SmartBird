@@ -386,7 +386,7 @@ public class GameServer extends Thread{
 //        }
         String playerDefs[] = new String[4];
 //        playerDefs[0] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";//prop.getProperty("player2");
-        playerDefs[0] = "org.smartbirdpj.client.blacktable.Player";//prop.getProperty("player0");
+        playerDefs[0] = "org.smartbirdpj.client.whitebird.Player";//prop.getProperty("player0");
         playerDefs[1] = "org.smartbirdpj.client.shizimily7.ShizimilyPlayer";//prop.getProperty("player1");
         playerDefs[2] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";//prop.getProperty("player2");
         playerDefs[3] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";//prop.getProperty("player3");
