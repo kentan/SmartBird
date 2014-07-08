@@ -57,14 +57,14 @@
            <artifactId>org.json</artifactId>
            <version>1.0</version>
            <scope>system</scope>
-           <systemPath>${basedir}/src/main/resources/lib/json-simple-1.1.1.jar</systemPath>
+           <systemPath>${basedir}/../lib/json-simple-1.1.1.jar</systemPath>
        </dependency>
        <dependency>
            <groupId>org.smartbirdpj</groupId>
            <artifactId>org.junit</artifactId>
            <version>1.0</version>
            <scope>system</scope>
-           <systemPath>${basedir}/src/main/resources/lib/junit.jar</systemPath>
+           <systemPath>${basedir}/../lib/junit.jar</systemPath>
         </dependency> 
    	</dependencies>
 </project>
