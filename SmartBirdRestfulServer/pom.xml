@@ -67,19 +67,15 @@
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
         -->
-        <dependency>
-           <groupId>org.junit</groupId>
-           <artifactId>SmartBirdEngine</artifactId>
-           <version>1.0</version>
-           <scope>system</scope>
-           <systemPath>${basedir}/../lib/junit.jar</systemPath>
-        </dependency> 
        <dependency>
-           <groupId>org.json</groupId>
-           <artifactId>SmartBirdEngine</artifactId>
-           <version>1.0</version>
-           <scope>system</scope>
-           <systemPath>${basedir}/../lib/json-simple-1.1.1.jar</systemPath>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.11</version>
+       </dependency>
+       <dependency>
+          <groupId>com.googlecode.json-simple</groupId>
+          <artifactId>json-simple</artifactId>
+          <version>1.1.1</version>
        </dependency>
        <dependency>
           <groupId>org.smartbirdpj</groupId>
