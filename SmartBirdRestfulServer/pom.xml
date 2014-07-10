@@ -67,35 +67,19 @@
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
         -->
-<!--
-        <dependency>
-           <groupId>org.smartbird1</groupId>
-           <artifactId>SmartBirdModel</artifactId>
-           <version>1.0</version>
-           <scope>system</scope>
-           <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/sbmodel.jar</systemPath>
-        </dependency>
-        <dependency>
-           <groupId>org.smartbird2</groupId>
-           <artifactId>SmartBirdEngine</artifactId>
-           <version>1.0</version>
-           <scope>system</scope>
-           <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/sbengine.jar</systemPath>
-        </dependency>
--->
         <dependency>
            <groupId>org.junit</groupId>
            <artifactId>SmartBirdEngine</artifactId>
            <version>1.0</version>
            <scope>system</scope>
-           <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/junit.jar</systemPath>
+           <systemPath>${basedir}/../lib/junit.jar</systemPath>
         </dependency> 
        <dependency>
            <groupId>org.json</groupId>
            <artifactId>SmartBirdEngine</artifactId>
            <version>1.0</version>
            <scope>system</scope>
-           <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/json-simple-1.1.1.jar</systemPath>
+           <systemPath>${basedir}/../lib/json-simple-1.1.1.jar</systemPath>
        </dependency>
        <dependency>
           <groupId>org.smartbirdpj</groupId>
