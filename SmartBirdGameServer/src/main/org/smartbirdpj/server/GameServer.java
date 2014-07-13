@@ -417,9 +417,8 @@ public class GameServer extends Thread{
 
 		runGame();
 
-		for(int i = 0; i < 10; i++){
-			showResult();		
-		}
+		showResult();		
+
 		GameServerLogger.close();
 	}
 	public static void main(String args[]){
