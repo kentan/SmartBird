@@ -13,7 +13,6 @@
     </properties>
    
     <modules>
-        <module>SmartBirdModel</module>
         <module>SmartBirdEngine</module>
         <module>SmartBirdRestfulServer</module>
     </modules> 
