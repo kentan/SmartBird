@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.sb.mdl.PaidPoint;
+import org.smartbirdpj.mdl.PaidPoint;
 import org.smartbirdpj.server.GameServerLogger;
 
 public class GameStatisticAnalyzer {

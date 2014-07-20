@@ -3,7 +3,7 @@ package org.smartbirdpj.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 
 public class InputCommand {

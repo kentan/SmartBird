@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.sb.mdl.cnst.GameConstants;
+import org.smartbirdpj.mdl.cnst.GameConstants;
 
 public class GamePointHolder {
 	PrintStream ps = System.out;

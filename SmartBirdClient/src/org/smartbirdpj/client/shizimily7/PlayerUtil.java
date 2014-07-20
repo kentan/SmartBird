@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.sb.mdl.MeldElement;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.MeldElement;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class PlayerUtil {
 	final static TileEnum[] TILE_LIST = {

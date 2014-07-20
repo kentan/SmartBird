@@ -1,7 +1,7 @@
 package org.smartbirdpj.message;
 
 import org.json.simple.JSONArray;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class SBMessageDiscardTile extends SBMessage{
 

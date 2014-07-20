@@ -1,6 +1,6 @@
 package org.smartbirdpj.message;
 
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class SBMessageFinishRound extends SBMessage{
 	TileEnum discardedTile;

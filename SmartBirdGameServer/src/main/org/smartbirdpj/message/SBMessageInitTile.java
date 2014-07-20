@@ -3,7 +3,7 @@ package org.smartbirdpj.message;
 import java.util.List;
 
 import org.json.simple.JSONArray;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class SBMessageInitTile extends SBMessage {
 	/**

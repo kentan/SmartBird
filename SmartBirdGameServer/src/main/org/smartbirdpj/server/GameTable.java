@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 
-import org.sb.engine.controller.TileManager;
-import org.sb.engine.controller.TileSet;
-import org.sb.mdl.MeldElement;
-import org.sb.mdl.PaidPoint;
-import org.sb.mdl.Point;
-import org.sb.mdl.cnst.GameConstants;
-import org.sb.mdl.enm.MeldEnum;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.engine.controller.TileManager;
+import org.smartbirdpj.engine.controller.TileSet;
+import org.smartbirdpj.mdl.MeldElement;
+import org.smartbirdpj.mdl.PaidPoint;
+import org.smartbirdpj.mdl.Point;
+import org.smartbirdpj.mdl.cnst.GameConstants;
+import org.smartbirdpj.mdl.enm.MeldEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 
 public class GameTable {

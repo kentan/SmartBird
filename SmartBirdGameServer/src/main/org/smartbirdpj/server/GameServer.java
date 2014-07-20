@@ -11,11 +11,11 @@ import java.util.Properties;
 
 
 
-import org.sb.mdl.MeldElement;
-import org.sb.mdl.PaidPoint;
-import org.sb.mdl.cnst.GameConstants;
-import org.sb.mdl.enm.MeldEnum;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.MeldElement;
+import org.smartbirdpj.mdl.PaidPoint;
+import org.smartbirdpj.mdl.cnst.GameConstants;
+import org.smartbirdpj.mdl.enm.MeldEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 import org.smartbirdpj.dao.SBMessageDaoFactory;
 import org.smartbirdpj.exception.SBException;
 import org.smartbirdpj.message.SBMessage;

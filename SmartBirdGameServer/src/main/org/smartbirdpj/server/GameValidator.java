@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.sb.mdl.MeldElement;
-import org.sb.mdl.cnst.GameConstants;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.MeldElement;
+import org.smartbirdpj.mdl.cnst.GameConstants;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class GameValidator {
 	PrintStream ps = System.out;

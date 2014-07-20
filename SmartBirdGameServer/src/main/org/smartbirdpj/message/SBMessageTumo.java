@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.sb.mdl.PaidPoint;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.PaidPoint;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class SBMessageTumo extends SBMessage{
 	final private static String OPERATION = "tumo";

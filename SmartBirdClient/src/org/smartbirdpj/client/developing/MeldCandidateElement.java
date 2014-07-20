@@ -2,7 +2,7 @@ package org.smartbirdpj.client.developing;
 
 
 
-import org.sb.mdl.MeldElement;
+import org.smartbirdpj.mdl.MeldElement;
 
 public class MeldCandidateElement extends MeldElement {
 	private MeldCandidateEnum _meldCandidateEnum;

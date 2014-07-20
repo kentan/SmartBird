@@ -1,7 +1,7 @@
 package org.smartbirdpj.client.whitebird;
 
-import org.sb.mdl.Point;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.Point;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class Expectation {
 

@@ -3,7 +3,7 @@ package org.smartbirdpj.message;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class SBMessageRichi extends SBMessage{
 	final private static String OPERATION = "richi";

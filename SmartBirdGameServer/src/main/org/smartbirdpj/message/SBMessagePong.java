@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class SBMessagePong extends SBMessage {
 	final private static String OPERATION = "pong";

@@ -3,7 +3,7 @@ package org.smartbirdpj.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class SBUtil {
 	static Map<String, TileEnum> strToTileMap = new HashMap<String,TileEnum>();

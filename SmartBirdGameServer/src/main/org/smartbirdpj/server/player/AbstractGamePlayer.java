@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.sb.mdl.MeldElement;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.MeldElement;
+import org.smartbirdpj.mdl.enm.TileEnum;
 import org.smartbirdpj.server.GameServer;
 
 public abstract class AbstractGamePlayer {

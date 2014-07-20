@@ -8,8 +8,8 @@ import java.util.Random;
 
 import org.smartbirdpj.server.GameServerLogger;
 import org.smartbirdpj.server.player.AbstractGamePlayer;
-import org.sb.mdl.MeldElement;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.MeldElement;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class SampleRandomPlayer extends AbstractGamePlayer{
 	private Random rnd = new Random();

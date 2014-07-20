@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.sb.mdl.PaidPoint;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.PaidPoint;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 import org.smartbirdpj.dao.SBMessageDaoFactory;
 import org.smartbirdpj.message.SBMessage;

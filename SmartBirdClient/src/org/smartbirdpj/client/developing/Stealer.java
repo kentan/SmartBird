@@ -16,8 +16,8 @@ import org.smartbirdpj.server.player.AbstractGamePlayer;
 import org.smartbirdpj.server.CommandEnum;
 import org.smartbirdpj.server.GameServerLogger;
 import org.smartbirdpj.server.InputCommand;
-import org.sb.mdl.MeldElement;
-import org.sb.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.MeldElement;
+import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class Stealer extends AbstractGamePlayer
 {
