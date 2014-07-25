@@ -7,9 +7,9 @@
   </parent>
 
 
-  <artifactId>SmartBirdGameServer</artifactId>
+  <artifactId>SmartBirdEngine</artifactId>
     <packaging>jar</packaging>
-    <name>SmartBirdGameServer</name>
+    <name>SmartBirdEngine</name>
   
     <properties>
         <src.dir>src/main/</src.dir>
