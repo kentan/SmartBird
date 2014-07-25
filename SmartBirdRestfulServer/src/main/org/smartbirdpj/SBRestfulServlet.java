@@ -15,13 +15,14 @@ import javax.ws.rs.core.MediaType;
 
 import org.smartbirdpj.test.SBTestMessageGenerator;
 import org.smartbirdpj.dao.SBMessageDaoFactory;
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.message.SBMessage;
 import org.smartbirdpj.server.GameServer;
 
 @Path("endpoint")
 public class SBRestfulServlet {
 	private GameServer _gameServer = null;
-	private final static Logger LOGGER = Logger.getLogger(SBRestfulServlet.class.getName());
+	private final static Logger LOGGER = LoggerFactory.getLogger();
     private final static String CLASS_NAME = SBRestfulServlet.class.getCanonicalName();
     private final static String CLIENT_ID_DEBUG = "debugMessage";
 	@GET
@@ -30,7 +31,9 @@ public class SBRestfulServlet {
 	public void start(@PathParam("clientId") String clientId){
 		final String METHOD_NAME = "start";
 		try{
+			
 			LOGGER.entering(CLASS_NAME, METHOD_NAME);
+
 	        SBMessageDaoFactory.getInstance().createDao("").init(clientId);
 	        if(CLIENT_ID_DEBUG.equals(clientId)){
 	        	SBTestMessageGenerator gen = new SBTestMessageGenerator();

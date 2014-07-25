@@ -11,6 +11,7 @@ import java.util.Properties;
 
 
 
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.mdl.MeldElement;
 import org.smartbirdpj.mdl.PaidPoint;
 import org.smartbirdpj.mdl.cnst.GameConstants;

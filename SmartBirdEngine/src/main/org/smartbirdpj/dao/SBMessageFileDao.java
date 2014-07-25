@@ -8,23 +8,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-import org.smartbirdpj.exception.SBException;
 import org.smartbirdpj.message.SBMessage;
 
 
 public class SBMessageFileDao extends SBMessageDao {
 	private static final String FILE_NAME_PREFIX = "sbmessage";
+	private static final String FILE_DIRECTORY = "message";
 	private static Map<String,Long> tailNumber = new ConcurrentHashMap<String, Long>();
 	private static Map<String,Long> headNumber = new ConcurrentHashMap<String, Long>();
 
 
 	public void init(String id){
-		File dir = new File(id);
+		File dir = new File(FILE_DIRECTORY + "/" + id);
 		if(dir.exists()){
 			File[] files=dir.listFiles();
 			for(int i=0; i<files.length; i++){
@@ -32,7 +31,7 @@ public class SBMessageFileDao extends SBMessageDao {
 			}
 			dir.delete();		
 		}
-		dir.mkdir();
+		dir.mkdirs();
 		tailNumber.put(id, 0l);
 		headNumber.put(id, 0l);
 	}
@@ -51,7 +50,7 @@ public class SBMessageFileDao extends SBMessageDao {
 			tailNumber.put(id, 0l);
 		}
 		
-		String fileName = id + "/" + FILE_NAME_PREFIX + "_" + tailNumber.get(id);
+		String fileName = FILE_DIRECTORY + "/" + id + "/" + FILE_NAME_PREFIX + "_" + tailNumber.get(id);
 		try {
 			outFile = new FileOutputStream(fileName);
 			outObject = new ObjectOutputStream(outFile);
@@ -84,7 +83,7 @@ public class SBMessageFileDao extends SBMessageDao {
 		FileInputStream inFile = null;
 		ObjectInputStream inObject = null;
 		SBMessage message = new SBMessage();
-		String fileName = id + "/" + FILE_NAME_PREFIX + "_" + headNumber.get(id);
+		String fileName = FILE_DIRECTORY + "/" + id + "/" + FILE_NAME_PREFIX + "_" + headNumber.get(id);
 		try {
 			inFile = new FileInputStream(fileName);
 
