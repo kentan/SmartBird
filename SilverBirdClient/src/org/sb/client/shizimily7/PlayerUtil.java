@@ -3,6 +3,7 @@ package org.sb.client.shizimily7;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -62,8 +63,7 @@ public class PlayerUtil {
 	static {
 		// シャンテン数計算用テーブル読み込み
 		try {
-			FileReader fr = new FileReader("ShantenTable.txt");
-			BufferedReader br = new BufferedReader(fr);
+			BufferedReader br = new BufferedReader(new InputStreamReader(PlayerUtil.class.getResourceAsStream("ShantenTable.txt")));
 			String line = br.readLine();
 
 			while (true) {

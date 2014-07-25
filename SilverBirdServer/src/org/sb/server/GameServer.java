@@ -47,7 +47,7 @@ public class GameServer {
 	}
 
 
-	private static int numOfGames = 10;
+	private static int numOfGames = Integer.getInteger("numOfGames", 100);
 	public void discardTile(int playerId, TileEnum tile) {
 
 		List<TileEnum> tiles = table.getWallTiles(playerId);
