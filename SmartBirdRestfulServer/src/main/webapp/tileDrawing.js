@@ -3,6 +3,7 @@ var tileDrawing = (function() {
 	var rectangle_x_pos = 3;
 	var rectangle_y_pos = 3;
 	var radius = 8;//8;
+	var cricle_tile_inner_circle_radius = 2;
 	var bar_len_harf = 8;//4;
 	var bar_width = 5;
 
@@ -80,75 +81,75 @@ var tileDrawing = (function() {
 	}
 
 	function _drawBamboo1(id) {
-		drawCircle1(id, "#228B22");
+		drawBamboo1(id, "#228B22");
 	}
 
 	function _drawBamboo2(id) {
-		drawCircle2(id, "#228B22");
+		drawBamboo2(id, "#228B22");
 	}
 
 	function _drawBamboo3(id) {
-		drawCircle3(id, "#228B22");
+		drawBamboo3(id, "#228B22");
 	}
 
 	function _drawBamboo4(id) {
-		drawCircle4(id, "#228B22");
+		drawBamboo4(id, "#228B22");
 	}
 
 	function _drawBamboo5(id) {
-		drawCircle5(id, "#228B22");
+		drawBamboo5(id, "#228B22");
 	}
 
 	function _drawBamboo6(id) {
-		drawCircle6(id, "#228B22");
+		drawBamboo6(id, "#228B22");
 	}
 
 	function _drawBamboo7(id) {
-		drawCircle7(id, "#228B22");
+		drawBamboo7(id, "#228B22");
 	}
 
 	function _drawBamboo8(id) {
-		drawCircle8(id, "#228B22");
+		drawBamboo8(id, "#228B22");
 	}
 
 	function _drawBamboo9(id) {
-		drawCircle9(id, "#228B22");
+		drawBamboo9(id, "#228B22");
 	}
 
 	function _drawCharactor1(id) {
-		drawCircle1(id, "#ff0000");
+		drawBamboo1(id, "#ff0000");
 	}
 
 	function _drawCharactor2(id) {
-		drawCircle2(id, "#ff0000");
+		drawBamboo2(id, "#ff0000");
 	}
 
 	function _drawCharactor3(id) {
-		drawCircle3(id, "#ff0000");
+		drawBamboo3(id, "#ff0000");
 	}
 
 	function _drawCharactor4(id) {
-		drawCircle4(id, "#ff0000");
+		drawBamboo4(id, "#ff0000");
 	}
 
 	function _drawCharactor5(id) {
-		drawCircle5(id, "#ff0000");
+		drawBamboo5(id, "#ff0000");
 	}
 
 	function _drawCharactor6(id) {
-		drawCircle6(id, "#ff0000");
+		drawBamboo6(id, "#ff0000");
 	}
 
 	function _drawCharactor7(id) {
-		drawCircle7(id, "#ff0000");
+		drawBamboo7(id, "#ff0000");
 	}
 
 	function _drawCharactor8(id) {
-		drawCircle8(id, "#ff0000");
+		drawBamboo8(id, "#ff0000");
 	}
 
 	function _drawCharactor9(id) {
-		drawCircle9(id, "#ff0000");
+		drawBamboo9(id, "#ff0000");
 	}
 	
 	function drawRoundRect(context, canvas,fill, stroke, strokeStyle) {
@@ -206,22 +207,182 @@ var tileDrawing = (function() {
 			context.clearRect(0, 0, canvas.width, canvas.height);
 		}
 	}
-	function drawCircle(context, x, y) {
+//	function drawBamboo(context, x, y) {
+//
+//		var centerX = x;
+//		var centerY = y;
+//
+//		context.beginPath();
+//		context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+//		context.fillStyle = 'silver';
+//		context.fill();
+//		context.lineWidth = 5;
+//		context.strokeStyle = '#003300';
+//		context.stroke();
+//
+//	}
+	
+	function drawInnerCircle(context,posArray,fillStyle){
+		var len = posArray.length;
+		for(var i = 0; i < len; i++){
+			context.beginPath();
+			context.arc(posArray[i].x, posArray[i].y, cricle_tile_inner_circle_radius, 0, Math.PI*2, false);
+			context.fillStyle = fillStyle;
+			context.fill();
+			context.stroke();			
+		}
+	}
+	function drawCircle1(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
 
-		var centerX = x;
-		var centerY = y;
+		drawRoundRect(context, canvas, false, true, strokeStyle);
 
+		var posArray = [{x: canvas.width /2,y : canvas.height/2}];
+		drawInnerCircle(context,posArray,strokeStyle);
+//		context.beginPath();
+//		context.arc(canvas.width / 2, canvas.height / 2, cricle_tile_inner_circle_radius, 0, Math.PI*2, false);
+//		context.fillStyle = strokeStyle;
+//		context.fill();
+//		context.stroke();
+	}
+	function drawCircle2(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+
+		drawRoundRect(context, canvas, false, true, strokeStyle);
 		context.beginPath();
-		context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-		context.fillStyle = 'silver';
-		context.fill();
-		context.lineWidth = 5;
-		context.strokeStyle = '#003300';
 		context.stroke();
 
-	}
+		var posArray = [{x: canvas.width /2,y : canvas.height/4},
+		                {x: canvas.width /2,y : canvas.height * 3/4}];
+		drawInnerCircle(context,posArray,strokeStyle);
 
-	function drawCircle1(id, strokeStyle) {
+		
+//		context.beginPath();
+//		context.arc(canvas.width / 2, canvas.height / 4,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
+//		context.fillStyle = strokeStyle;
+//		context.fill();
+//		context.stroke();
+//
+//		context.beginPath();
+//		context.arc(canvas.width / 2, canvas.height * 3 / 4 ,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
+//		context.fillStyle = strokeStyle;
+//		context.fill();
+//		context.stroke();
+	}
+	function drawCircle3(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+
+		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [{x: canvas.width /4,y : canvas.height/4},
+		                {x: canvas.width /2,y : canvas.height/2},
+		                {x: canvas.width *3/4,y : canvas.height * 3/4}];
+		drawInnerCircle(context,posArray,strokeStyle);
+
+//		context.beginPath();
+//		context.arc(canvas.width / 4, canvas.height / 4,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
+//		context.fillStyle = strokeStyle;
+//		context.fill();
+//		context.stroke();
+//		
+//		context.beginPath();
+//		context.arc(canvas.width / 2, canvas.height / 2,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
+//		context.fillStyle = strokeStyle;
+//		context.fill();
+//		context.stroke();
+//		
+//		context.beginPath();
+//		context.arc(canvas.width * 3/ 4, canvas.height * 3/ 4,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
+//		context.fillStyle = strokeStyle;
+//		context.fill();
+//		context.stroke();
+	}
+	function drawCircle4(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+
+		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [{x: canvas.width /4,y : canvas.height/4},
+		                {x: canvas.width *3/4,y : canvas.height / 4},
+		                {x: canvas.width /4,y : canvas.height * 3/ 4},
+		                {x: canvas.width *3/4,y : canvas.height * 3/ 4}];
+		drawInnerCircle(context,posArray,strokeStyle);
+	}
+	function drawCircle5(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+
+		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [{x: canvas.width /4,y : canvas.height/4},
+		                {x: canvas.width *3/4,y : canvas.height / 4},
+		                {x: canvas.width / 2, y : canvas.height / 2},
+		                {x: canvas.width /4,y : canvas.height *3/ 4},
+		                {x: canvas.width *3/4,y : canvas.height * 3/ 4}];
+		drawInnerCircle(context,posArray,strokeStyle);
+
+	}
+	function drawCircle6(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+
+		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [{x: canvas.width /4  ,y : canvas.height * 7/32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height * 7/32 },
+		                {x: canvas.width /4, y : canvas.height *19 /32},// y = (1/2 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
+		                {x: canvas.width /4,y : canvas.height * 25/ 32},// y = (1/2 + (1/2 - 1/8)*3/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *25 / 32}];
+		drawInnerCircle(context,posArray,strokeStyle);
+
+	}
+	function drawCircle7(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+
+		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [{x: canvas.width * 1/4,y : canvas.height *  7/ 32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width * 1/2,y : canvas.height *  9.5/ 32},// y = (1/8 + (1/2 - 1/8)*2/4)*canvas.height
+		                {x: canvas.width * 3/4,y : canvas.height *  13 /32},// y = (1/8 + (1/2 - 1/8)*3/4)*canvas.height
+		                {x: canvas.width /4, y : canvas.height *19 / 32},
+		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
+		                {x: canvas.width /4,y : canvas.height * 25/ 32},
+		                {x: canvas.width *3/4,y : canvas.height *25/ 32}];
+		drawInnerCircle(context,posArray,strokeStyle);
+	}
+	function drawCircle8(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+
+		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [{x: canvas.width /4,y: canvas.height * 7/ 32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height * 7 / 32},
+		                {x: canvas.width /4,y : canvas.height * 13/ 32},// y = (1/8 + (1/2 - 1/8)*3/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *13 / 32},
+		                {x: canvas.width /4, y : canvas.height *19 /32 },// y = (1/2 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
+		                {x: canvas.width /4,y : canvas.height * 25/ 32},// y = (1/2 + (1/2 - 1/8)*3/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *25 / 32}];
+		drawInnerCircle(context,posArray,strokeStyle);
+	}
+	function drawCircle9(id, strokeStyle) {
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+
+		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [{x: canvas.width /4,y: canvas.height / 4},
+		                {x: canvas.width /2,y : canvas.height / 4},
+		                {x: canvas.width *3/4,y : canvas.height / 4},
+		                {x: canvas.width /4,y : canvas.height /2},
+		                {x: canvas.width /2, y : canvas.height /2},
+		                {x: canvas.width *3/4,y : canvas.height /2},
+		                {x: canvas.width /4,y : canvas.height * 3/ 4},
+		                {x: canvas.width /2,y : canvas.height *3 / 4},
+		                {x: canvas.width *3/4,y : canvas.height *3 / 4}];
+		drawInnerCircle(context,posArray,strokeStyle);
+	}
+	function drawBamboo1(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 
@@ -231,7 +392,7 @@ var tileDrawing = (function() {
 		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf);
 		context.stroke();
 	}
-	function drawCircle2(id, strokeStyle) {
+	function drawBamboo2(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 		drawRoundRect(context, canvas, false, true, strokeStyle);
@@ -247,7 +408,7 @@ var tileDrawing = (function() {
 		context.stroke();
 	}
 
-	function drawCircle3(id, strokeStyle) {
+	function drawBamboo3(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 		// var centerX = x;
@@ -270,7 +431,7 @@ var tileDrawing = (function() {
 
 	}
 
-	function drawCircle4(id, strokeStyle) {
+	function drawBamboo4(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 		// var centerX = x;
@@ -301,7 +462,7 @@ var tileDrawing = (function() {
 
 	}
 
-	function drawCircle5(id, strokeStyle) {
+	function drawBamboo5(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 		// var centerX = x;
@@ -336,7 +497,7 @@ var tileDrawing = (function() {
 
 	}
 
-	function drawCircle6(id, strokeStyle) {
+	function drawBamboo6(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 
@@ -373,7 +534,7 @@ var tileDrawing = (function() {
 
 	}
 
-	function drawCircle7(id, strokeStyle) {
+	function drawBamboo7(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 
@@ -416,7 +577,7 @@ var tileDrawing = (function() {
 
 	}
 
-	function drawCircle8(id, strokeStyle) {
+	function drawBamboo8(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 
@@ -465,7 +626,7 @@ var tileDrawing = (function() {
 
 	}
 
-	function drawCircle9(id, strokeStyle) {
+	function drawBamboo9(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 
@@ -568,15 +729,15 @@ var tileDrawing = (function() {
 		drawBamboo7 : _drawBamboo7,
 		drawBamboo8 : _drawBamboo8,
 		drawBamboo9 : _drawBamboo9,
-		drawCircle1 : _drawCircle1,
-		drawCircle2 : _drawCircle2,
-		drawCircle3 : _drawCircle3,
-		drawCircle4 : _drawCircle4,
-		drawCircle5 : _drawCircle5,
-		drawCircle6 : _drawCircle6,
-		drawCircle7 : _drawCircle7,
-		drawCircle8 : _drawCircle8,
-		drawCircle9 : _drawCircle9,
+		drawCircle1 : _drawBamboo1,
+		drawCircle2 : _drawBamboo2,
+		drawCircle3 : _drawBamboo3,
+		drawCircle4 : _drawBamboo4,
+		drawCircle5 : _drawBamboo5,
+		drawCircle6 : _drawBamboo6,
+		drawCircle7 : _drawBamboo7,
+		drawCircle8 : _drawBamboo8,
+		drawCircle9 : _drawBamboo9,
 		drawDragon1 : _drawWhite,
 		drawDragon2 : _drawGreen,
 		drawDragon3 : _drawRed,
