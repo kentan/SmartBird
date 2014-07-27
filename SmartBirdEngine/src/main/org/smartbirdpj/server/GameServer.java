@@ -304,7 +304,6 @@ public class GameServer extends Thread{
 				AbstractGamePlayer player =players.get(playerId);
 	
 				writeMessage(new SBMessageAddTile(playerId,table.getWallTiles(playerId),tookTile));
-//				SBMessageDaoFactory.getInstance().createDao("").writeMessage(new SBMessageAddTile(playerId,table.getWallTiles(playerId),tookTile));
 				player.notifyTurn(
 						table.getWallTiles(playerId),
 						tookTile,

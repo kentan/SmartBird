@@ -1,8 +1,7 @@
 package org.smartbirdpj;
 
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.File;
 import java.util.logging.Logger;
 
 
@@ -14,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 
 import org.smartbirdpj.test.SBTestMessageGenerator;
+import org.smartbirdpj.util.SBUtil;
 import org.smartbirdpj.dao.SBMessageDaoFactory;
 import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.message.SBMessage;
@@ -28,11 +28,10 @@ public class SBRestfulServlet {
 	@GET
 	@Path("start/{clientId}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public void start(@PathParam("clientId") String clientId){
+	public String start(@PathParam("clientId") String clientId){
 		final String METHOD_NAME = "start";
 		try{
-			
-			LOGGER.entering(CLASS_NAME, METHOD_NAME);
+			LOGGER.info("SBRestfulServert#start has started: clientId = " + clientId);
 
 	        SBMessageDaoFactory.getInstance().createDao("").init(clientId);
 	        if(CLIENT_ID_DEBUG.equals(clientId)){
@@ -46,11 +45,12 @@ public class SBRestfulServlet {
 		        _gameServer.start();		
 	        }
 		}catch(Throwable t){
-			logThrowable(t);	
+			SBUtil.logThrowable(LOGGER,t);
 		}finally{
 			LOGGER.exiting(CLASS_NAME, METHOD_NAME);
 		}
 
+		return (new File("")).getAbsolutePath();
 	}
 	
 	
@@ -62,23 +62,16 @@ public class SBRestfulServlet {
 		final String METHOD_NAME = "next";
 		SBMessage message = null;
 		try{
-			LOGGER.entering(CLASS_NAME, METHOD_NAME);
+			LOGGER.info("SBRestfulServert#start has started: clientId = " + clientId);
 
-			 message = SBMessageDaoFactory.getInstance().createDao("").loadNextMessage(clientId);
+			message = SBMessageDaoFactory.getInstance().createDao("").loadNextMessage(clientId);
 		}catch(Throwable t){
-			logThrowable(t);
+			SBUtil.logThrowable(LOGGER,t);
 		}finally{
 			LOGGER.exiting(CLASS_NAME, METHOD_NAME);
 		}
 		return message.toJson();
 	}
 
-	private void logThrowable(Throwable t){
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		t.printStackTrace(pw);
-
-		LOGGER.severe(sw.toString());
-	}
 }
 

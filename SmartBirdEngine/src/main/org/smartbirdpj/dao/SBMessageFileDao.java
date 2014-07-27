@@ -10,9 +10,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.message.SBMessage;
+import org.smartbirdpj.util.SBUtil;
 
 
 public class SBMessageFileDao extends SBMessageDao {
@@ -21,8 +24,11 @@ public class SBMessageFileDao extends SBMessageDao {
 	private static Map<String,Long> tailNumber = new ConcurrentHashMap<String, Long>();
 	private static Map<String,Long> headNumber = new ConcurrentHashMap<String, Long>();
 
-
+	private static final String CLASS_NAME = "SBMessageFileDao";
+	private static Logger LOGGER = LoggerFactory.getLogger();
 	public void init(String id){
+		final String METHOD_NAME = "init";
+		LOGGER.entering(CLASS_NAME, METHOD_NAME);
 		File dir = new File(FILE_DIRECTORY + "/" + id);
 		if(dir.exists()){
 			File[] files=dir.listFiles();
@@ -34,6 +40,7 @@ public class SBMessageFileDao extends SBMessageDao {
 		dir.mkdirs();
 		tailNumber.put(id, 0l);
 		headNumber.put(id, 0l);
+		LOGGER.exiting(CLASS_NAME, METHOD_NAME);
 	}
 //	public SBMessageFileDao(String id) {
 //		this.id = id;		
@@ -58,17 +65,18 @@ public class SBMessageFileDao extends SBMessageDao {
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.severe("can't write message. file not found. file name :" + fileName);
+			SBUtil.logThrowable(LOGGER, e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			SBUtil.logThrowable(LOGGER, e);
 		} finally {
 			try {
 				outObject.close();
 				outFile.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				SBUtil.logThrowable(LOGGER, e);
 			}
 
 		}
@@ -78,7 +86,9 @@ public class SBMessageFileDao extends SBMessageDao {
 
 	@Override
 	public SBMessage loadNextMessage(String id) {
-		System.out.println("start:" + headNumber);
+		final String METHOD_NAME = "loadNextMessage";
+		LOGGER.entering(CLASS_NAME, METHOD_NAME);
+
 		// TODO Auto-generated method stub
 		FileInputStream inFile = null;
 		ObjectInputStream inObject = null;
@@ -93,13 +103,14 @@ public class SBMessageFileDao extends SBMessageDao {
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.severe("can't read message. file not found. file name :" + fileName);
+			SBUtil.logThrowable(LOGGER, e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			SBUtil.logThrowable(LOGGER, e);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			SBUtil.logThrowable(LOGGER, e);
 		} finally {
 			try {
 				if(inObject != null){
@@ -110,7 +121,7 @@ public class SBMessageFileDao extends SBMessageDao {
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				SBUtil.logThrowable(LOGGER, e);
 			}
 		}
 		
@@ -119,8 +130,9 @@ public class SBMessageFileDao extends SBMessageDao {
 			file.delete();
 			incrHeadNumber(id);
 		}catch(Exception e){
-			e.printStackTrace();
+			SBUtil.logThrowable(LOGGER, e);
 		}
+		LOGGER.exiting(CLASS_NAME, METHOD_NAME);
 		return message;
 	}
 	@Override
@@ -135,9 +147,15 @@ public class SBMessageFileDao extends SBMessageDao {
 	
 	private static void incrHeadNumber(String id){
 		headNumber.put(id, headNumber.get(id) + 1);
+		LOGGER.info("incremented haedNumber");
+		LOGGER.info("headNumber:" + headNumber + ",tailNumber:" + tailNumber);
+
 	}
 	private static void incrTailNumber(String id){
 		tailNumber.put(id, tailNumber.get(id) + 1);
+		LOGGER.info("incremented tailNumber");
+		LOGGER.info("headNumber:" + headNumber + ",tailNumber:" + tailNumber);
+
 	}
 
 
