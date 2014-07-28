@@ -5,7 +5,7 @@ var tileDrawing = (function() {
 	var radius = 8;//8;
 	var cricle_tile_inner_circle_radius = 2;
 	var bar_len_harf = 8;//4;
-	var bar_width = 5;
+	var bar_width = 1;
 
 	var tileFunc = {
 		M1 : _drawCharactor1,
