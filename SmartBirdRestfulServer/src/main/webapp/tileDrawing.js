@@ -207,20 +207,6 @@ var tileDrawing = (function() {
 			context.clearRect(0, 0, canvas.width, canvas.height);
 		}
 	}
-//	function drawBamboo(context, x, y) {
-//
-//		var centerX = x;
-//		var centerY = y;
-//
-//		context.beginPath();
-//		context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-//		context.fillStyle = 'silver';
-//		context.fill();
-//		context.lineWidth = 5;
-//		context.strokeStyle = '#003300';
-//		context.stroke();
-//
-//	}
 	
 	function drawInnerCircle(context,posArray,fillStyle){
 		var len = posArray.length;
@@ -382,29 +368,45 @@ var tileDrawing = (function() {
 		                {x: canvas.width *3/4,y : canvas.height *3 / 4}];
 		drawInnerCircle(context,posArray,strokeStyle);
 	}
+	function drawInnerBamboo(context,posArray){
+		var len = posArray.length;
+		for(var i = 0; i < len; i++){
+			context.beginPath();
+
+			context.moveTo(posArray[i].from.x, posArray[i].from.y);
+			context.lineTo(posArray[i].to.x, posArray[i].to.y);
+
+			context.stroke();			
+		}
+	}
 	function drawBamboo1(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 
 		drawRoundRect(context, canvas, false, true, strokeStyle);
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf);
-		context.stroke();
+		var posArray = [{
+			from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf},
+			to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf}
+		}];
+
+		drawInnerBamboo(context,posArray);
 	}
 	function drawBamboo2(id, strokeStyle) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [
+		   {
+		   from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
+		   to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
+		   },
+		   {
+			from : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf},
+			to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf * 2}
+		   }
+		];
 
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2, canvas.height / 2 - bar_len_harf);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf * 2);
+		drawInnerBamboo(context,posArray);
 		context.stroke();
 	}
 
@@ -414,20 +416,21 @@ var tileDrawing = (function() {
 		// var centerX = x;
 
 		drawRoundRect(context, canvas, false, true, strokeStyle);
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2, canvas.height / 2 - bar_len_harf);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2 - bar_len_harf, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2 + bar_len_harf, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
+		var posArray = [
+		     		   {
+		     		   from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
+		     		   to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
+		     		   },
+		     		   {
+		     			from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf},
+		     			to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
+		     		   },
+		     		   {
+			     		from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf},
+			     		to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
+			     	   }
+		     		];
+		drawInnerBamboo(context,posArray);
 
 	}
 
@@ -438,27 +441,25 @@ var tileDrawing = (function() {
 
 
 		drawRoundRect(context, canvas, false, true, strokeStyle);
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2 - bar_len_harf, canvas.height / 2 - bar_len_harf);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2 + bar_len_harf, canvas.height / 2 - bar_len_harf);
-
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2 - bar_len_harf, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
-
-		context.beginPath();
-
-		context.moveTo(canvas.width / 2 + bar_len_harf, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2 + bar_len_harf, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 - bar_len_harf * 2},
+			     		   to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 - bar_len_harf * 2},
+			     			to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf},
+				     		to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf},
+					   		to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
+					     	}
+			     		];
+		drawInnerBamboo(context,posArray);
 
 	}
 
@@ -470,30 +471,29 @@ var tileDrawing = (function() {
 
 
 		drawRoundRect(context, canvas, false, true, strokeStyle);
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf / 2);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf / 2);
-		context.stroke();
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
+			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
+			     			to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
+				     		to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
+					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
+					     	},
+				     	   {
+					    	from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf / 2},
+						   	to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf / 2}
+				    	   }
+			     		];
+		drawInnerBamboo(context,posArray);
 
 	}
 
@@ -502,35 +502,33 @@ var tileDrawing = (function() {
 		var context = canvas.getContext('2d');
 
 		drawRoundRect(context, canvas, false, true, strokeStyle);
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2, canvas.height / 2 - bar_len_harf);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2);
-		context.stroke();
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
+			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
+			     			to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
+				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
+					   		to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
+					     	},
+				     	   {
+					    	from : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf},
+						   	to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf * 2}
+				    	   },
+				     	   {
+					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf},
+						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2}
+					       }
+			     		];
+		drawInnerBamboo(context,posArray);
 
 	}
 
@@ -539,41 +537,37 @@ var tileDrawing = (function() {
 		var context = canvas.getContext('2d');
 
 		drawRoundRect(context, canvas, false, true, strokeStyle);
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 2.5);
-		context.lineTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 1.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf / 2);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf / 2);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf / 2);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 1.5);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 + bar_len_harf * 1.5);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf * 2.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 1.5);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2.5);
-
-		context.stroke();
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2.5},
+			     		   to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 1.5}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+			     			to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf / 2},
+				     		to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf / 2}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+					     	},
+				     	   {
+					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+				    	   },
+				     	   {
+					    	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 2.5}
+					       },
+					       {
+					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+			     		];
+		drawInnerBamboo(context,posArray);
 
 	}
 
@@ -582,47 +576,42 @@ var tileDrawing = (function() {
 		var context = canvas.getContext('2d');
 
 		drawRoundRect(context, canvas, false, true, strokeStyle);
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
+			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+			     			to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2},
+				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
+					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
+					     	},
+				     	   {
+					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
+						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+				    	   },
+				     	   {
+					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
+						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5}
+					       },
 
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 2.5);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf / 2);
-
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf / 2);
-		context.lineTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 2);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 2.5);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf / 2);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf / 2);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf * 1.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 + bar_len_harf * 1.5);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf / 2);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2.5);
-		context.stroke();
+					       {
+					    	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+						   },
+						   {
+						   	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
+						    to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+			     		];
+		drawInnerBamboo(context,posArray);
 
 	}
 
@@ -631,51 +620,45 @@ var tileDrawing = (function() {
 		var context = canvas.getContext('2d');
 
 		drawRoundRect(context, canvas, false, true, strokeStyle);
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 2.5);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 1.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 2.5);
-		context.lineTo(canvas.width / 2, canvas.height / 2 - bar_len_harf * 1.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 2.5);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf * 1.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf / 2);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 - bar_len_harf / 2);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 - bar_len_harf / 2);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf / 2);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 1.5);
-		context.lineTo(canvas.width / 2 - bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2, canvas.height / 2 + bar_len_harf * 1.5);
-		context.lineTo(canvas.width / 2, canvas.height / 2 + bar_len_harf * 2.5);
-		context.stroke();
-
-		context.beginPath();
-		context.moveTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 1.5);
-		context.lineTo(canvas.width / 2 + bar_len_harf * 1.5, canvas.height / 2 + bar_len_harf * 2.5);
-		context.stroke();
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
+			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 1.5}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2.5},
+			     			to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 1.5}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
+				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 1.5}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+					   		to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+					     	},
+					     	{
+					    	from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf / 2},
+						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf / 2}
+				    	   },
+				     	   {
+					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+					       },
+					       {
+					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+						   {
+						   	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
+						    to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+						   {
+						   	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
+						    to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+			     		];
+		drawInnerBamboo(context,posArray);
 
 	}
 	
