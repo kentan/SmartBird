@@ -2,8 +2,7 @@ var tileDrawing = (function() {
 
 	var rectangle_x_pos = 3;
 	var rectangle_y_pos = 3;
-	var radius = 8;//8;
-	var cricle_tile_inner_circle_radius = 2;
+	var circle_tile_inner_circle_radius = 2;
 	var bar_len_harf = 8;//4;
 	var bar_width = 1;
 
@@ -45,120 +44,378 @@ var tileDrawing = (function() {
 	};
 
 	function _drawCircle1(id) {
-		drawCircle1(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width /2,y : canvas.height/2}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawCircle2(id) {
-		drawCircle2(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width /2,y : canvas.height/4},
+		                {x: canvas.width /2,y : canvas.height * 3/4}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawCircle3(id) {
-		drawCircle3(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width /4,y : canvas.height/4},
+		                {x: canvas.width /2,y : canvas.height/2},
+		                {x: canvas.width *3/4,y : canvas.height * 3/4}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawCircle4(id) {
-		drawCircle4(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width /4,y : canvas.height/4},
+		                {x: canvas.width *3/4,y : canvas.height / 4},
+		                {x: canvas.width /4,y : canvas.height * 3/ 4},
+		                {x: canvas.width *3/4,y : canvas.height * 3/ 4}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawCircle5(id) {
-		drawCircle5(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width /4,y : canvas.height/4},
+		                {x: canvas.width *3/4,y : canvas.height / 4},
+		                {x: canvas.width / 2, y : canvas.height / 2},
+		                {x: canvas.width /4,y : canvas.height *3/ 4},
+		                {x: canvas.width *3/4,y : canvas.height * 3/ 4}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawCircle6(id) {
-		drawCircle6(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width /4  ,y : canvas.height * 7/32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height * 7/32 },
+		                {x: canvas.width /4, y : canvas.height *19 /32},// y = (1/2 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
+		                {x: canvas.width /4,y : canvas.height * 25/ 32},// y = (1/2 + (1/2 - 1/8)*3/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *25 / 32}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawCircle7(id) {
-		drawCircle7(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width * 1/4,y : canvas.height *  7/ 32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width * 1/2,y : canvas.height *  9.5/ 32},// y = (1/8 + (1/2 - 1/8)*2/4)*canvas.height
+		                {x: canvas.width * 3/4,y : canvas.height *  13 /32},// y = (1/8 + (1/2 - 1/8)*3/4)*canvas.height
+		                {x: canvas.width /4, y : canvas.height *19 / 32},
+		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
+		                {x: canvas.width /4,y : canvas.height * 25/ 32},
+		                {x: canvas.width *3/4,y : canvas.height *25/ 32}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawCircle8(id) {
-		drawCircle8(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width /4,y: canvas.height * 7/ 32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height * 7 / 32},
+		                {x: canvas.width /4,y : canvas.height * 13/ 32},// y = (1/8 + (1/2 - 1/8)*3/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *13 / 32},
+		                {x: canvas.width /4, y : canvas.height *19 /32 },// y = (1/2 + (1/2 - 1/8)*1/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
+		                {x: canvas.width /4,y : canvas.height * 25/ 32},// y = (1/2 + (1/2 - 1/8)*3/4)*canvas.height
+		                {x: canvas.width *3/4,y : canvas.height *25 / 32}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawCircle9(id) {
-		drawCircle9(id, "#0000ff");
+		var canvas = document.getElementById(id);
+		var posArray = [{x: canvas.width /4,y: canvas.height / 4},
+		                {x: canvas.width /2,y : canvas.height / 4},
+		                {x: canvas.width *3/4,y : canvas.height / 4},
+		                {x: canvas.width /4,y : canvas.height /2},
+		                {x: canvas.width /2, y : canvas.height /2},
+		                {x: canvas.width *3/4,y : canvas.height /2},
+		                {x: canvas.width /4,y : canvas.height * 3/ 4},
+		                {x: canvas.width /2,y : canvas.height *3 / 4},
+		                {x: canvas.width *3/4,y : canvas.height *3 / 4}];
+		drawCircle(id,posArray);
 	}
 
 	function _drawBamboo1(id) {
-		drawBamboo1(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [{
+			from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf},
+			to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf}
+		}];
+		drawBamboo(id,posArray);
 	}
 
 	function _drawBamboo2(id) {
-		drawBamboo2(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [
+		     		   {
+		     		   from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
+		     		   to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
+		     		   },
+		     		   {
+		     			from : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf},
+		     			to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf * 2}
+		     		   }
+		     		];
+		drawBamboo(id,posArray);
 	}
 
 	function _drawBamboo3(id) {
-		drawBamboo3(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
+			     		   to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf},
+			     			to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf},
+				     		to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
+				     	   }
+			     		];
+		drawBamboo(id,posArray);
+
 	}
 
 	function _drawBamboo4(id) {
-		drawBamboo4(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 - bar_len_harf * 2},
+			     		   to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 - bar_len_harf * 2},
+			     			to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf},
+				     		to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf},
+					   		to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
+					     	}
+			     		];
+		drawBamboo(id,posArray);
+
 	}
 
 	function _drawBamboo5(id) {
-		drawBamboo5(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
+			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
+			     			to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
+				     		to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
+					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
+					     	},
+				     	   {
+					    	from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf / 2},
+						   	to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf / 2}
+				    	   }
+			     		];
+		drawBamboo(id,posArray);
+
 	}
 
 	function _drawBamboo6(id) {
-		drawBamboo6(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
+			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
+			     			to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
+				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
+					   		to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
+					     	},
+				     	   {
+					    	from : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf},
+						   	to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf * 2}
+				    	   },
+				     	   {
+					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf},
+						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2}
+					       }
+			     		];
+		drawBamboo(id,posArray);
+
 	}
 
 	function _drawBamboo7(id) {
-		drawBamboo7(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2.5},
+			     		   to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 1.5}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+			     			to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf / 2},
+				     		to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf / 2}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+					     	},
+				     	   {
+					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+				    	   },
+				     	   {
+					    	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 2.5}
+					       },
+					       {
+					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+			     		];
+		drawBamboo(id,posArray);
+
 	}
 
 	function _drawBamboo8(id) {
-		drawBamboo8(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
+			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+			     			to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2},
+				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
+					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
+					     	},
+				     	   {
+					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
+						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+				    	   },
+				     	   {
+					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
+						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5}
+					       },
+
+					       {
+					    	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+						   },
+						   {
+						   	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
+						    to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+			     		];
+		drawBamboo(id,posArray);
+
 	}
 
 	function _drawBamboo9(id) {
-		drawBamboo9(id, "#228B22");
+		var canvas = document.getElementById(id);
+		var posArray = [
+			     		   {
+			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
+			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 1.5}
+			     		   },
+			     		   {
+			     			from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2.5},
+			     			to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 1.5}
+			     		   },
+			     		   {
+				     		from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
+				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 1.5}
+				     	   },
+			     		   {
+					     	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+					   		to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+					     	},
+					     	{
+					    	from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf / 2},
+						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf / 2}
+				    	   },
+				     	   {
+					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
+						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
+					       },
+					       {
+					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
+						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+						   {
+						   	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
+						    to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+						   {
+						   	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
+						    to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
+						   },
+			     		];
+		drawBamboo(id,posArray);
+
 	}
 
 	function _drawCharactor1(id) {
-//		drawBamboo1(id, "#ff0000");
 		drawCharactor(id,"一","#000000");
 	}
 
 	function _drawCharactor2(id) {
-//		drawBamboo2(id, "#ff0000");
 		drawCharactor(id,"二","#000000");
 	}
 
 	function _drawCharactor3(id) {
 		drawCharactor(id,"三","#000000");
-//		drawBamboo3(id, "#ff0000");
 	}
 
 	function _drawCharactor4(id) {
 		drawCharactor(id,"四","#000000");
-//		drawBamboo4(id, "#ff0000");
 	}
 
 	function _drawCharactor5(id) {
 		drawCharactor(id,"五","#000000");
-	//	drawBamboo5(id, "#ff0000");
 	}
 
 	function _drawCharactor6(id) {
 		drawCharactor(id,"六","#000000");
-	//	drawBamboo6(id, "#ff0000");
 	}
 
 	function _drawCharactor7(id) {
 		drawCharactor(id,"七","#000000");
-		//drawBamboo7(id, "#ff0000");
 	}
 
 	function _drawCharactor8(id) {
 		drawCharactor(id,"八","#000000");
-		//drawBamboo8(id, "#ff0000");
 	}
 
 	function _drawCharactor9(id) {
 		drawCharactor(id,"九","#000000");
-		//drawBamboo9(id, "#ff0000");
 	}
 	
 	function drawRoundRect(context, canvas,fill, stroke, strokeStyle) {
@@ -221,162 +478,21 @@ var tileDrawing = (function() {
 		var len = posArray.length;
 		for(var i = 0; i < len; i++){
 			context.beginPath();
-			context.arc(posArray[i].x, posArray[i].y, cricle_tile_inner_circle_radius, 0, Math.PI*2, false);
+			context.arc(posArray[i].x, posArray[i].y, circle_tile_inner_circle_radius, 0, Math.PI*2, false);
 			context.fillStyle = fillStyle;
 			context.fill();
 			context.stroke();			
 		}
 	}
-	function drawCircle1(id, strokeStyle) {
+	function drawCircle(id,posArray){
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-
-		var posArray = [{x: canvas.width /2,y : canvas.height/2}];
-		drawInnerCircle(context,posArray,strokeStyle);
-//		context.beginPath();
-//		context.arc(canvas.width / 2, canvas.height / 2, cricle_tile_inner_circle_radius, 0, Math.PI*2, false);
-//		context.fillStyle = strokeStyle;
-//		context.fill();
-//		context.stroke();
+		drawRoundRect(context, canvas, false, true, "#000000");
+		drawInnerCircle(context,posArray,"#808080");
 	}
-	function drawCircle2(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
 
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		context.beginPath();
-		context.stroke();
 
-		var posArray = [{x: canvas.width /2,y : canvas.height/4},
-		                {x: canvas.width /2,y : canvas.height * 3/4}];
-		drawInnerCircle(context,posArray,strokeStyle);
-
-		
-//		context.beginPath();
-//		context.arc(canvas.width / 2, canvas.height / 4,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
-//		context.fillStyle = strokeStyle;
-//		context.fill();
-//		context.stroke();
-//
-//		context.beginPath();
-//		context.arc(canvas.width / 2, canvas.height * 3 / 4 ,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
-//		context.fillStyle = strokeStyle;
-//		context.fill();
-//		context.stroke();
-	}
-	function drawCircle3(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [{x: canvas.width /4,y : canvas.height/4},
-		                {x: canvas.width /2,y : canvas.height/2},
-		                {x: canvas.width *3/4,y : canvas.height * 3/4}];
-		drawInnerCircle(context,posArray,strokeStyle);
-
-//		context.beginPath();
-//		context.arc(canvas.width / 4, canvas.height / 4,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
-//		context.fillStyle = strokeStyle;
-//		context.fill();
-//		context.stroke();
-//		
-//		context.beginPath();
-//		context.arc(canvas.width / 2, canvas.height / 2,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
-//		context.fillStyle = strokeStyle;
-//		context.fill();
-//		context.stroke();
-//		
-//		context.beginPath();
-//		context.arc(canvas.width * 3/ 4, canvas.height * 3/ 4,cricle_tile_inner_circle_radius,0, Math.PI*2,false);
-//		context.fillStyle = strokeStyle;
-//		context.fill();
-//		context.stroke();
-	}
-	function drawCircle4(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [{x: canvas.width /4,y : canvas.height/4},
-		                {x: canvas.width *3/4,y : canvas.height / 4},
-		                {x: canvas.width /4,y : canvas.height * 3/ 4},
-		                {x: canvas.width *3/4,y : canvas.height * 3/ 4}];
-		drawInnerCircle(context,posArray,strokeStyle);
-	}
-	function drawCircle5(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [{x: canvas.width /4,y : canvas.height/4},
-		                {x: canvas.width *3/4,y : canvas.height / 4},
-		                {x: canvas.width / 2, y : canvas.height / 2},
-		                {x: canvas.width /4,y : canvas.height *3/ 4},
-		                {x: canvas.width *3/4,y : canvas.height * 3/ 4}];
-		drawInnerCircle(context,posArray,strokeStyle);
-
-	}
-	function drawCircle6(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [{x: canvas.width /4  ,y : canvas.height * 7/32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
-		                {x: canvas.width *3/4,y : canvas.height * 7/32 },
-		                {x: canvas.width /4, y : canvas.height *19 /32},// y = (1/2 + (1/2 - 1/8)*1/4)*canvas.height
-		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
-		                {x: canvas.width /4,y : canvas.height * 25/ 32},// y = (1/2 + (1/2 - 1/8)*3/4)*canvas.height
-		                {x: canvas.width *3/4,y : canvas.height *25 / 32}];
-		drawInnerCircle(context,posArray,strokeStyle);
-
-	}
-	function drawCircle7(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [{x: canvas.width * 1/4,y : canvas.height *  7/ 32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
-		                {x: canvas.width * 1/2,y : canvas.height *  9.5/ 32},// y = (1/8 + (1/2 - 1/8)*2/4)*canvas.height
-		                {x: canvas.width * 3/4,y : canvas.height *  13 /32},// y = (1/8 + (1/2 - 1/8)*3/4)*canvas.height
-		                {x: canvas.width /4, y : canvas.height *19 / 32},
-		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
-		                {x: canvas.width /4,y : canvas.height * 25/ 32},
-		                {x: canvas.width *3/4,y : canvas.height *25/ 32}];
-		drawInnerCircle(context,posArray,strokeStyle);
-	}
-	function drawCircle8(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [{x: canvas.width /4,y: canvas.height * 7/ 32},// y = (1/8 + (1/2 - 1/8)*1/4)*canvas.height
-		                {x: canvas.width *3/4,y : canvas.height * 7 / 32},
-		                {x: canvas.width /4,y : canvas.height * 13/ 32},// y = (1/8 + (1/2 - 1/8)*3/4)*canvas.height
-		                {x: canvas.width *3/4,y : canvas.height *13 / 32},
-		                {x: canvas.width /4, y : canvas.height *19 /32 },// y = (1/2 + (1/2 - 1/8)*1/4)*canvas.height
-		                {x: canvas.width *3/4,y : canvas.height *19 / 32},
-		                {x: canvas.width /4,y : canvas.height * 25/ 32},// y = (1/2 + (1/2 - 1/8)*3/4)*canvas.height
-		                {x: canvas.width *3/4,y : canvas.height *25 / 32}];
-		drawInnerCircle(context,posArray,strokeStyle);
-	}
-	function drawCircle9(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [{x: canvas.width /4,y: canvas.height / 4},
-		                {x: canvas.width /2,y : canvas.height / 4},
-		                {x: canvas.width *3/4,y : canvas.height / 4},
-		                {x: canvas.width /4,y : canvas.height /2},
-		                {x: canvas.width /2, y : canvas.height /2},
-		                {x: canvas.width *3/4,y : canvas.height /2},
-		                {x: canvas.width /4,y : canvas.height * 3/ 4},
-		                {x: canvas.width /2,y : canvas.height *3 / 4},
-		                {x: canvas.width *3/4,y : canvas.height *3 / 4}];
-		drawInnerCircle(context,posArray,strokeStyle);
-	}
 	function drawInnerBamboo(context,posArray){
 		var len = posArray.length;
 		for(var i = 0; i < len; i++){
@@ -388,287 +504,12 @@ var tileDrawing = (function() {
 			context.stroke();			
 		}
 	}
-	function drawBamboo1(id, strokeStyle) {
+	function drawBamboo(id, posArray) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [{
-			from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf},
-			to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf}
-		}];
-
+		drawRoundRect(context, canvas, false, true, "#000000");
 		drawInnerBamboo(context,posArray);
-	}
-	function drawBamboo2(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [
-		   {
-		   from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
-		   to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
-		   },
-		   {
-			from : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf},
-			to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf * 2}
-		   }
-		];
-
-		drawInnerBamboo(context,posArray);
-		context.stroke();
-	}
-
-	function drawBamboo3(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-		// var centerX = x;
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [
-		     		   {
-		     		   from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
-		     		   to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
-		     		   },
-		     		   {
-		     			from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf},
-		     			to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
-		     		   },
-		     		   {
-			     		from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf},
-			     		to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
-			     	   }
-		     		];
-		drawInnerBamboo(context,posArray);
-
-	}
-
-	function drawBamboo4(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-		// var centerX = x;
-
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [
-			     		   {
-			     		   from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 - bar_len_harf * 2},
-			     		   to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 - bar_len_harf}
-			     		   },
-			     		   {
-			     			from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 - bar_len_harf * 2},
-			     			to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 - bar_len_harf}
-			     		   },
-			     		   {
-				     		from : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf},
-				     		to : {x: canvas.width / 2 - bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
-				     	   },
-			     		   {
-					     	from : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf},
-					   		to : {x: canvas.width / 2 + bar_len_harf,y: canvas.height / 2 + bar_len_harf * 2}
-					     	}
-			     		];
-		drawInnerBamboo(context,posArray);
-
-	}
-
-	function drawBamboo5(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-		// var centerX = x;
-
-
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [
-			     		   {
-			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
-			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
-			     		   },
-			     		   {
-			     			from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
-			     			to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
-			     		   },
-			     		   {
-				     		from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
-				     		to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
-				     	   },
-			     		   {
-					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
-					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
-					     	},
-				     	   {
-					    	from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf / 2},
-						   	to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf / 2}
-				    	   }
-			     		];
-		drawInnerBamboo(context,posArray);
-
-	}
-
-	function drawBamboo6(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [
-			     		   {
-			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
-			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
-			     		   },
-			     		   {
-			     			from : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf * 2},
-			     			to : {x: canvas.width / 2,y: canvas.height / 2 - bar_len_harf}
-			     		   },
-			     		   {
-				     		from : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf * 2},
-				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5,y: canvas.height / 2 - bar_len_harf}
-				     	   },
-			     		   {
-					     	from : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf},
-					   		to : {x: canvas.width / 2 - bar_len_harf * 1.5,y: canvas.height / 2 + bar_len_harf * 2}
-					     	},
-				     	   {
-					    	from : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf},
-						   	to : {x: canvas.width / 2,y: canvas.height / 2 + bar_len_harf * 2}
-				    	   },
-				     	   {
-					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf},
-						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2}
-					       }
-			     		];
-		drawInnerBamboo(context,posArray);
-
-	}
-
-	function drawBamboo7(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [
-			     		   {
-			     		   from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2.5},
-			     		   to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 1.5}
-			     		   },
-			     		   {
-			     			from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
-			     			to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
-			     		   },
-			     		   {
-				     		from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf / 2},
-				     		to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf / 2}
-				     	   },
-			     		   {
-					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
-					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
-					     	},
-				     	   {
-					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
-						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
-				    	   },
-				     	   {
-					    	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
-						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 2.5}
-					       },
-					       {
-					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
-						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
-						   },
-			     		];
-		drawInnerBamboo(context,posArray);
-
-	}
-
-	function drawBamboo8(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [
-			     		   {
-			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
-			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
-			     		   },
-			     		   {
-			     			from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
-			     			to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2}
-			     		   },
-			     		   {
-				     		from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2},
-				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
-				     	   },
-			     		   {
-					     	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
-					   		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2}
-					     	},
-				     	   {
-					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
-						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
-				    	   },
-				     	   {
-					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
-						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5}
-					       },
-
-					       {
-					    	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
-						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
-						   },
-						   {
-						   	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2},
-						    to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
-						   },
-			     		];
-		drawInnerBamboo(context,posArray);
-
-	}
-
-	function drawBamboo9(id, strokeStyle) {
-		var canvas = document.getElementById(id);
-		var context = canvas.getContext('2d');
-
-		drawRoundRect(context, canvas, false, true, strokeStyle);
-		var posArray = [
-			     		   {
-			     		   from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
-			     		   to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 1.5}
-			     		   },
-			     		   {
-			     			from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 2.5},
-			     			to : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf * 1.5}
-			     		   },
-			     		   {
-				     		from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 2.5},
-				     		to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf * 1.5}
-				     	   },
-			     		   {
-					     	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
-					   		to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
-					     	},
-					     	{
-					    	from : {x: canvas.width / 2, y:canvas.height / 2 - bar_len_harf / 2},
-						   	to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf / 2}
-				    	   },
-				     	   {
-					    	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 - bar_len_harf / 2},
-						   	to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf / 2}
-					       },
-					       {
-					    	from : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
-						   	to : {x: canvas.width / 2 - bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
-						   },
-						   {
-						   	from : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 1.5},
-						    to : {x: canvas.width / 2, y:canvas.height / 2 + bar_len_harf * 2.5}
-						   },
-						   {
-						   	from : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 1.5},
-						    to : {x: canvas.width / 2 + bar_len_harf * 1.5, y:canvas.height / 2 + bar_len_harf * 2.5}
-						   },
-			     		];
-		drawInnerBamboo(context,posArray);
-
 	}
 	
 	function drawCharactor(id,text,textColor){
