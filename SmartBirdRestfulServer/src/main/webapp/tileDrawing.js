@@ -117,39 +117,48 @@ var tileDrawing = (function() {
 	}
 
 	function _drawCharactor1(id) {
-		drawBamboo1(id, "#ff0000");
+//		drawBamboo1(id, "#ff0000");
+		drawCharactor(id,"一","#000000");
 	}
 
 	function _drawCharactor2(id) {
-		drawBamboo2(id, "#ff0000");
+//		drawBamboo2(id, "#ff0000");
+		drawCharactor(id,"二","#000000");
 	}
 
 	function _drawCharactor3(id) {
-		drawBamboo3(id, "#ff0000");
+		drawCharactor(id,"三","#000000");
+//		drawBamboo3(id, "#ff0000");
 	}
 
 	function _drawCharactor4(id) {
-		drawBamboo4(id, "#ff0000");
+		drawCharactor(id,"四","#000000");
+//		drawBamboo4(id, "#ff0000");
 	}
 
 	function _drawCharactor5(id) {
-		drawBamboo5(id, "#ff0000");
+		drawCharactor(id,"五","#000000");
+	//	drawBamboo5(id, "#ff0000");
 	}
 
 	function _drawCharactor6(id) {
-		drawBamboo6(id, "#ff0000");
+		drawCharactor(id,"六","#000000");
+	//	drawBamboo6(id, "#ff0000");
 	}
 
 	function _drawCharactor7(id) {
-		drawBamboo7(id, "#ff0000");
+		drawCharactor(id,"七","#000000");
+		//drawBamboo7(id, "#ff0000");
 	}
 
 	function _drawCharactor8(id) {
-		drawBamboo8(id, "#ff0000");
+		drawCharactor(id,"八","#000000");
+		//drawBamboo8(id, "#ff0000");
 	}
 
 	function _drawCharactor9(id) {
-		drawBamboo9(id, "#ff0000");
+		drawCharactor(id,"九","#000000");
+		//drawBamboo9(id, "#ff0000");
 	}
 	
 	function drawRoundRect(context, canvas,fill, stroke, strokeStyle) {
@@ -662,6 +671,18 @@ var tileDrawing = (function() {
 
 	}
 	
+	function drawCharactor(id,text,textColor){
+		var canvas = document.getElementById(id);
+		var context = canvas.getContext('2d');
+		drawRoundRect(context, canvas, false, true, "#000000");
+		
+		context.font      = "normal 18px monospace";
+		context.fillStyle = textColor;
+		context.fillText(text, canvas.width * 0.3, canvas.height * 0.4,canvas.width*0.8);
+		context.fillStyle = "#FF0000";
+		context.fillText("萬", canvas.width * 0.3, canvas.height * 0.8,canvas.width*0.8);
+		
+	}
 	function drawWindAndDragon(id, strokeStyle,text,textColor) {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
@@ -670,6 +691,7 @@ var tileDrawing = (function() {
 		context.font      = "normal 36px monospace";
 		context.fillStyle = textColor;
 		context.fillText(text, canvas.width * 0.1, canvas.height * 0.7,canvas.width*0.8);
+		
 	}
 	function _drawEast(id, strokeStyle) {
 		drawWindAndDragon(id,strokeStyle,"東","#000000");
