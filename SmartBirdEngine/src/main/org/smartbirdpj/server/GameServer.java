@@ -159,6 +159,7 @@ public class GameServer extends Thread{
 	public void callRichi(int playerId,TileEnum tile){
 		this.discardTile(playerId, tile);
 		table.setRichi(playerId);
+		gamePointHolder.addThousandPointBar();
 		writeMessage(new SBMessageRichi(playerId, tile));
 	}
 	public boolean callChow(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
@@ -269,7 +270,9 @@ public class GameServer extends Thread{
 		SBMessage message = new SBMessageStartRound(gameRoundStatus.getPrevailingWind(), 
 				table.getDoraTiles().get(0),
 				gameRoundStatus.getParentPlayerId(),
-				gameRoundStatus.getRoundNumber());
+				gameRoundStatus.getRoundNumber(),
+				gamePointHolder.getNumOfHundredPointBar(),
+				gamePointHolder.getNumOfThousandPointBar());
 		writeMessage(message);
 	}
 	

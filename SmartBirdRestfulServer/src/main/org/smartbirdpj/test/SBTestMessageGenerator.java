@@ -32,23 +32,23 @@ public class SBTestMessageGenerator {
 	}
 	@Test
 	public void generateCase1(){
-		SBMessageStartRound start = new SBMessageStartRound(TileEnum.EAST, TileEnum.EAST, 0, 0);
+		SBMessageStartRound start = new SBMessageStartRound(TileEnum.EAST, TileEnum.EAST, 0, 0,1,5);
 		writeMessage(start);
 		
 		List<TileEnum> tiles = new ArrayList<TileEnum>();
 			 
-		tiles.add(TileEnum.CHARACTOR2);
-		tiles.add(TileEnum.CHARACTOR3);
-		tiles.add(TileEnum.CHARACTOR9);
-		tiles.add(TileEnum.BAMBOO1);
-		tiles.add(TileEnum.BAMBOO1);
+		tiles.add(TileEnum.BAMBOO5);
+		tiles.add(TileEnum.CIRCLE3);
 		tiles.add(TileEnum.CIRCLE1);
-		tiles.add(TileEnum.CIRCLE1);
-		tiles.add(TileEnum.CIRCLE1);
+		tiles.add(TileEnum.CIRCLE2);
+		tiles.add(TileEnum.CIRCLE3);
+		tiles.add(TileEnum.CIRCLE4);
+		tiles.add(TileEnum.CIRCLE5);
+		tiles.add(TileEnum.CIRCLE6);
+		tiles.add(TileEnum.CIRCLE7);
+		tiles.add(TileEnum.CIRCLE8);
 		tiles.add(TileEnum.CIRCLE9);
-		tiles.add(TileEnum.CIRCLE3);
-		tiles.add(TileEnum.CIRCLE3);
-		tiles.add(TileEnum.CIRCLE3);
+		tiles.add(TileEnum.CHARACTOR9);
 		tiles.add(TileEnum.EAST);
 		tiles.add(TileEnum.WEST);
 			

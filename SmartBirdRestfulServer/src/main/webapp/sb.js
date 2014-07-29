@@ -179,9 +179,13 @@ var sb = (function() {
 		var dora = values.dora;
 		var wind = values.prevailingWind;
 		var round = values.roundNumber + 1;
+		var numOfHundredPointBar = values.numOfHundredPointBar;
+		var numOfThousandPointBar = values.numOfThousandPointBar;
 		$("#round").append(wind + round);
+		$("#pointPool").append("100pt x " + numOfHundredPointBar + " 1000pt x " + numOfThousandPointBar);
 		var canvasId = "dora0";
 		tileDrawing.drawTile(dora, canvasId);
+
 	}
 	var timerId;
 	function ofFinishRound(playerId, value) {

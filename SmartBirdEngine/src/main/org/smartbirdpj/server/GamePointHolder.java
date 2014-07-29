@@ -15,6 +15,8 @@ public class GamePointHolder {
 	
 	private List<Map<Integer,Integer>> pointDetailList = new ArrayList<Map<Integer,Integer>>();
 	
+	private int numOfThousandPoint = 0;
+	private int numOfHundredPoint = 0;
 	public GamePointHolder(){
 		for(int playerId = 0; playerId < GameConstants.PLAYER_NUM; playerId++){
 			scoreMap.put(playerId, GameConstants.INIT_POINT);
@@ -62,6 +64,18 @@ public class GamePointHolder {
 		}
 		GameServerLogger.writeln("sum:" + sum);
 		GameServerLogger.writeln("=======Score Status at this round=======");
+	}
+	public void addThousandPointBar(){
+		this.numOfThousandPoint++;
+	}
+	public void addHundredPointBar(){
+		this.numOfHundredPoint++;
+	}
+	public int getNumOfThousandPointBar(){
+		return this.numOfThousandPoint;
+	}
+	public int getNumOfHundredPointBar(){
+		return this.numOfHundredPoint;
 	}
 	@Test
 	public void test(){
