@@ -8,14 +8,12 @@ import java.util.Map;
 
 import org.smartbirdpj.server.player.AbstractGamePlayer;
 import org.smartbirdpj.server.CommandEnum;
-import org.smartbirdpj.server.GameServerLogger;
 import org.smartbirdpj.server.InputCommand;
 import org.smartbirdpj.mdl.MeldElement;
 import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class ShizimilyPlayer extends AbstractGamePlayer
 {
-
 
 	private int searchNextHand2(List<TileEnum> tiles, List<TileEnum> liveTiles, int depth) {
 		int score = 0;
@@ -91,10 +89,10 @@ public class ShizimilyPlayer extends AbstractGamePlayer
 		List<TileEnum> myTiles = new ArrayList<TileEnum>(tiles);
 		Collections.sort(myTiles);
 
-		GameServerLogger.write("Player" + _playerId + ">");
-		GameServerLogger.write(myTiles);
-		GameServerLogger.write(" :" + tileAtThisTurn);
-		GameServerLogger.writeln(":" + huroMelds);
+		LOGGER.info("Player" + _playerId + ">");
+		LOGGER.info(myTiles.toString());
+		LOGGER.info(" :" + tileAtThisTurn);
+		LOGGER.info(":" + huroMelds);
 		List<TileEnum> liveTiles = PlayerUtil.getLiveTile(tiles, tileAtThisTurn, huroMelds, discardedTiles, otherPlayerDiscardedTiles, otherPlayerHuroTiles);
 		InputCommand input = computeNextHand(tiles, liveTiles);
 		switch(input.getCommand()){
@@ -114,8 +112,8 @@ public class ShizimilyPlayer extends AbstractGamePlayer
 				break;
 		}
 
-		GameServerLogger.write("Player" + _playerId + ">");
-		GameServerLogger.writeln("Discard:" + discardingTile);
+		LOGGER.info("Player" + _playerId + ">");
+		LOGGER.info("Discard:" + discardingTile);
 	}
 
 

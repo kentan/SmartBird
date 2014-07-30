@@ -14,14 +14,13 @@ import java.util.Map;
 
 import org.smartbirdpj.server.player.AbstractGamePlayer;
 import org.smartbirdpj.server.CommandEnum;
-import org.smartbirdpj.server.GameServerLogger;
 import org.smartbirdpj.server.InputCommand;
 import org.smartbirdpj.mdl.MeldElement;
 import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class Stealer extends AbstractGamePlayer
 {
-	PrintStream ps = System.out;
+
 	private void sortTiles(List<TileEnum> tiles){
 		
 		Collections.sort(tiles,new Comparator<TileEnum>(){
@@ -199,10 +198,10 @@ public class Stealer extends AbstractGamePlayer
 	
 
 
-		GameServerLogger.write("Player" + _playerId + ">");
-		GameServerLogger.write(myTiles);
-		GameServerLogger.write(" :" + tileAtThisTurn);
-		GameServerLogger.writeln(":" + huroMelds);
+		LOGGER.info("Player" + _playerId + ">");
+		LOGGER.info(myTiles.toString());
+		LOGGER.info(" :" + tileAtThisTurn);
+		LOGGER.info(":" + huroMelds);
 		InputCommand input = computeNextHand(tiles,tileAtThisTurn);
 		switch(input.getCommand()){
 			case TUMO:
@@ -221,8 +220,8 @@ public class Stealer extends AbstractGamePlayer
 				break;
 		}
 
-		GameServerLogger.write("Player" + _playerId + ">");
-		GameServerLogger.writeln("Discard:" + discardingTile);
+		LOGGER.info("Player" + _playerId + ">");
+		LOGGER.info("Discard:" + discardingTile);
 	}
 
 	private boolean meldsValid = false;
@@ -341,12 +340,12 @@ public class Stealer extends AbstractGamePlayer
 //		}
 //		
 		for(MeldCandidateElement elem : candidate.getList()){
-			GameServerLogger.writeln(elem.getPosition());
-			GameServerLogger.writeln(elem.getMeldCandidateType());
+			LOGGER.info(String.valueOf(elem.getPosition()));
+			LOGGER.info(elem.getMeldCandidateType().toString());
 			for(TileEnum t : elem.getList()){
-				GameServerLogger.write(t + ":");
+				LOGGER.info(t + ":");
 			}
-			GameServerLogger.writeln("");
+			LOGGER.info("");
 
 
 			List<TileEnum> myTiles = new ArrayList<TileEnum>();
@@ -356,7 +355,7 @@ public class Stealer extends AbstractGamePlayer
 			
 			InputCommand command = computeNextHand(myTiles, currentDiscardedTile);
 			TileEnum discardingTile = command.getDiscardedTile();
-			GameServerLogger.writeln("discarding:" + discardingTile);
+			LOGGER.info("discarding:" + discardingTile);
 			// とりあえず一個目のcandidateしか見ない
 			switch(elem.getMeldCandidateType()){
 				case CHOW_CANDIDATE_BOTH_SIDE:
@@ -377,7 +376,7 @@ public class Stealer extends AbstractGamePlayer
 					break;
 			}
 		}
-		GameServerLogger.writeln("--------");
+		LOGGER.info("--------");
 		
 
 	}

@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 
 
@@ -50,6 +51,7 @@ public class GameServer extends Thread{
 	GameRoundStatus gameRoundStatus = new GameRoundStatus();
 	GamePointHolder gamePointHolder = new GamePointHolder();
 	GameValidator gameValidator = new GameValidator();
+	Logger LOGGER = LoggerFactory.getLogger();
 
 	private static GameStatisticAnalyzer _gameStaticAnalyzer = new GameStatisticAnalyzer();
 	private int _gameNumber = 0;
@@ -101,7 +103,7 @@ public class GameServer extends Thread{
 				_gameStaticAnalyzer.recodeRoundResult(_gameNumber, _roundNumber, point);
 				for(int from : fromList){
 					gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p, from, to);
-					GameServerLogger.writeln(p + " to " + to + " from " + from);
+					LOGGER.info(p + " to " + to + " from " + from);
 				}
 			
 
@@ -147,8 +149,7 @@ public class GameServer extends Thread{
 					}
 				}
 				
-				GameServerLogger.write(p1 + "," + p2);
-
+				LOGGER.info(p1 + "," + p2);
 
 			}
 			writeMessage(new SBMessageTumo(playerId, tumo,point));
@@ -278,8 +279,7 @@ public class GameServer extends Thread{
 	
 
 	private void printResult(int playerId){
-		GameServerLogger.write(playerId + " won");
-		
+		LOGGER.info(playerId + " won");
 	}
 
 	private boolean isTumo(){
@@ -337,26 +337,23 @@ public class GameServer extends Thread{
 		}
 		
 		if(reminder == 0){
-			GameServerLogger.writeln("no winner");
+			LOGGER.info("no winner");
 		}
 		writeMessage(new SBMessageFinishRound());
-		//SBMessageDaoFactory.getInstance().createDao("").writeMessage(new SBMessageFinishRound());
 	}
 	
 	
 	public void runGame(){
 
 		while(gameRoundStatus.isGameRoundFinish(HARF_GAME)){
-
-			GameServerLogger.writeln("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has started");
+			LOGGER.info("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has started");
 			initTable();
 			
 			initPlayers();
 			
 			runRound();
 			
-
-			GameServerLogger.writeln("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has finished");
+			LOGGER.info("ROUND :" + gameRoundStatus.getPrevailingWind() + " " + gameRoundStatus.getRoundNumber() + " has finished");
 			gamePointHolder.showScore();
 			
 			gameRoundStatus.nextRound();
@@ -364,8 +361,7 @@ public class GameServer extends Thread{
 			
 //			return;// For Debug
 		}
-		GameServerLogger.writeln("Game End");
-		System.out.println("Gema End");
+		LOGGER.info("Game End");
 
 		_gameStaticAnalyzer.recodeGameResult(_gameNumber, gamePointHolder.getScore());
 
@@ -422,7 +418,6 @@ public class GameServer extends Thread{
 
 		showResult();		
 
-		GameServerLogger.close();
 	}
 	public static void main(String args[]){
 		GameServer gs = new GameServer();

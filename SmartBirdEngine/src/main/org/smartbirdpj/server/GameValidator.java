@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.mdl.MeldElement;
 import org.smartbirdpj.mdl.cnst.GameConstants;
 import org.smartbirdpj.mdl.enm.TileEnum;
 
 public class GameValidator {
 	PrintStream ps = System.out;
+	Logger LOGGER = LoggerFactory.getLogger();
 	public boolean validate(GameTable table,int count){
 		boolean valid = true;
 		valid &= validateWallTiles(table, count);
@@ -29,11 +32,10 @@ public class GameValidator {
 			
 			
 			if(wallTiles.size() + (huroList.size() * 3) != GameConstants.MAX_WALL_TILE_NUM - 1){
-
-				GameServerLogger.writeln("the number of discarded tiles is invalid:");
-				GameServerLogger.writeln("round:" + count);
-				GameServerLogger.writeln("playerid:" + i);
-				GameServerLogger.writeln("huro tiles:" + huroList.size() * 3);
+				LOGGER.info("the number of discarded tiles is invalid:");
+				LOGGER.info("round:" + count);
+				LOGGER.info("playerid:" + i);
+				LOGGER.info("huro tiles:" + huroList.size() * 3);
 				return false;
 			}
 		}
@@ -64,9 +66,9 @@ public class GameValidator {
 				m.put(tile, 1);
 			}else{
 				if(i >= 5){
-					GameServerLogger.writeln("the number of tile is invalid. 5 tiles for :" + tile);
-					GameServerLogger.writeln("round:" + count);
-					GameServerLogger.writeln("playerid:" + i);
+					LOGGER.info("the number of tile is invalid. 5 tiles for :" + tile);
+					LOGGER.info("round:" + count);
+					LOGGER.info("playerid:" + i);
 					return false;
 				}
 				m.put(tile, i + 1);

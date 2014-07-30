@@ -5,15 +5,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.junit.Test;
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.mdl.cnst.GameConstants;
 
 public class GamePointHolder {
 	PrintStream ps = System.out;
 	private Map<Integer,Integer> scoreMap = new HashMap<Integer, Integer>();
-	
 	private List<Map<Integer,Integer>> pointDetailList = new ArrayList<Map<Integer,Integer>>();
+	private static Logger LOGGER = LoggerFactory.getLogger();
 	
 	private int numOfThousandPoint = 0;
 	private int numOfHundredPoint = 0;
@@ -57,13 +59,15 @@ public class GamePointHolder {
 	}
 	public void showScore(){
 		int sum = 0;
-		GameServerLogger.writeln("=======Score Status at this round=======");
+		StringBuffer message = new StringBuffer();
+		message.append("\n=======Score Status at this round=======\n" );
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
-			GameServerLogger.writeln(scoreMap.get(i));
+			message.append(scoreMap.get(i).toString() + "\n");
 			sum += scoreMap.get(i);
 		}
-		GameServerLogger.writeln("sum:" + sum);
-		GameServerLogger.writeln("=======Score Status at this round=======");
+		message.append("sum:" + sum + "\n");
+		message.append("=======Score Status at this round=======");
+		LOGGER.info(message.toString());
 	}
 	public void addThousandPointBar(){
 		this.numOfThousandPoint++;
@@ -88,13 +92,13 @@ public class GamePointHolder {
 		}
 		payPoint(16, 48000, 3, 0);
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
-			GameServerLogger.writeln(scoreMap.get(i));
+			LOGGER.info(scoreMap.get(i).toString());
 		}
 		for(int i = 0 ; i < pointDetailList.size(); i++){
-			GameServerLogger.writeln("round :" + i);
+			LOGGER.info("round :" + i);
 			Map<Integer,Integer> map = pointDetailList.get(i);
 			for(int key : map.keySet()){
-				GameServerLogger.writeln(key + ":" + map.get(key));
+				LOGGER.info(key + ":" + map.get(key));
 			}
 		}
 	}

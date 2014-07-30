@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 
 import org.smartbirdpj.client.shizimily7.PlayerUtil;
 import org.smartbirdpj.server.player.AbstractGamePlayer;
 import org.smartbirdpj.server.CommandEnum;
-import org.smartbirdpj.server.GameServerLogger;
 import org.smartbirdpj.server.InputCommand;
 import org.smartbirdpj.engine.controller.TileSet;
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.mdl.MeldElement;
 import org.smartbirdpj.mdl.Point;
 import org.smartbirdpj.mdl.enm.TileEnum;
@@ -19,6 +20,7 @@ import org.smartbirdpj.mdl.enm.TileEnum;
 public class Player extends AbstractGamePlayer
 {
 	private List<Expectation> expList = null;
+	private Logger LOGGER = LoggerFactory.getLogger();
 	private void computePhase2(List<TileEnum> tiles, List<TileEnum> liveTiles, TileEnum computingTile,TileEnum candidateToDiscard,int depth){
 
 		int[] shanten = PlayerUtil.calcShanten(tiles);
@@ -170,10 +172,8 @@ public class Player extends AbstractGamePlayer
 		List<TileEnum> myTiles = new ArrayList<TileEnum>(tiles);
 		Collections.sort(myTiles);
 
-		GameServerLogger.write("Player" + _playerId + ">");
-		GameServerLogger.write(myTiles);
-		GameServerLogger.write(" :" + tileAtThisTurn);
-		GameServerLogger.writeln(":" + huroMelds);
+		String message = "Player" + _playerId + ">" + myTiles + " :" + tileAtThisTurn + " :" + huroMelds.toString();
+		LOGGER.info(message);
 		List<TileEnum> liveTiles = PlayerUtil.getLiveTile(tiles, tileAtThisTurn, huroMelds, discardedTiles, otherPlayerDiscardedTiles, otherPlayerHuroTiles);
 		InputCommand input = compute(tiles, tileAtThisTurn,liveTiles);
 		switch(input.getCommand()){
@@ -193,8 +193,8 @@ public class Player extends AbstractGamePlayer
 				break;
 		}
 
-		GameServerLogger.write("Player" + _playerId + ">");
-		GameServerLogger.writeln("Discard:" + discardingTile);
+		message = "Player" + _playerId + ">" + "Discard:" + discardingTile;
+		LOGGER.info(message);
 	}
 
 

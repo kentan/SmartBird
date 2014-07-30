@@ -3,7 +3,9 @@ package org.smartbirdpj.server.player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.mdl.MeldElement;
 import org.smartbirdpj.mdl.enm.TileEnum;
 import org.smartbirdpj.server.GameServer;
@@ -21,6 +23,7 @@ public abstract class AbstractGamePlayer {
 	protected TileEnum _playerWind;
 	protected TileEnum _prevailingWind;
 	private GameServer _gameServer = null;
+	protected Logger LOGGER = LoggerFactory.getLogger();
 	
 	public void initialize(int playerId,List<TileEnum> tiles,TileEnum doraTile,TileEnum prevailingWind,TileEnum playerWind,GameServer gameServer){
 		_playerId = playerId;

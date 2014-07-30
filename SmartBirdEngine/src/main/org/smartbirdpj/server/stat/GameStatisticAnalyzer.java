@@ -3,9 +3,10 @@ package org.smartbirdpj.server.stat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.mdl.PaidPoint;
-import org.smartbirdpj.server.GameServerLogger;
 
 public class GameStatisticAnalyzer {
 	
@@ -14,6 +15,7 @@ public class GameStatisticAnalyzer {
 	Map<Integer,Integer> totalPoint = new HashMap<Integer,Integer>();
 	Map<Integer,Integer> roundWinnerCount = new HashMap<Integer,Integer>();
 	Map<Integer,Integer> gameWinnerCount = new HashMap<Integer,Integer>();
+	Logger LOGGER = LoggerFactory.getLogger();
 	private void incrHashMap(Map<Integer,Integer> map,Integer key){
 		Integer v = map.get(key);
 		if(v == null){
@@ -71,24 +73,24 @@ public class GameStatisticAnalyzer {
 	}
 	
 	public void showRecodeResult(){
-		
+		StringBuffer message = new StringBuffer();
 		for(Map.Entry<Integer, GameResult> entry: gameResults.entrySet()){
-			GameServerLogger.writeln("==== GAME: " + entry.getKey() + "====");
-			GameServerLogger.writeln("winner:" + entry.getValue().winnerPlayerId);
+			message.append("==== GAME: " + entry.getKey() + "====");
+			message.append("winner:" + entry.getValue().winnerPlayerId);
 			Map<Integer,Integer> finalPoint = entry.getValue().point;
 			
 			for(Map.Entry<Integer, Integer> entry2: finalPoint.entrySet()){
-				GameServerLogger.writeln(entry2.getKey() + ":" + entry2.getValue());
+				message.append(entry2.getKey() + ":" + entry2.getValue());
 			}
 			
 			List<RoundResult> roundResults= entry.getValue().getRoundResult();
 			for(RoundResult r :roundResults){
 				PaidPoint point = r.paidPoint;
 
-				GameServerLogger.writeln("--- ROUND :" + r.roundNumber + "---");
-				GameServerLogger.writeln("plyaer "+point.getPaidPlayerId() + " won");
-				GameServerLogger.writeln(point.getPoint1() + " from " + point.getPayingPlayerIdOnPoint1());
-				GameServerLogger.writeln(point.getPoint2() + " from " + point.getPayingPlayerIdOnPoint2());
+				message.append("--- ROUND :" + r.roundNumber + "---");
+				message.append("plyaer "+point.getPaidPlayerId() + " won");
+				message.append(point.getPoint1() + " from " + point.getPayingPlayerIdOnPoint1());
+				message.append(point.getPoint2() + " from " + point.getPayingPlayerIdOnPoint2());
 
 			}
 			
@@ -96,12 +98,14 @@ public class GameStatisticAnalyzer {
 		
 		// total point,sum total point of whole games.
 		for(Map.Entry<Integer, Integer> entry: totalPoint.entrySet()){
-			GameServerLogger.writeln(entry.getKey() + ":" + entry.getValue());
+			message.append(entry.getKey() + ":" + entry.getValue());
 		}
 		
 		// game winner count
-		GameServerLogger.writeln(gameWinnerCount);
+		message.append(gameWinnerCount.toString());
 		// round winner count 
-		GameServerLogger.writeln(roundWinnerCount);
+		message.append(roundWinnerCount.toString());
+		
+		LOGGER.info(message.toString());
 	}
 }
