@@ -16,7 +16,7 @@ public class SBMessageStartRound extends SBMessage {
 		super(-1, OPERATION);
 		
 		this.jsonValueMap.put(JSON_KEY_PREVAILING_WIND, prevailingWind.toString());
-//		this.jsonValueMap.put(JSON_KEY_DORA, dora.toString());//TODO
+		this.jsonValueMap.put(JSON_KEY_DORA, dora.toString());
 		this.jsonValueMap.put(JSON_KEY_PARENT_PLAYERID, parentPlayerId);
 		this.jsonValueMap.put(JSON_KEY_ROUND_NUMBER, roundNumber);
 		this.jsonValueMap.put(JSON_KEY_NUMBER_OF_HUNDREAD_POINT_BAR, numOfHundredPointBar);

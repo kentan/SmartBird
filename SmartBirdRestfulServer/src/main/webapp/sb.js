@@ -175,18 +175,36 @@ var sb = (function() {
 		drawAllTiles(playerId, values.initTiles);
 		$("#info" + playerId).append("<h2>" + values.wind + "</h2>");
 	}
-	function drawPrevailingWind(wind){
-		var canvasWidth = "45px";
-		var canvasHeight = "55px";
-		var canvasId = "prevailingWind";
-		var canvas = $("<canvas/>");
-		canvas.attr("id",canvasId);
-		canvas.attr("width",canvasWidth);
-		canvas.attr("height",canvasHeight);
-		
-		$("#round").append(canvas);
-
-		tileDrawing.drawTile(wind, canvasId);
+//	function drawPrevailingWind(wind,round){
+//		var canvasWidth = "45px";
+//		var canvasHeight = "55px";
+//		var canvasId = "prevailingWind";
+//		var canvas = $("<canvas/>");
+//		canvas.attr("id",canvasId);
+//		canvas.attr("width",canvasWidth);
+//		canvas.attr("height",canvasHeight);
+//		
+//		$("#round").append(canvas);
+//
+//		tileDrawing.drawTile(wind, canvasId);
+//	}
+	function drawPrevailingWind(wind,round){
+		var windDisplay = "";
+		switch(wind){
+		case "EA" : 
+			windDisplay = "東";
+			break;
+		case "SO" : 
+			windDisplay = "南";
+			break;
+		case "WE" : 
+			windDisplay = "西";
+			break;
+		case "NO" : 
+			windDisplay = "北";
+			break;
+		}		
+		$("#round").append(windDisplay + round + "局");
 	}
 	function ofStartRound(playerId, values) {
 		var dora = values.dora;
@@ -194,8 +212,9 @@ var sb = (function() {
 		var round = values.roundNumber + 1;
 		var numOfHundredPointBar = values.numOfHundredPointBar;
 		var numOfThousandPointBar = values.numOfThousandPointBar;
+		drawPrevailingWind(wind, round);
 //		$("#round").append(wind + round);
-		drawPrevailingWind(wind);
+//		drawPrevailingWind(wind,round);
 		$("#pointPool").append("100pt x " + numOfHundredPointBar + " 1000pt x " + numOfThousandPointBar);
 		var canvasId = "dora0";
 		tileDrawing.drawTile(dora, canvasId);
