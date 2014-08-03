@@ -59,8 +59,9 @@ public class TileManager {
 	
 	public TileEnum takeDora(){
 		TileEnum displayedDoraTile = takeTileFromTable();
-		TileEnum doraTile = displayedDoraTile.toDoraTile();
-		return doraTile;
+		return displayedDoraTile;
+//		TileEnum doraTile = displayedDoraTile.toDoraTile();
+//		return doraTile;
 		
 	}
 }

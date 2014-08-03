@@ -17,6 +17,12 @@ var sb = (function() {
 			2 : [false,false,false,false],
 			3 : [false,false,false,false]
 	};
+	var toWindForDisplay = {
+			"EA" : "東",
+			"SO" : "南",
+			"WE" : "西",
+			"NO" : "北",
+	};
 	var stolenPosMap = {};
 	stolenPosMap[0] = {1:0,2:1,3:2};
 	stolenPosMap[1] = {1:0,2:1, "-1":2};
@@ -172,8 +178,14 @@ var sb = (function() {
 	}
 
 	function ofInitTiles(playerId, values) {
+		clearAllTiles(playerId);
+		clearAllDiscardedTiles(playerId);
+		clearAllHuroTiles(playerId);
 		drawAllTiles(playerId, values.initTiles);
-		$("#info" + playerId).append("<h2>" + values.wind + "</h2>");
+		var div = $("<div/>");
+		div.attr("class", "infoSmall");
+		div.append("<h2>" + toWindForDisplay[values.wind] + "家 " + values.point + "点</h2>");
+		$("#info" + playerId).append(div);
 	}
 //	function drawPrevailingWind(wind,round){
 //		var canvasWidth = "45px";
@@ -189,22 +201,8 @@ var sb = (function() {
 //		tileDrawing.drawTile(wind, canvasId);
 //	}
 	function drawPrevailingWind(wind,round){
-		var windDisplay = "";
-		switch(wind){
-		case "EA" : 
-			windDisplay = "東";
-			break;
-		case "SO" : 
-			windDisplay = "南";
-			break;
-		case "WE" : 
-			windDisplay = "西";
-			break;
-		case "NO" : 
-			windDisplay = "北";
-			break;
-		}		
-		$("#round").append(windDisplay + round + "局");
+
+		$("#round").append(toWindForDisplay[wind] + round + "局");
 	}
 	function ofStartRound(playerId, values) {
 		var dora = values.dora;
@@ -222,10 +220,20 @@ var sb = (function() {
 	}
 	var timerId;
 	function ofFinishRound(playerId, value) {
-		clearInterval(timerId);
+//		clearInterval(timerId);
 		alert("finished");
 	}
 
+	function clearAllHuroTiles(playerId){
+
+		for( var huroIndex = 0; huroIndex < 4; huroIndex++){
+			for ( var index = 0; index < 14; index++) {
+				var canvasId = "p" + playerId + "s" + huroIndex + "" + index;
+				$("#"+canvasId).remove();
+			}
+		}
+		
+	}
 	function clearAllTiles(playerId) {
 		for ( var i = 0; i < 14; i++) {
 			var canvasId = "p" + playerId + "w" + i;
@@ -233,12 +241,12 @@ var sb = (function() {
 		}
 		pos = 0;
 	}
-	function clearAllDiscardedTiles() {
+	function clearAllDiscardedTiles(playerId) {
 		for ( var i = 0; i < 21; i++) {
-			var canvasId = "p" + playerId + "dt" + i;
+			var canvasId = "p" + playerId + "d" + i;
 			$("#"+canvasId).remove();
 		}
-
+		discardedTilePosMap[playerId] = 0;
 	}
 	
 
@@ -350,10 +358,14 @@ var sb = (function() {
 
 	return {
 
-		getMessageAutomatically : function getMessageAutomatically() {
-			var waitingTime = $("#auto_waiting_time").val();
-			timerId = setInterval(sb.getNextMessage, waitingTime);
-		},
+//		getMessageAutomatically : function getMessageAutomatically() {
+//			var waitingTime = $("#auto_waiting_time").val();
+//			if(waitingTime == -1){
+//				sb.getNextMessage();
+//			}else{
+//				timerId = setInterval(sb.getNextMessage, waitingTime);
+//			}
+//		},
 
 		getNextMessage : function getNextMessage() {
 			var host = "/SmartBirdRestfulServer/webapi/endpoint/next/" + clientId;
@@ -384,6 +396,7 @@ var sb = (function() {
 				url : host,
 				success : function(d) {
 					alert("started");
+					sb.resumeGame(500);
 				},
 				error : function(d) {
 					alert("error");
@@ -392,6 +405,17 @@ var sb = (function() {
 			});
 
 		},
+		pauseGame : function pauseGame(){
+			clearInterval(timerId);
+		},
+		resumeGame : function resumeGame(interval) {
+			if(interval == -1){
+				sb.getNextMessage();
+			}else{
+				timerId = setInterval(sb.getNextMessage, interval);
+			}
+		},
+
 	};
 
 })();

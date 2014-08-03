@@ -35,6 +35,7 @@ import org.smartbirdpj.message.SBMessageTumo;
 import org.smartbirdpj.message.SBMessageWallKong;
 import org.smartbirdpj.server.player.AbstractGamePlayer;
 import org.smartbirdpj.server.stat.GameStatisticAnalyzer;
+import org.smartbirdpj.util.SBUtil;
 
 
 public class GameServer extends Thread{
@@ -249,27 +250,29 @@ public class GameServer extends Thread{
 				players.add((AbstractGamePlayer)inst);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				SBUtil.logThrowable(LOGGER, e);
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				SBUtil.logThrowable(LOGGER, e);
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				SBUtil.logThrowable(LOGGER, e);
 			}
 		}
 	}
 	private void initPlayers(){
 		for(int i = 0 ; i < GameConstants.PLAYER_NUM; i++){
+			List<TileEnum> wallTiles = table.getWallTiles(i);
+			TileEnum tileEnum = table.getPlayerWind(i);
 			players.get(i).initialize(i,table.getWallTiles(i),table.getDoraTiles().get(0),table.getPrevailingWind(),table.getPlayerWind(i),this);
-			writeMessage(new SBMessageInitTile(i,table.getWallTiles(i),table.getPlayerWind(i)));
+			writeMessage(new SBMessageInitTile(i,table.getWallTiles(i),table.getPlayerWind(i),gamePointHolder.getPlayerPoint(i)));
 		}
 	}
 	private void initTable(){
 		table = new GameTable(gameRoundStatus.getPrevailingWind(),gameRoundStatus.getParentPlayerId());
 		
 		SBMessage message = new SBMessageStartRound(gameRoundStatus.getPrevailingWind(), 
-				table.getDoraTiles().get(0),
+				table.getDisplayDoraTiles().get(0),
 				gameRoundStatus.getParentPlayerId(),
 				gameRoundStatus.getRoundNumber(),
 				gamePointHolder.getNumOfHundredPointBar(),
@@ -411,12 +414,15 @@ public class GameServer extends Thread{
 	}
 	@Override
 	public void run(){
-
-		registerPlayers();
-
-		runGame();
-
-		showResult();		
+		try{
+			registerPlayers();
+	
+			runGame();
+	
+			showResult();		
+		}catch(Throwable t){
+			SBUtil.logThrowable(LOGGER, t);
+		}
 
 	}
 	public static void main(String args[]){

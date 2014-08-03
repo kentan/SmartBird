@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+
+import org.smartbirdpj.log.LoggerFactory;
 
 @SuppressWarnings("serial")
 public enum TileEnum {
@@ -47,6 +50,7 @@ public enum TileEnum {
 	RED("D3");
 
 	private String _printString;
+	private static Logger LOGGER = LoggerFactory.getLogger();
 	private TileEnum(String printString){
 		_printString = printString;
 	}
@@ -145,17 +149,18 @@ public enum TileEnum {
 		if(doraTile != null){
 			return doraTile;
 		}
-		//TODO this should change to "this == TileEnum.CHARACTOR9"
-		if(doraTile == TileEnum.CHARACTOR9){
+
+		if(this == TileEnum.CHARACTOR9){
 			return TileEnum.CHARACTOR1;
-		}else if(doraTile == TileEnum.BAMBOO9){
+		}else if(this == TileEnum.BAMBOO9){
 			return TileEnum.BAMBOO1;
-		}else if(doraTile == TileEnum.CIRCLE9){
+		}else if(this == TileEnum.CIRCLE9){
 			return TileEnum.CIRCLE1;
-		}else if(doraTile == TileEnum.RED){
+		}else if(this == TileEnum.RED){
 			return TileEnum.WEST;
 		}else{
 			// must not reach at this line
+			LOGGER.severe("TileEnum#toDoraTile: reached unexepted point: doraTile = " + doraTile);
 			return null;
 		}
 			

@@ -23,6 +23,7 @@ public class GameTable {
 	private TileEnum _prevailingWind;
 	
 	private List<TileEnum> _doraList;
+	private List<TileEnum> _displayDoraList;
 	
 	private Map<Integer,TileSet> _playerTileSets = new HashMap<Integer, TileSet>();
 	private Map<Integer,List<TileEnum>> _discardeTiles = new HashMap<Integer, List<TileEnum>>();
@@ -35,6 +36,7 @@ public class GameTable {
 	public void init(TileEnum prevailingWind,int parentPlayerId){
 		_tileManager = new TileManager();
 		_doraList = new ArrayList<TileEnum>();
+		_displayDoraList = new ArrayList<TileEnum>();
 		TileEnum[] winds = {TileEnum.EAST,TileEnum.SOUTH,TileEnum.WEST,TileEnum.NORTH};
 		int playerId = parentPlayerId;
 		int count = 0;
@@ -52,7 +54,9 @@ public class GameTable {
 			playerId = (playerId + 1)%GameConstants.PLAYER_NUM;
 			count++;
 		}
-		_doraList.add(_tileManager.takeDora());		
+		TileEnum displayDora = _tileManager.takeDora();
+		_displayDoraList.add(displayDora);
+		_doraList.add(displayDora.toDoraTile());
 		_parentPlayerId = parentPlayerId;
 		
 	}
@@ -126,7 +130,10 @@ public class GameTable {
 		//TODO deep copy
 		return _doraList;
 	}
-	
+	public List<TileEnum> getDisplayDoraTiles(){
+		//TODO deep copy
+		return _displayDoraList;
+	}	
 
 	public List<TileEnum> getWallTiles(int playerId){
 

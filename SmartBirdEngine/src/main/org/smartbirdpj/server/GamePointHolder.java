@@ -81,6 +81,9 @@ public class GamePointHolder {
 	public int getNumOfHundredPointBar(){
 		return this.numOfHundredPoint;
 	}
+	public int getPlayerPoint(int playerId){
+		return this.scoreMap.get(playerId);
+	}
 	@Test
 	public void test(){
 

@@ -81,3 +81,13 @@ div.p1
 	-webkit-transform: rotate(270deg);
 	-moz-transform: rotate(270deg);
 }
+
+div.infoSmall
+{
+	background-color:#F0FFF0;
+	position:absolute; 
+	left:100px;
+ 	border-width: thin;
+	border-color: #228B22;
+	border-style: solid;
+}

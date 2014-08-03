@@ -52,13 +52,13 @@ public class SBTestMessageGenerator {
 		tiles.add(TileEnum.EAST);
 		tiles.add(TileEnum.WEST);
 			
-		SBMessageInitTile initP0 = new SBMessageInitTile(0, tiles,TileEnum.EAST);
+		SBMessageInitTile initP0 = new SBMessageInitTile(0, tiles,TileEnum.EAST,25000);
 		writeMessage(initP0);
-		SBMessageInitTile initP1 = new SBMessageInitTile(1, tiles,TileEnum.NORTH);
+		SBMessageInitTile initP1 = new SBMessageInitTile(1, tiles,TileEnum.NORTH,25000);
 		writeMessage(initP1);
-		SBMessageInitTile initP2 = new SBMessageInitTile(2, tiles,TileEnum.WEST);
+		SBMessageInitTile initP2 = new SBMessageInitTile(2, tiles,TileEnum.WEST,25000);
 		writeMessage(initP2);
-		SBMessageInitTile initP3 = new SBMessageInitTile(3, tiles,TileEnum.SOUTH);
+		SBMessageInitTile initP3 = new SBMessageInitTile(3, tiles,TileEnum.SOUTH,25000);
 		writeMessage(initP3);
 		
 		for(int playerId = 0; playerId < 4; playerId++){
