@@ -187,19 +187,6 @@ var sb = (function() {
 		div.append("<h2>" + toWindForDisplay[values.wind] + "家 " + values.point + "点</h2>");
 		$("#info" + playerId).append(div);
 	}
-//	function drawPrevailingWind(wind,round){
-//		var canvasWidth = "45px";
-//		var canvasHeight = "55px";
-//		var canvasId = "prevailingWind";
-//		var canvas = $("<canvas/>");
-//		canvas.attr("id",canvasId);
-//		canvas.attr("width",canvasWidth);
-//		canvas.attr("height",canvasHeight);
-//		
-//		$("#round").append(canvas);
-//
-//		tileDrawing.drawTile(wind, canvasId);
-//	}
 	function drawPrevailingWind(wind,round){
 
 		$("#round").append(toWindForDisplay[wind] + round + "局");
@@ -211,8 +198,6 @@ var sb = (function() {
 		var numOfHundredPointBar = values.numOfHundredPointBar;
 		var numOfThousandPointBar = values.numOfThousandPointBar;
 		drawPrevailingWind(wind, round);
-//		$("#round").append(wind + round);
-//		drawPrevailingWind(wind,round);
 		$("#pointPool").append("100pt x " + numOfHundredPointBar + " 1000pt x " + numOfThousandPointBar);
 		var canvasId = "dora0";
 		tileDrawing.drawTile(dora, canvasId);
@@ -220,7 +205,7 @@ var sb = (function() {
 	}
 	var timerId;
 	function ofFinishRound(playerId, value) {
-//		clearInterval(timerId);
+
 		alert("finished");
 	}
 
@@ -357,15 +342,6 @@ var sb = (function() {
 	var clientId = "";
 
 	return {
-
-//		getMessageAutomatically : function getMessageAutomatically() {
-//			var waitingTime = $("#auto_waiting_time").val();
-//			if(waitingTime == -1){
-//				sb.getNextMessage();
-//			}else{
-//				timerId = setInterval(sb.getNextMessage, waitingTime);
-//			}
-//		},
 
 		getNextMessage : function getNextMessage() {
 			var host = "/SmartBirdRestfulServer/webapi/endpoint/next/" + clientId;
