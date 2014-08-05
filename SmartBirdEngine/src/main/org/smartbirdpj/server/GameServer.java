@@ -45,6 +45,7 @@ public class GameServer extends Thread{
 //	private final boolean DEBUG  = false;
 	private final boolean HARF_GAME = true;
 	private final static String PLAYER_DEF_FILES = "PlayerDefs.conf";
+	private final static int PLAYER_NUMBER = 4;
 	private static List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
 	
 	private static GameTable table;
@@ -304,6 +305,8 @@ public class GameServer extends Thread{
 	private void runRound(){
 		int playerId = 0;
 		int reminder = GameConstants.INIT_MOUNTAIN_TILE_NUM;
+		int winner = -1;
+		
 		while(reminder > 0){
 				TileEnum tookTile = table.takeTileFromTable(playerId);
 				
@@ -320,6 +323,7 @@ public class GameServer extends Thread{
 				
 				_lastPlayerId = playerId;
 				if(isTumo()){
+					winner = playerId;
 					printResult(playerId);
 					break ;
 				}
@@ -328,6 +332,7 @@ public class GameServer extends Thread{
 				playerId = getNextPlayerOnSteal(playerId, stealingPlayerId);
 
 				if(isRon()){
+					winner = playerId;
 					printResult(playerId);
 					break ;
 				}
@@ -342,9 +347,8 @@ public class GameServer extends Thread{
 		if(reminder == 0){
 			LOGGER.info("no winner");
 		}
-		writeMessage(new SBMessageFinishRound());
+		writeMessage(new SBMessageFinishRound(winner));
 	}
-	
 	
 	public void runGame(){
 
@@ -386,7 +390,7 @@ public class GameServer extends Thread{
 //        		e.printStackTrace();
 //        	}
 //        }
-        String playerDefs[] = new String[4];
+        String playerDefs[] = new String[PLAYER_NUMBER];
 //        playerDefs[0] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";//prop.getProperty("player2");
         playerDefs[0] = "org.smartbirdpj.client.whitebird.Player";//prop.getProperty("player0");
         playerDefs[1] = "org.smartbirdpj.client.shizimily7.ShizimilyPlayer";//prop.getProperty("player1");

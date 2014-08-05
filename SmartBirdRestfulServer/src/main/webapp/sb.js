@@ -187,26 +187,24 @@ var sb = (function() {
 		div.append("<h2>" + toWindForDisplay[values.wind] + "家 " + values.point + "点</h2>");
 		$("#info" + playerId).append(div);
 	}
-	function drawPrevailingWind(wind,round){
 
-		$("#round").append(toWindForDisplay[wind] + round + "局");
-	}
 	function ofStartRound(playerId, values) {
 		var dora = values.dora;
 		var wind = values.prevailingWind;
 		var round = values.roundNumber + 1;
 		var numOfHundredPointBar = values.numOfHundredPointBar;
 		var numOfThousandPointBar = values.numOfThousandPointBar;
-		drawPrevailingWind(wind, round);
-		$("#pointPool").append("100pt x " + numOfHundredPointBar + " 1000pt x " + numOfThousandPointBar);
+		$("#round").text(toWindForDisplay[wind] + round + "局");
+		$("#pointPool").text("100pt x " + numOfHundredPointBar + " 1000pt x " + numOfThousandPointBar);
 		var canvasId = "dora0";
 		tileDrawing.drawTile(dora, canvasId);
 
 	}
 	var timerId;
-	function ofFinishRound(playerId, value) {
+	function ofFinishRound(playerId, values) {
+		var winner = values.winner;
 
-		alert("finished");
+		alert("finished:" + winner);
 	}
 
 	function clearAllHuroTiles(playerId){
@@ -227,7 +225,8 @@ var sb = (function() {
 		pos = 0;
 	}
 	function clearAllDiscardedTiles(playerId) {
-		for ( var i = 0; i < 21; i++) {
+		var max = discardedTilePosMap[playerId];
+		for ( var i = 0; i <= max; i++) {
 			var canvasId = "p" + playerId + "d" + i;
 			$("#"+canvasId).remove();
 		}
