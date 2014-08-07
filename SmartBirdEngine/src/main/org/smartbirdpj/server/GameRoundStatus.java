@@ -65,4 +65,10 @@ public class GameRoundStatus {
 		}
 	}
 	
+	public TileEnum getPlayerWind(int playerId){
+		
+		playerId += (_parentPlayerId > playerId) ? 4 : 0;
+		int diff = playerId - _parentPlayerId;
+		return TileEnum.getEnum((TileEnum.EAST.getIndex() + diff));
+	}
 }

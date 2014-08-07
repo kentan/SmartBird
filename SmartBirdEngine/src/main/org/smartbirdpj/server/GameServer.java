@@ -95,8 +95,6 @@ public class GameServer extends Thread{
 			gameRoundStatus.setRoundEnd();
 			PaidPoint point = table.calculate(playerId);
 			if(point != null){
-				
-				
 				int p = point.getPoint1();
 				List<Integer> fromList = point.getPayingPlayerIdOnPoint1();
 				int to = point.getPaidPlayerId();
@@ -263,14 +261,12 @@ public class GameServer extends Thread{
 	}
 	private void initPlayers(){
 		for(int i = 0 ; i < GameConstants.PLAYER_NUM; i++){
-			List<TileEnum> wallTiles = table.getWallTiles(i);
-			TileEnum tileEnum = table.getPlayerWind(i);
-			players.get(i).initialize(i,table.getWallTiles(i),table.getDoraTiles().get(0),table.getPrevailingWind(),table.getPlayerWind(i),this);
-			writeMessage(new SBMessageInitTile(i,table.getWallTiles(i),table.getPlayerWind(i),gamePointHolder.getPlayerPoint(i)));
+			players.get(i).initialize(i,table.getWallTiles(i),table.getDoraTiles().get(0),table.getPrevailingWind(),gameRoundStatus.getPlayerWind(i),this);
+			writeMessage(new SBMessageInitTile(i,table.getWallTiles(i),gameRoundStatus.getPlayerWind(i),gamePointHolder.getPlayerPoint(i)));
 		}
 	}
 	private void initTable(){
-		table = new GameTable(gameRoundStatus.getPrevailingWind(),gameRoundStatus.getParentPlayerId());
+		table = new GameTable(gameRoundStatus.getPrevailingWind(),gameRoundStatus);
 		
 		SBMessage message = new SBMessageStartRound(gameRoundStatus.getPrevailingWind(), 
 				table.getDisplayDoraTiles().get(0),

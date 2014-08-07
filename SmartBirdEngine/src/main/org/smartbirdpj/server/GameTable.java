@@ -27,23 +27,20 @@ public class GameTable {
 	
 	private Map<Integer,TileSet> _playerTileSets = new HashMap<Integer, TileSet>();
 	private Map<Integer,List<TileEnum>> _discardeTiles = new HashMap<Integer, List<TileEnum>>();
-	private Map<Integer,TileEnum> _playerWinds = new HashMap<Integer, TileEnum>();
+
 	private TileEnum _lastDiscardedTile = null;
 	private TileManager _tileManager = null;
-	public GameTable(TileEnum prevailingWind,int parentPlayerId){
-		init(prevailingWind,parentPlayerId);
-	}
-	public void init(TileEnum prevailingWind,int parentPlayerId){
+	public GameTable(TileEnum prevailingWind,GameRoundStatus roundStatus){
 		_tileManager = new TileManager();
 		_doraList = new ArrayList<TileEnum>();
 		_displayDoraList = new ArrayList<TileEnum>();
 		TileEnum[] winds = {TileEnum.EAST,TileEnum.SOUTH,TileEnum.WEST,TileEnum.NORTH};
-		int playerId = parentPlayerId;
+		int playerId = roundStatus.getParentPlayerId();
 		int count = 0;
 		while(count < GameConstants.PLAYER_NUM){
 			_discardeTiles.put(playerId, new ArrayList<TileEnum>());
-			_playerWinds.put(playerId,winds[playerId]);
-			TileSet tileSet = new TileSet(_playerWinds.get(playerId),_prevailingWind);
+
+			TileSet tileSet = new TileSet(roundStatus.getPlayerWind(count),_prevailingWind);
 			tileSet.setTiles(_tileManager.createInitialTiles());
 			
 			_playerTileSets.put(playerId,tileSet);
@@ -57,7 +54,7 @@ public class GameTable {
 		TileEnum displayDora = _tileManager.takeDora();
 		_displayDoraList.add(displayDora);
 		_doraList.add(displayDora.toDoraTile());
-		_parentPlayerId = parentPlayerId;
+		_parentPlayerId = roundStatus.getParentPlayerId();
 		
 	}
 
@@ -122,9 +119,9 @@ public class GameTable {
 		}
 	}
 	
-	public TileEnum getPlayerWind(int playerId){
-		return _playerWinds.get(playerId);
-	}
+//	public TileEnum getPlayerWind(int playerId){
+//		return _playerWinds.get(playerId);
+//	}
 
 	public List<TileEnum> getDoraTiles(){
 		//TODO deep copy
