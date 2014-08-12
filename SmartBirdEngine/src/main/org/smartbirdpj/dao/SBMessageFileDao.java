@@ -89,11 +89,12 @@ public class SBMessageFileDao extends SBMessageDao {
 		final String METHOD_NAME = "loadNextMessage";
 		LOGGER.entering(CLASS_NAME, METHOD_NAME);
 
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		FileInputStream inFile = null;
 		ObjectInputStream inObject = null;
 		SBMessage message = new SBMessage();
 		String fileName = FILE_DIRECTORY + "/" + id + "/" + FILE_NAME_PREFIX + "_" + headNumber.get(id);
+		boolean done = false;
 		try {
 			inFile = new FileInputStream(fileName);
 
@@ -101,6 +102,7 @@ public class SBMessageFileDao extends SBMessageDao {
 
 			message = (SBMessage) inObject.readObject();
 
+			done = true;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			LOGGER.severe("can't read message. file not found. file name :" + fileName);
@@ -126,10 +128,12 @@ public class SBMessageFileDao extends SBMessageDao {
 		}
 		
 		try{
-			File file = new File(fileName);
-			file.delete();
-			incrHeadNumber(id);
-		}catch(Exception e){
+			if(done){
+				File file = new File(fileName);
+				file.delete();
+				incrHeadNumber(id);
+			}
+		}catch(Throwable e){
 			SBUtil.logThrowable(LOGGER, e);
 		}
 		LOGGER.exiting(CLASS_NAME, METHOD_NAME);
