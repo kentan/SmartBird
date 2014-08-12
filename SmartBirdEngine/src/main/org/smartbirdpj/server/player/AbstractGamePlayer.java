@@ -23,6 +23,7 @@ public abstract class AbstractGamePlayer {
 	protected TileEnum _playerWind;
 	protected TileEnum _prevailingWind;
 	private GameServer _gameServer = null;
+	private boolean _isRichi = false;
 	protected Logger LOGGER = LoggerFactory.getLogger();
 	
 	public void initialize(int playerId,List<TileEnum> tiles,TileEnum doraTile,TileEnum prevailingWind,TileEnum playerWind,GameServer gameServer){
@@ -59,8 +60,16 @@ public abstract class AbstractGamePlayer {
 		return _gameServer.callChow(_playerId,chowTile,huro1,huro2,discardingTile);
 	}
 	
-	public void richi(TileEnum richiTile){
-		_gameServer.callRichi(_playerId,richiTile);		
+	public boolean richi(TileEnum richiTile){
+		if(!_isRichi){
+			_gameServer.callRichi(_playerId,richiTile);		
+			_isRichi = true;
+			return true;
+		}else{
+			discard(richiTile);
+			return false;
+		}
+
 	}
 
 	public void discard(TileEnum discardingTile){		
