@@ -335,6 +335,7 @@ public class GameServer extends Thread{
 				reminder--;
 				
 			if(!gameValidator.validate(table,GameConstants.INIT_MOUNTAIN_TILE_NUM - reminder)){
+				LOGGER.severe("validation error :" + reminder);
 				break;
 			}
 			
