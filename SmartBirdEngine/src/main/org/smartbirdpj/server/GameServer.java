@@ -328,7 +328,7 @@ public class GameServer extends Thread{
 				playerId = getNextPlayerOnSteal(playerId, stealingPlayerId);
 
 				if(isRon()){
-					winner = playerId;
+					winner = stealingPlayerId;
 					printResult(playerId);
 					break ;
 				}
