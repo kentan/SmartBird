@@ -23,6 +23,7 @@ var sb = (function() {
 			"WE" : "西",
 			"NO" : "北",
 	};
+	var playerIdToWind = {};
 	var stolenPosMap = {};
 	stolenPosMap[0] = {1:0,2:1,3:2};
 	stolenPosMap[1] = {1:0,2:1, "-1":2};
@@ -112,30 +113,61 @@ var sb = (function() {
 		drawDiscardedTile(playerId, tile,discardedTilePosMap[playerId],true);
 		discardedTilePosMap[playerId] = discardedTilePosMap[playerId] + 1;
 	}
-	function ofRon(playerId, values) {
-
-	}
-	function ofTumo(playerId, values) {
-		var tumo = values.tumoTile;
+	function makeMessageOnPoint(playerId,values){
 		var player0payment = values.player0payment;
 		var player1payment = values.player1payment;
 		var player2payment = values.player2payment;
 		var player3payment = values.player3payment;
 		
-		var message = "Player" + playerId + " has won. " + tumo;
+		var message = "";
 		if(player0payment != undefined){
-			message += " Player 0: -" + player0payment;
+			message += playerIdToWind[0] + "家: -" + player0payment;
 		}
 		if(player1payment != undefined){
-			message += " Player 1: - " + player1payment;
+			message += playerIdToWind[1] + "家: -" + player1payment;
 		}
 		if(player2payment != undefined){
-			message += " Player 2: - " + player2payment;
+			message += playerIdToWind[2] + "家: -" + player2payment;
 		}
 		if(player3payment != undefined){
-			message += " Player 3: - " + player3payment;
+			message += playerIdToWind[3] + "家: -" + player3payment;
 		}
+		return message;
+		
+	}
+	function ofRon(playerId, values) {
+		var ron = values.ronTile;
+		var ronnedPlayer = values.ronnedPlayer;
+		var message = playerIdToWind[playerId] + "家 has ron from " + playerIdToWind[ronnedPlayer] + "家." + ron;
+		message += "\n";
+		message += makeMessageOnPoint(playerId, values);
 		alert(message);
+	}
+	function ofTumo(playerId, values) {
+		var tumo = values.tumoTile;
+		var message = playerIdToWind[playerId] + "家 has tumo." + tumo;
+		message += "\n";
+		message += makeMessageOnPoint(playerId, values);
+		alert(message);
+//		var player0payment = values.player0payment;
+//		var player1payment = values.player1payment;
+//		var player2payment = values.player2payment;
+//		var player3payment = values.player3payment;
+//		
+//		var message = "Player" + playerId + " has won. " + tumo;
+//		if(player0payment != undefined){
+//			message += " Player 0: -" + player0payment;
+//		}
+//		if(player1payment != undefined){
+//			message += " Player 1: - " + player1payment;
+//		}
+//		if(player2payment != undefined){
+//			message += " Player 2: - " + player2payment;
+//		}
+//		if(player3payment != undefined){
+//			message += " Player 3: - " + player3payment;
+//		}
+//		alert(message);
 	}
 	function ofStealKong(playerId, values) {
 		naki(playerId,values);
@@ -185,6 +217,7 @@ var sb = (function() {
 		var div = $("<div/>");
 		div.attr("class", "infoSmall");
 		div.append("<h2>" + toWindForDisplay[values.wind] + "家 " + values.point + "点</h2>");
+		playerIdToWind[playerId] = toWindForDisplay[values.wind];
 		$("#info" + playerId).append(div);
 	}
 
@@ -200,7 +233,7 @@ var sb = (function() {
 		tileDrawing.drawTile(dora, canvasId);
 
 	}
-	var timerId;
+
 	function ofFinishRound(playerId, values) {
 		var winner = values.winner;
 
@@ -339,11 +372,13 @@ var sb = (function() {
 	}
 	
 	var clientId = "";
-
+	var isPause = false;
+	var interval = 50;
 	return {
 
 		getNextMessage : function getNextMessage() {
 			var host = "/SmartBirdRestfulServer/webapi/endpoint/next/" + clientId;
+			$('#log').append("next<br/>");
 			$.ajax({
 				type : 'GET',
 				url : host,
@@ -354,8 +389,10 @@ var sb = (function() {
 					var playerId = json.playerId;
 					var value = json.value;
 					
-					operationFunc[operation](playerId, value);
-
+					if(typeof operation != 'undefined' && !isPause){
+						operationFunc[operation](playerId, value);
+						setTimeout(sb.getNextMessage, interval);
+					}
 				},
 				error : function(d) {
 					alert("error");
@@ -371,7 +408,7 @@ var sb = (function() {
 				url : host,
 				success : function(d) {
 					alert("started");
-					sb.resumeGame(500);
+					sb.resumeGame(interval);
 				},
 				error : function(d) {
 					alert("error");
@@ -381,13 +418,14 @@ var sb = (function() {
 
 		},
 		pauseGame : function pauseGame(){
-			clearInterval(timerId);
+			isPause = true;
 		},
-		resumeGame : function resumeGame(interval) {
-			if(interval == -1){
+		resumeGame : function resumeGame(_interval) {
+			if(_interval == -1){
 				sb.getNextMessage();
 			}else{
-				timerId = setInterval(sb.getNextMessage, interval);
+				interval = _interval;
+				setTimeout(sb.getNextMessage, _interval);
 			}
 		},
 

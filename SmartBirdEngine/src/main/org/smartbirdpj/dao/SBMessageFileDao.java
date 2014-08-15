@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.message.SBMessage;
+import org.smartbirdpj.message.SBMessageHandleError;
 import org.smartbirdpj.util.SBUtil;
 
 
@@ -106,6 +107,7 @@ public class SBMessageFileDao extends SBMessageDao {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			LOGGER.severe("can't read message. file not found. file name :" + fileName);
+			message = new SBMessageHandleError("readAheadWrite");
 			SBUtil.logThrowable(LOGGER, e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

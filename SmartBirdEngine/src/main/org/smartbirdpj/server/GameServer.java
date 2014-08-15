@@ -110,7 +110,7 @@ public class GameServer extends Thread{
 
 
 			}
-			writeMessage(new SBMessageRon(playerId, ron));
+			writeMessage(new SBMessageRon(playerId, ron,point));
 			return true;
 		}
 		return false;
