@@ -59,8 +59,9 @@ public class GameServer extends Thread{
 	private int _gameNumber = 0;
 	private int _roundNumber = 0;
 	private String clientId = "";
-
-
+	private StealStatus _stealStatus;
+	private final int THE_ILLEGAL_CHOW_MAX = 2;
+	private boolean _isViolation = false;
 
 
 	public void discardTile(int playerId, TileEnum tile) {
@@ -110,6 +111,7 @@ public class GameServer extends Thread{
 
 
 			}
+			_stealStatus.finishTransition(playerId);
 			writeMessage(new SBMessageRon(playerId, ron,point));
 			return true;
 		}
@@ -164,11 +166,16 @@ public class GameServer extends Thread{
 		writeMessage(new SBMessageRichi(playerId, tile));
 	}
 	public boolean callChow(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
+		if(!_stealStatus.isAbleToChow()){
+			_stealStatus.setIllegalChow();
+			return false;
+		}
 		MeldElement melds = new MeldElement(MeldEnum.STEAL_CHOW, stolenTile, huro1, huro2);
 		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		
 		discardTile(playerId, discardedTile);
+		_stealStatus.setChiDisable();
 		writeMessage(new SBMessageChow(playerId, -1,stolenTile, huro1, huro2, discardedTile,table.getWallTiles(playerId)));
 		return true;
 	}
@@ -178,6 +185,7 @@ public class GameServer extends Thread{
 		melds.setStolenTile(stolenTile);
 		table.addHuro(playerId,melds);
 		discardTile(playerId, discardedTile);
+		_stealStatus.finishTransition(playerId);
 		// TODO Bug exists.
 		// It dosen't have information about who the tile is stolen by.
 		writeMessage(new SBMessagePong(playerId, -1, stolenTile, huro1, huro2, discardedTile,table.getWallTiles(playerId)));
@@ -203,7 +211,7 @@ public class GameServer extends Thread{
 		discardTile(playerId, discardedTile);
 		// TODO Bug exists.
 		// It dosen't have information about who the tile is stolen by.
-
+		_stealStatus.finishTransition(playerId);
 		writeMessage(new SBMessageStealKong(playerId, -1,stolenTile, huro1, huro2, huro3, discardedTile,table.getWallTiles(playerId)));
 		return true;
 	}
@@ -223,10 +231,14 @@ public class GameServer extends Thread{
 		int third = (currentPlayerId + 1) % GameConstants.PLAYER_NUM;
 		
 		int order[] = {first,second,third};
-		for(int playerId : order){
+		_stealStatus = new StealStatus();
+		int count = 0;
+		int playerId = order[count];
+
+		while(count < 3){
+			playerId = order[count];
 			AbstractGamePlayer player = players.get(playerId);
 			
-
 			player.notifySteal(
 					table.getWallTiles(playerId),
 					table.getHuroTiles(playerId),
@@ -234,9 +246,21 @@ public class GameServer extends Thread{
 					table.getOtherPlayersDiscardedTiles(playerId),
 					table.getOtherPlayersHuroTiles(playerId),
 					table.getLastDiscardedTile());
+			
+			if(!_stealStatus.doTransit()){
+				break;
+			}
+			if(_stealStatus.getTheNumberOfIllegatChowCalled() == THE_ILLEGAL_CHOW_MAX){
+				_isViolation = true;
+				break;
+			}
+			if(!_stealStatus.isChowIllegal()){
+				count++;
+			}
+			
 		}
 
-		return -1;
+		return _stealStatus.getStealingPlayerId();
 	}
 	@SuppressWarnings("unchecked")
 	public void registerPlayers(){
@@ -327,6 +351,10 @@ public class GameServer extends Thread{
 				int stealingPlayerId = waitForSteal(playerId);
 				playerId = getNextPlayerOnSteal(playerId, stealingPlayerId);
 
+				if(_isViolation){
+					LOGGER.severe("player " + reminder + "called chow " + THE_ILLEGAL_CHOW_MAX + " times");
+					break;
+				}
 				if(isRon()){
 					winner = stealingPlayerId;
 					printResult(playerId);
