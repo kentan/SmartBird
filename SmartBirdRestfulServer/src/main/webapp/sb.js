@@ -236,8 +236,9 @@ var sb = (function() {
 
 	function ofFinishRound(playerId, values) {
 		var winner = values.winner;
-
-		alert("finished:" + winner);
+		if(winner == -1){
+			alert("finished: no winner");			
+		}
 	}
 
 	function clearAllHuroTiles(playerId){
