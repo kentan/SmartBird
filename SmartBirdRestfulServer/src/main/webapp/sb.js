@@ -7,6 +7,8 @@ var sb = (function() {
 	};
 	var huroIndexMap = {};
 	var richiFlagMap = {};
+	var numOfHundredPointBar = 0;
+	var numOfThousandPointBar = 0;
 //	var huroIndexMap = {
 //			0 : 0,
 //			1 : 0,
@@ -114,6 +116,8 @@ var sb = (function() {
 		tileDrawing.clearTile(canvasId);
 		drawDiscardedTile(playerId, tile,discardedTilePosMap[playerId],true);
 		discardedTilePosMap[playerId] = discardedTilePosMap[playerId] + 1;
+		numOfThousandPointBar++;
+		drawPointPool(numOfHundredPointBar,numOfThousandPointBar);
 	}
 	function makeMessageOnPoint(playerId,values){
 		var player0payment = values.player0payment;
@@ -237,18 +241,19 @@ var sb = (function() {
 		playerIdToWind[playerId] = toWindForDisplay[values.wind];
 		$("#info" + playerId).append(div);
 	}
-
+	function drawPointPool(_numOfHundredPointBar,_numOfThousandPointBar){
+		$("#pointPool").text("100pt x " + _numOfHundredPointBar + " 1000pt x " + _numOfThousandPointBar);
+	}
 	function ofStartRound(playerId, values) {
 		var dora = values.dora;
 		var wind = values.prevailingWind;
 		var round = values.roundNumber + 1;
-		var numOfHundredPointBar = values.numOfHundredPointBar;
-		var numOfThousandPointBar = values.numOfThousandPointBar;
+		numOfHundredPointBar = values.numOfHundredPointBar;
+		numOfThousandPointBar = values.numOfThousandPointBar;
 		$("#round").text(toWindForDisplay[wind] + round + "局");
-		$("#pointPool").text("100pt x " + numOfHundredPointBar + " 1000pt x " + numOfThousandPointBar);
+		drawPointPool(numOfHundredPointBar,numOfThousandPointBar);
 		var canvasId = "dora0";
 		tileDrawing.drawTile(dora, canvasId);
-
 	}
 
 	function ofFinishRound(playerId, values) {
