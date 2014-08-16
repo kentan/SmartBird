@@ -5,18 +5,20 @@ var sb = (function() {
 		2 : 0,
 		3 : 0
 	};
-	var huroIndexMap = {
-			0 : 0,
-			1 : 0,
-			2 : 0,
-			3 : 0
-	};
-	var richiFlagMap = {
-			0 : [false,false,false,false],
-			1 : [false,false,false,false],
-			2 : [false,false,false,false],
-			3 : [false,false,false,false]
-	};
+	var huroIndexMap = {};
+	var richiFlagMap = {};
+//	var huroIndexMap = {
+//			0 : 0,
+//			1 : 0,
+//			2 : 0,
+//			3 : 0
+//	};
+//	var richiFlagMap = {
+//			0 : [false,false,false,false],
+//			1 : [false,false,false,false],
+//			2 : [false,false,false,false],
+//			3 : [false,false,false,false]
+//	};
 	var toWindForDisplay = {
 			"EA" : "東",
 			"SO" : "南",
@@ -208,11 +210,26 @@ var sb = (function() {
 		}
 
 	}
-
+	function resetStatus(){
+		richiFlagMap = {
+				0 : [false,false,false,false],
+				1 : [false,false,false,false],
+				2 : [false,false,false,false],
+				3 : [false,false,false,false]
+		};
+		
+		huroIndexMap = {
+				0 : 0,
+				1 : 0,
+				2 : 0,
+				3 : 0
+		};
+	}
 	function ofInitTiles(playerId, values) {
 		clearAllTiles(playerId);
 		clearAllDiscardedTiles(playerId);
 		clearAllHuroTiles(playerId);
+		resetStatus();
 		drawAllTiles(playerId, values.initTiles);
 		var div = $("<div/>");
 		div.attr("class", "infoSmall");
