@@ -48,6 +48,7 @@ var sb = (function() {
 		init : ofInitTiles,
 		startRound : ofStartRound,
 		finishRound : ofFinishRound,
+		error : ofHandleError
 	};
 	function ofAddTile(playerId, values) {
 		clearAllTiles(playerId);
@@ -261,6 +262,13 @@ var sb = (function() {
 		if(winner == -1){
 			alert("finished: no winner");			
 		}
+	}
+	function ofHandleError(playerId, values){
+		/** 
+		 * nop
+		 * Currently only 'readAheadWrite' may happen.
+		 * In this case, js should call the next message without processing anything.
+		**/
 	}
 
 	function clearAllHuroTiles(playerId){
