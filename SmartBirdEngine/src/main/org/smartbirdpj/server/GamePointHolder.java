@@ -17,8 +17,6 @@ public class GamePointHolder {
 	private List<Map<Integer,Integer>> pointDetailList = new ArrayList<Map<Integer,Integer>>();
 	private static Logger LOGGER = LoggerFactory.getLogger();
 	
-	private int numOfThousandPoint = 0;
-	private int numOfHundredPoint = 0;
 	public GamePointHolder(){
 		for(int playerId = 0; playerId < GameConstants.PLAYER_NUM; playerId++){
 			scoreMap.put(playerId, GameConstants.INIT_POINT);
@@ -69,20 +67,15 @@ public class GamePointHolder {
 		message.append("=======Score Status at this round=======");
 		LOGGER.info(message.toString());
 	}
-	public void addThousandPointBar(){
-		this.numOfThousandPoint++;
-	}
-	public void addHundredPointBar(){
-		this.numOfHundredPoint++;
-	}
-	public int getNumOfThousandPointBar(){
-		return this.numOfThousandPoint;
-	}
-	public int getNumOfHundredPointBar(){
-		return this.numOfHundredPoint;
+	public void reduceThousandPoint(int richiPlayerId){
+		this.scoreMap.put(richiPlayerId,this.scoreMap.get(richiPlayerId) - 1000);
 	}
 	public int getPlayerPoint(int playerId){
 		return this.scoreMap.get(playerId);
+	}
+	public void calcPooledPoint(int winningPlayerId,int numOfThousandPoint, int numOfHundredPoint){
+		this.scoreMap.put(winningPlayerId,this.scoreMap.get(winningPlayerId) + numOfThousandPoint * 1000);
+		this.scoreMap.put(winningPlayerId,this.scoreMap.get(winningPlayerId) + numOfHundredPoint * 300);
 	}
 	@Test
 	public void test(){

@@ -9,8 +9,9 @@ public class GameRoundStatus {
 	private TileEnum _prevailingWind;
 	private int _roundNumber;
 	private int _extendedRoundNumber;
+	private int _pooledThousandBarNumber;
 	private boolean _roundEnd;
-	
+	private boolean _isParentWon;
 
 	public GameRoundStatus(){
 		_prevailingWind = TileEnum.EAST;
@@ -31,7 +32,9 @@ public class GameRoundStatus {
 	public int getExtendedRoundNumber(){
 		return _extendedRoundNumber;
 	}
-	
+	public int getPooledThousandBarNumber(){
+		return _pooledThousandBarNumber;
+	}
 	public boolean isRoundEnd(){
 		return _roundEnd;
 	}
@@ -42,19 +45,26 @@ public class GameRoundStatus {
 	public void setRoundNumber(int roundNumber){
 		_roundNumber = roundNumber;
 	}
-	public void setExtendedRoundNumber(int extendedRoundNumber){
-		 _extendedRoundNumber = extendedRoundNumber;
-	}
+	
 	public void setRoundEnd(){
 		_roundEnd = true;
 	}
+	public void setParentWon(){
+		_isParentWon = true;
+	}
 	public void nextRound(){
-		_roundNumber = (_roundNumber + 1) % GameConstants.ROUND_MAX;
-		if(_roundNumber == 0){
-			_prevailingWind =  _prevailingWind.next();
+		if(_isParentWon){
+			_extendedRoundNumber++;
+			_isParentWon = false;
+		}else{
+			_extendedRoundNumber = 0;
+			_roundNumber = (_roundNumber + 1) % GameConstants.ROUND_MAX;
+			if(_roundNumber == 0){
+				_prevailingWind =  _prevailingWind.next();
+			}
+			_parentPlayerId = (_parentPlayerId + 1) % GameConstants.PLAYER_NUM;
 		}
 		_roundEnd = false;
-		_parentPlayerId = (_parentPlayerId + 1) % GameConstants.PLAYER_NUM;
 	}
 	
 	public boolean isGameRoundFinish(boolean isHarfGame){

@@ -112,6 +112,7 @@ public class GameServer extends Thread{
 
 			}
 			_stealStatus.finishTransition(playerId);
+			gamePointHolder.calcPooledPoint(playerId,gameRoundStatus.getPooledThousandBarNumber(),gameRoundStatus.getExtendedRoundNumber());
 			writeMessage(new SBMessageRon(playerId, ron,point));
 			return true;
 		}
@@ -154,6 +155,7 @@ public class GameServer extends Thread{
 				LOGGER.info(p1 + "," + p2);
 
 			}
+			gamePointHolder.calcPooledPoint(playerId,gameRoundStatus.getPooledThousandBarNumber(),gameRoundStatus.getExtendedRoundNumber());
 			writeMessage(new SBMessageTumo(playerId, tumo,point));
 			return true;
 		}
@@ -162,7 +164,7 @@ public class GameServer extends Thread{
 	public void callRichi(int playerId,TileEnum tile){
 		this.discardTile(playerId, tile);
 		table.setRichi(playerId);
-		gamePointHolder.addThousandPointBar();
+		gamePointHolder.reduceThousandPoint(playerId);
 		writeMessage(new SBMessageRichi(playerId, tile));
 	}
 	public boolean callChow(int playerId, TileEnum stolenTile, TileEnum huro1, TileEnum huro2,TileEnum discardedTile) {
@@ -296,8 +298,8 @@ public class GameServer extends Thread{
 				table.getDisplayDoraTiles().get(0),
 				gameRoundStatus.getParentPlayerId(),
 				gameRoundStatus.getRoundNumber(),
-				gamePointHolder.getNumOfHundredPointBar(),
-				gamePointHolder.getNumOfThousandPointBar());
+				gameRoundStatus.getExtendedRoundNumber(),
+				gameRoundStatus.getPooledThousandBarNumber());
 		writeMessage(message);
 	}
 	
@@ -371,7 +373,9 @@ public class GameServer extends Thread{
 		
 		if(reminder == 0){
 			LOGGER.info("no winner");
-		}
+		}else if(gameRoundStatus.getParentPlayerId() == winner ){
+			gameRoundStatus.setParentWon();
+		}		
 		writeMessage(new SBMessageFinishRound(winner));
 	}
 	
