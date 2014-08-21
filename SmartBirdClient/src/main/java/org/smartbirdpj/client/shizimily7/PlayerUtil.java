@@ -1,8 +1,8 @@
 package org.smartbirdpj.client.shizimily7;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,8 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.mdl.MeldElement;
 import org.smartbirdpj.mdl.enm.TileEnum;
+import org.smartbirdpj.util.SBUtil;
 
 public class PlayerUtil {
 	final static TileEnum[] TILE_LIST = {
@@ -62,8 +64,8 @@ public class PlayerUtil {
 	static {
 		// シャンテン数計算用テーブル読み込み
 		try {
-			FileReader fr = new FileReader("ShantenTable.txt");
-			BufferedReader br = new BufferedReader(fr);
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(PlayerUtil.class.getClassLoader().getResourceAsStream("ShantenTable.txt")));
 			String line = br.readLine();
 
 			while (true) {
@@ -76,7 +78,7 @@ public class PlayerUtil {
 			}
 			br.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			SBUtil.logThrowable(LoggerFactory.getLogger(), e);
 		}
 	}
 
