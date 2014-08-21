@@ -3,7 +3,7 @@ package org.smartbirdpj.engine.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.smartbirdpj.mdl.PaidPoint;
+
 import org.smartbirdpj.mdl.Point;
 
 

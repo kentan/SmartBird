@@ -43,9 +43,6 @@ public class SBMessageFileDao extends SBMessageDao {
 		headNumber.put(id, 0l);
 		LOGGER.exiting(CLASS_NAME, METHOD_NAME);
 	}
-//	public SBMessageFileDao(String id) {
-//		this.id = id;		
-//	}
 
 	@Override
 	public void writeMessage(String id,SBMessage message) {

@@ -37,7 +37,6 @@ import org.smartbirdpj.engine.validator.yakuman.SuShihoValidator;
 import org.smartbirdpj.engine.validator.yakuman.TyurenpotoValidator;
 import org.smartbirdpj.engine.validator.yakuman.KokushiMusoValidator;
 import org.smartbirdpj.mdl.MeldElement;
-import org.smartbirdpj.mdl.PaidPoint;
 import org.smartbirdpj.mdl.Point;
 import org.smartbirdpj.mdl.enm.MeldEnum;
 import org.smartbirdpj.mdl.enm.TileEnum;
@@ -271,8 +270,8 @@ public class PointCalculator {
 			}
 
 		}
-//		LOGGER.info("-Han:" + maxHan);
-//		LOGGER.info("-Hu:" + maxHu);
+		LOGGER.finest("-Han:" + maxHan);
+		LOGGER.finest("-Hu:" + maxHu);
 		boolean isTumo = winningHandsList.get(0).isTumo();
 		PointHolder pointCalculator = new PointHolder();
 		Point point = null;

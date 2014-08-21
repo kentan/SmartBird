@@ -39,11 +39,7 @@ public class TileManager {
 		
 		}
 
-		int sum=0;
-		for(int k : tileHistory.values()){
-			sum += k;
-		}
-//		System.out.println(":" + sum + "::" + tileHistory.size() + ":" +  tileHistory.values());		
+	
 		return tile;
 	}
 	public List<TileEnum> createInitialTiles(){

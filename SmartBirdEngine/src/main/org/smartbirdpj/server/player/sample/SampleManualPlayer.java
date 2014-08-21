@@ -138,15 +138,8 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 				String discarding = commands[5];
 				TileEnum discardingTile = GameUtil.getTileEnum(discarding);
 
-
-//				InputCommand command = new InputCommand();
-//				command.setCommand(CommandEnum.MELD);
-//				command.setDiscardedTile(discardingTile);
-//				command.setStolenTile(stolenTile);
-//				command.addHuroTile(huro1);
-//				command.addHuroTile(huro2);
 				chow(stolenTile,huro1,huro2,discardingTile);
-//				return command;
+
 
 			} else if ("P".equals(steal)) {
 				//TODO validate user input 
@@ -154,13 +147,6 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 				TileEnum discardingTile = GameUtil.getTileEnum(discarding);
 				pong(stolenTile,huro1,huro2,discardingTile);
 
-//				InputCommand command = new InputCommand();
-//				command.setCommand(CommandEnum.PONG);
-//				command.setDiscardedTile(discardedTile);
-//				command.setStolenTile(stolenTile);
-//				command.addHuroTile(huro1);
-//				command.addHuroTile(huro2);
-//				return command;
 			} else if ("K".equals(steal)) {
 				//TODO validate user input 
 				String huro3String = commands[5];
@@ -169,14 +155,6 @@ public class SampleManualPlayer extends AbstractGamePlayer {
 				String discarding = commands[6];
 				TileEnum discardingTile = GameUtil.getTileEnum(discarding);
 				kongBySteal(stolenTile,huro1,huro2,huro3,discardingTile);
-//				InputCommand command = new InputCommand();
-//				command.setCommand(CommandEnum.CHOW);
-//				command.setDiscardedTile(discardedTile);
-//				command.setStolenTile(stolenTile);
-//				command.addHuroTile(huro1);
-//				command.addHuroTile(huro2);
-//				command.addHuroTile(huro3);
-//				return command;
 			} else if ("R".equals(steal)){
 
 				if(ron(stolenTile)){

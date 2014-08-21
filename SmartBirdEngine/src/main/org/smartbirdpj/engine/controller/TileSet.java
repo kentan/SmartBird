@@ -6,11 +6,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.smartbirdpj.mdl.MeldElement;
-import org.smartbirdpj.mdl.PaidPoint;
 import org.smartbirdpj.mdl.Point;
-import org.smartbirdpj.mdl.enm.MeldEnum;
 import org.smartbirdpj.mdl.enm.TileEnum;
-import org.smartbirdpj.mdl.enm.WinningFormEnum;
 
 
 public class TileSet {

@@ -19,7 +19,6 @@ import org.smartbirdpj.mdl.cnst.GameConstants;
 import org.smartbirdpj.mdl.enm.MeldEnum;
 import org.smartbirdpj.mdl.enm.TileEnum;
 import org.smartbirdpj.dao.SBMessageDaoFactory;
-import org.smartbirdpj.exception.SBException;
 import org.smartbirdpj.message.SBMessage;
 import org.smartbirdpj.message.SBMessageAddTile;
 import org.smartbirdpj.message.SBMessageChow;
@@ -99,17 +98,12 @@ public class GameServer extends Thread{
 				int p = point.getPoint1();
 				List<Integer> fromList = point.getPayingPlayerIdOnPoint1();
 				int to = point.getPaidPlayerId();
-//				stat.put(to, stat.get(to) == null ? 1 :stat.get(to) + 1 );
 				_gameStaticAnalyzer.incrementWinnerCount(to);
 				_gameStaticAnalyzer.recodeRoundResult(_gameNumber, _roundNumber, point);
 				for(int from : fromList){
 					gamePointHolder.payPoint(gameRoundStatus.getRoundNumber(), p, from, to);
 					LOGGER.info(p + " to " + to + " from " + from);
 				}
-			
-
-
-
 			}
 			_stealStatus.finishTransition(playerId);
 			gamePointHolder.calcPooledPoint(playerId,gameRoundStatus.getPooledThousandBarNumber(),gameRoundStatus.getExtendedRoundNumber());
@@ -131,7 +125,6 @@ public class GameServer extends Thread{
 				int p1=0,p2=0;
 				p1 = point.getPoint1();
 				int to = point.getPaidPlayerId();
-//				stat.put(to, stat.get(to) == null ? 1 :stat.get(to) + 1 );
 				_gameStaticAnalyzer.incrementWinnerCount(to);
 				_gameStaticAnalyzer.recodeRoundResult(_gameNumber, _roundNumber, point);
 				if(gameRoundStatus.getParentPlayerId() == playerId){

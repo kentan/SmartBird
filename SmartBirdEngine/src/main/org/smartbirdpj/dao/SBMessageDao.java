@@ -1,6 +1,6 @@
 package org.smartbirdpj.dao;
 
-import org.smartbirdpj.exception.SBException;
+
 import org.smartbirdpj.message.SBMessage;
 
 public abstract class SBMessageDao {

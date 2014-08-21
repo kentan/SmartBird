@@ -34,7 +34,6 @@ public class GameTable {
 		_tileManager = new TileManager();
 		_doraList = new ArrayList<TileEnum>();
 		_displayDoraList = new ArrayList<TileEnum>();
-		TileEnum[] winds = {TileEnum.EAST,TileEnum.SOUTH,TileEnum.WEST,TileEnum.NORTH};
 		int playerId = roundStatus.getParentPlayerId();
 		int count = 0;
 		while(count < GameConstants.PLAYER_NUM){
@@ -119,10 +118,6 @@ public class GameTable {
 		}
 	}
 	
-//	public TileEnum getPlayerWind(int playerId){
-//		return _playerWinds.get(playerId);
-//	}
-
 	public List<TileEnum> getDoraTiles(){
 		//TODO deep copy
 		return _doraList;
@@ -202,7 +197,6 @@ public class GameTable {
 	}
 	public boolean isWinningHandsValid(int playerId){
 		TileSet tileSet = _playerTileSets.get(playerId);
-//		return tileSet.isWinningHandsValid();
 		Point point = tileSet.calculate();
 		return point != null;
 	}

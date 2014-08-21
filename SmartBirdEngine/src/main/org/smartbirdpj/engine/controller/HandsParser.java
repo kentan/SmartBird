@@ -1,7 +1,6 @@
 package org.smartbirdpj.engine.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.smartbirdpj.mdl.MeldElement;
@@ -14,12 +13,12 @@ public class HandsParser {
 	public WinningHandsList parse(TileSet tileSet) {
 		tileSet.sort();
 		WinningHandsList winningHandsList= new WinningHandsList();
-		// 国士無双
+		// kokushi - musou
 		WinningHands hands = parseKokushiMusou(tileSet);
 		if(hands != null){
 			winningHandsList.add(hands);
 		}		
-		// 七対子
+		// chi-toitsu
 		hands = parse7Toitsu(tileSet);
 		if(hands != null){
 			winningHandsList.add(hands);
@@ -98,7 +97,7 @@ public class HandsParser {
 		boolean rv = false;
 		TileEnum h1 = list.remove(0);
 
-		// 刻子
+		// kotsu
 		if (list.contains(h1)) {
 			int indexOfH1 = list.indexOf(h1);
 			TileEnum h2 = list.remove(indexOfH1);
@@ -175,7 +174,6 @@ public class HandsParser {
 	}
 
 	private WinningHandsBasic parse7Toitsu(TileSet tileSet) {
-//		WinningHandsList winningHandsList = new WinningHandsList();
 		List<TileEnum> tiles = tileSet.getTiles();
 		if(tiles.size() != 14){
 			return null;
@@ -192,8 +190,6 @@ public class HandsParser {
 		}
 		winningHandsBasic.set7Toitsu();
 		return winningHandsBasic;
-//		winningHandsList.add(winningHandsBasic);
-//		return winningHandsList;
 	}
 
 	private WinningHands parseKokushiMusou(TileSet tileSet) {
