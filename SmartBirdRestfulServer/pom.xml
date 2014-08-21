@@ -13,7 +13,7 @@
     <packaging>war</packaging>
     <name>SmartBirdRestfulServer</name>
     <properties>
-        <src.dir>src/main/</src.dir>
+        <src.dir>src/main/java/</src.dir>
         <jersey.version>2.8</jersey.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

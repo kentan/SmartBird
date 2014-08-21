@@ -1,8 +1,11 @@
 package org.smartbirdpj.server;
 
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -38,12 +41,11 @@ import org.smartbirdpj.util.SBUtil;
 
 
 public class GameServer extends Thread{
-	PrintStream ps = System.out;
 
 	
-//	private final boolean DEBUG  = false;
+	private final boolean DEBUG  = false;
 	private final boolean HARF_GAME = true;
-	private final static String PLAYER_DEF_FILES = "PlayerDefs.conf";
+	private final static String PLAYER_DEF_FILES = "playerDefs.conf";
 	private final static int PLAYER_NUMBER = 4;
 	private static List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
 	
@@ -257,7 +259,7 @@ public class GameServer extends Thread{
 
 		return _stealStatus.getStealingPlayerId();
 	}
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void registerPlayers(){
 		String playerDefs[] = loadPlayerDefs();
 		for(int i = 0; i < GameConstants.PLAYER_NUM; i++){
@@ -396,28 +398,35 @@ public class GameServer extends Thread{
 
 	}
 	private String[] loadPlayerDefs(){
-        InputStream inStream = null;
-        Properties prop = null;
-//        try {
-//            inStream = new BufferedInputStream(new FileInputStream(PLAYER_DEF_FILES));
-//    		prop = new Properties();
-//    		prop.load(inStream);
-//        }catch(IOException e){
-//        	e.printStackTrace();
-//        }finally{
-//        	try{
-//        		inStream.close();
-//        	}catch(IOException e){
-//        		
-//        		e.printStackTrace();
-//        	}
-//        }
         String playerDefs[] = new String[PLAYER_NUMBER];
-//        playerDefs[0] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";//prop.getProperty("player2");
-        playerDefs[0] = "org.smartbirdpj.client.whitebird.Player";//prop.getProperty("player0");
-        playerDefs[1] = "org.smartbirdpj.client.shizimily7.ShizimilyPlayer";//prop.getProperty("player1");
-        playerDefs[2] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";//prop.getProperty("player2");
-        playerDefs[3] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";//prop.getProperty("player3");
+        if(DEBUG){
+            playerDefs[0] = "org.smartbirdpj.client.whitebird.Player";
+            playerDefs[1] = "org.smartbirdpj.client.shizimily7.ShizimilyPlayer";
+            playerDefs[2] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";
+            playerDefs[3] = "org.smartbirdpj.server.player.sample.SampleRandomPlayer";
+
+        }else{
+	        InputStream inStream = null;
+	        Properties prop = null;
+	        try {
+	            inStream = GameServer.class.getClassLoader().getResourceAsStream(PLAYER_DEF_FILES);
+	    		prop = new Properties();
+	    		prop.load(inStream);
+	            playerDefs[0] = prop.getProperty("player0");
+	            playerDefs[1] = prop.getProperty("player1");
+	            playerDefs[2] = prop.getProperty("player2");
+	            playerDefs[3] = prop.getProperty("player3");
+	        }catch(IOException e){
+        		SBUtil.logThrowable(LOGGER, e);
+	        }finally{
+	        	try{
+	        		inStream.close();
+	        	}catch(IOException e){	
+	        		SBUtil.logThrowable(LOGGER, e);
+	        	}
+	        }
+        }
+        
         
         return playerDefs;
 	}
