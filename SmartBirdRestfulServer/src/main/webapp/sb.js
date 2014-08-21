@@ -403,7 +403,7 @@ var sb = (function() {
 	}
 	
 	var clientId = "";
-	var isPause = false;
+	var isPause = true;
 	var interval = 50;
 	return {
 
@@ -452,6 +452,8 @@ var sb = (function() {
 			isPause = true;
 		},
 		resumeGame : function resumeGame(_interval) {
+			if(isPause == false) return ;			
+			isPause = false;
 			if(_interval == -1){
 				sb.getNextMessage();
 			}else{
