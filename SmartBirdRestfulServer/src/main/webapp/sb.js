@@ -404,6 +404,7 @@ var sb = (function() {
 	
 	var clientId = "";
 	var isPause = true;
+	var isStarted = false;
 	var interval = 50;
 	return {
 
@@ -432,6 +433,7 @@ var sb = (function() {
 			});
 		},
 		startGame : function startGame(_clientId) {
+			if(isStarted) return;
 			clientId = _clientId;
 			var	host = "/SmartBirdRestfulServer/webapi/endpoint/start/" + clientId;
 			$.ajax({
@@ -439,6 +441,7 @@ var sb = (function() {
 				url : host,
 				success : function(d) {
 					alert("started");
+					isStarted = true;
 					sb.resumeGame(interval);
 				},
 				error : function(d) {
