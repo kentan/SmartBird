@@ -9,18 +9,6 @@ var sb = (function() {
 	var richiFlagMap = {};
 	var numOfHundredPointBar = 0;
 	var numOfThousandPointBar = 0;
-//	var huroIndexMap = {
-//			0 : 0,
-//			1 : 0,
-//			2 : 0,
-//			3 : 0
-//	};
-//	var richiFlagMap = {
-//			0 : [false,false,false,false],
-//			1 : [false,false,false,false],
-//			2 : [false,false,false,false],
-//			3 : [false,false,false,false]
-//	};
 	var toWindForDisplay = {
 			"EA" : "東",
 			"SO" : "南",
@@ -156,25 +144,6 @@ var sb = (function() {
 		message += "\n";
 		message += makeMessageOnPoint(playerId, values);
 		alert(message);
-//		var player0payment = values.player0payment;
-//		var player1payment = values.player1payment;
-//		var player2payment = values.player2payment;
-//		var player3payment = values.player3payment;
-//		
-//		var message = "Player" + playerId + " has won. " + tumo;
-//		if(player0payment != undefined){
-//			message += " Player 0: -" + player0payment;
-//		}
-//		if(player1payment != undefined){
-//			message += " Player 1: - " + player1payment;
-//		}
-//		if(player2payment != undefined){
-//			message += " Player 2: - " + player2payment;
-//		}
-//		if(player3payment != undefined){
-//			message += " Player 3: - " + player3payment;
-//		}
-//		alert(message);
 	}
 	function ofStealKong(playerId, values) {
 		naki(playerId,values);
