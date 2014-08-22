@@ -1,12 +1,19 @@
 package org.smartbirdpj.server.stat;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.smartbirdpj.cnst.SBConst;
 import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.mdl.PaidPoint;
+import org.smartbirdpj.message.SBMessage;
+import org.smartbirdpj.util.SBUtil;
 
 public class GameStatisticAnalyzer {
 	
@@ -107,5 +114,32 @@ public class GameStatisticAnalyzer {
 		message.append(roundWinnerCount.toString() + "\n");
 		
 		LOGGER.info(message.toString());
+	}
+	
+	private  void makeDir(String path){
+		File dir = new File(path);
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+	}
+	public void backupMessageAsText(SBMessage message,String gameId){
+		FileWriter fw = null;
+		
+
+		makeDir(SBConst.MESSAGE_AS_TEXT_BACKUP_PATH);
+		String path = SBConst.MESSAGE_AS_TEXT_BACKUP_PATH + "/" + gameId;		
+		try{
+			fw = new FileWriter(path,true);
+			fw.write(message.toJson());
+			fw.write("\n");
+		}catch(IOException e){
+			SBUtil.logThrowable(LOGGER, e);
+		}finally{
+			try{
+				fw.close();
+			}catch(IOException e){
+				SBUtil.logThrowable(LOGGER, e);
+			}
+		}
 	}
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import org.smartbirdpj.mdl.PaidPoint;
 import org.smartbirdpj.mdl.cnst.GameConstants;
 import org.smartbirdpj.mdl.enm.MeldEnum;
 import org.smartbirdpj.mdl.enm.TileEnum;
+import org.smartbirdpj.cnst.SBConst;
 import org.smartbirdpj.dao.SBMessageDaoFactory;
 import org.smartbirdpj.message.SBMessage;
 import org.smartbirdpj.message.SBMessageAddTile;
@@ -45,7 +47,6 @@ public class GameServer extends Thread{
 	
 	private final boolean DEBUG  = false;
 	private final boolean HARF_GAME = true;
-	private final static String PLAYER_DEF_FILES = "playerDefs.conf";
 	private final static int PLAYER_NUMBER = 4;
 	private static List<AbstractGamePlayer> players = new ArrayList<AbstractGamePlayer>();
 	
@@ -60,6 +61,7 @@ public class GameServer extends Thread{
 	private int _gameNumber = 0;
 	private int _roundNumber = 0;
 	private String clientId = "";
+	private String gameId = "";
 	private StealStatus _stealStatus;
 	private final int THE_ILLEGAL_CHOW_MAX = 2;
 	private boolean _isViolation = false;
@@ -409,7 +411,7 @@ public class GameServer extends Thread{
 	        InputStream inStream = null;
 	        Properties prop = null;
 	        try {
-	            inStream = GameServer.class.getClassLoader().getResourceAsStream(PLAYER_DEF_FILES);
+	            inStream = GameServer.class.getClassLoader().getResourceAsStream(SBConst.PLAYER_DEF_FILES);
 	    		prop = new Properties();
 	    		prop.load(inStream);
 	            playerDefs[0] = prop.getProperty("player0");
@@ -444,12 +446,19 @@ public class GameServer extends Thread{
 		_gameStaticAnalyzer.showRecodeResult();
 	}
 	private void writeMessage(SBMessage message){
-
+		_gameStaticAnalyzer.backupMessageAsText(message,gameId);
 		SBMessageDaoFactory.getInstance().createDao("").writeMessage(clientId,message);
+	}
+	private void makeGameId(){
+		gameId = (new Date()).toString();
+		gameId = gameId.replace(" ", "_");
+		gameId = gameId.replace(":", "-");
 	}
 	@Override
 	public void run(){
 		try{
+			makeGameId();
+			
 			registerPlayers();
 	
 			runGame();

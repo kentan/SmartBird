@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 
+import org.smartbirdpj.cnst.SBConst;
 import org.smartbirdpj.log.LoggerFactory;
 import org.smartbirdpj.message.SBMessage;
 import org.smartbirdpj.message.SBMessageHandleError;
@@ -20,8 +21,7 @@ import org.smartbirdpj.util.SBUtil;
 
 
 public class SBMessageFileDao extends SBMessageDao {
-	private static final String FILE_NAME_PREFIX = "sbmessage";
-	private static final String FILE_DIRECTORY = "message";
+
 	private static Map<String,Long> tailNumber = new ConcurrentHashMap<String, Long>();
 	private static Map<String,Long> headNumber = new ConcurrentHashMap<String, Long>();
 
@@ -30,7 +30,7 @@ public class SBMessageFileDao extends SBMessageDao {
 	public void init(String id){
 		final String METHOD_NAME = "init";
 		LOGGER.entering(CLASS_NAME, METHOD_NAME);
-		File dir = new File(FILE_DIRECTORY + "/" + id);
+		File dir = new File(SBConst.OUTPUT_DIR_PATH + "/" + id);
 		if(dir.exists()){
 			File[] files=dir.listFiles();
 			for(int i=0; i<files.length; i++){
@@ -55,7 +55,7 @@ public class SBMessageFileDao extends SBMessageDao {
 			tailNumber.put(id, 0l);
 		}
 		
-		String fileName = FILE_DIRECTORY + "/" + id + "/" + FILE_NAME_PREFIX + "_" + tailNumber.get(id);
+		String fileName = SBConst.OUTPUT_DIR_PATH + "/" + id + "/" + SBConst.MESSAGE_FILE_NAME_PREFIX + "_" + tailNumber.get(id);
 		try {
 			outFile = new FileOutputStream(fileName);
 			outObject = new ObjectOutputStream(outFile);
@@ -91,7 +91,7 @@ public class SBMessageFileDao extends SBMessageDao {
 		FileInputStream inFile = null;
 		ObjectInputStream inObject = null;
 		SBMessage message = new SBMessage();
-		String fileName = FILE_DIRECTORY + "/" + id + "/" + FILE_NAME_PREFIX + "_" + headNumber.get(id);
+		String fileName = SBConst.OUTPUT_DIR_PATH + "/" + id + "/" + SBConst.MESSAGE_FILE_NAME_PREFIX + "_" + headNumber.get(id);
 		boolean done = false;
 		try {
 			inFile = new FileInputStream(fileName);
