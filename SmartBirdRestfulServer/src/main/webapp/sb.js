@@ -379,12 +379,12 @@ var sb = (function() {
 
 		getNextMessage : function getNextMessage() {
 			var host = "/SmartBirdRestfulServer/webapi/endpoint/next/" + clientId;
-			$('#log').append("next<br/>");
+//			$('#log').append("next<br/>");
 			$.ajax({
 				type : 'GET',
 				url : host,
 				success : function(message) {
-					$('#log').append(message + "<br/>");
+//					$('#log').append(message + "<br/>");
 					var json = JSON.parse(message);
 					var operation = json.operation;
 					var playerId = json.playerId;
