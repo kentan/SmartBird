@@ -75,22 +75,22 @@ public class GameStatisticAnalyzer {
 	public void showRecodeResult(){
 		StringBuffer message = new StringBuffer();
 		for(Map.Entry<Integer, GameResult> entry: gameResults.entrySet()){
-			message.append("==== GAME: " + entry.getKey() + "====");
-			message.append("winner:" + entry.getValue().winnerPlayerId);
+			message.append("==== GAME: " + entry.getKey() + "====" + "\n");
+			message.append("winner:" + entry.getValue().winnerPlayerId + "\n");
 			Map<Integer,Integer> finalPoint = entry.getValue().point;
 			
 			for(Map.Entry<Integer, Integer> entry2: finalPoint.entrySet()){
-				message.append(entry2.getKey() + ":" + entry2.getValue());
+				message.append(entry2.getKey() + ":" + entry2.getValue() + "\n");
 			}
 			
 			List<RoundResult> roundResults= entry.getValue().getRoundResult();
 			for(RoundResult r :roundResults){
 				PaidPoint point = r.paidPoint;
 
-				message.append("--- ROUND :" + r.roundNumber + "---");
-				message.append("plyaer "+point.getPaidPlayerId() + " won");
-				message.append(point.getPoint1() + " from " + point.getPayingPlayerIdOnPoint1());
-				message.append(point.getPoint2() + " from " + point.getPayingPlayerIdOnPoint2());
+				message.append("--- ROUND :" + r.roundNumber + "---" + "\n");
+				message.append("plyaer "+point.getPaidPlayerId() + " won" + "\n");
+				message.append(point.getPoint1() + " from " + point.getPayingPlayerIdOnPoint1() + "\n");
+				message.append(point.getPoint2() + " from " + point.getPayingPlayerIdOnPoint2() + "\n");
 
 			}
 			
@@ -98,13 +98,13 @@ public class GameStatisticAnalyzer {
 		
 		// total point,sum total point of whole games.
 		for(Map.Entry<Integer, Integer> entry: totalPoint.entrySet()){
-			message.append(entry.getKey() + ":" + entry.getValue());
+			message.append(entry.getKey() + ":" + entry.getValue() + "\n");
 		}
 		
 		// game winner count
-		message.append(gameWinnerCount.toString());
+		message.append(gameWinnerCount.toString() + "\n");
 		// round winner count 
-		message.append(roundWinnerCount.toString());
+		message.append(roundWinnerCount.toString() + "\n");
 		
 		LOGGER.info(message.toString());
 	}
