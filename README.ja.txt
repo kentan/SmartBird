@@ -1,58 +1,45 @@
 簡単なメモ日本語版。正式版のREADMEは英語でそのうち。
 
 ■プロジェクト構成
-a. SilverBirdModel
-生成： sbmodel.jar
-依存：なし
-AIサーバ全体で必要なデータモデルをここに集めてる。
-
-b. SilverBirdEngine
-生成: sbengine.jar
-依存: sbmodel.jar
-役判定とか点数計算とか。
-
-c. SilverBirdServer
-生成:sbserver.jar
-依存:sbengine.jar,sbmodel.jar,sbclient.jar(sbclient.jarはbuild時には不要。実行時にあれば良い。リフレクションでよんでるので)
-Gameサーバ的なもの。
+a. SmartBirdEngine
+麻雀の点数計算、プレイヤーの手順管理などゲームとして麻雀を行うのに必要なすべてを行うプロジェクト。
 こいつを起動すると、sbclien.jarを読み込んで、こいつの中にいるAI用クラス(AbstructGamePlayerを継承したクラス)のメソッドを呼び出しながらゲームを続ける。
 
-最終的にはWeb Servlet的なものにしてRestful Server化したいと思っているけど、まずは小さくリリース。
 
-d. SilverBirdClient
-AIを実装するプログラマーが唯一コードを各必要があるのがこのプロジェクト。
-いまcommitしてあるConcreateGamePlayerは俺が５分で考えたAIが入ってる。
-まあSampleRandomPlayer相手ならたまに上がりまで持ってくことができるので、とりあえず参考用に。
-
-ちなみにa~cは実はjarだけあればよい。また後述の実装手順6で指定するクラス指定と一致していれば、プロジェクト名、クラス名ともになんでもいい。
-
+b. SmartBirdClient
+AIを実装するプログラマーが唯一コードを書く必要があるのがこのプロジェクト。
 AbstructGamePlayerを継承して実装すること。GameServerとのinteractionは(ツモ宣言とか牌捨てとか)はAbstructGamePlayerがもつメソッドを通じて行う。
 
-
+c. SmartBirdResfulServer
+SmartBirdのGUI. 
+Tomcat上で動くwarを生成する。jsから受け取ったrestful requestをSmartBirdGameServerに仲介する存在。
 
 
 ■実装手順
-1. SilverBirdModelをbuild (build.xmlを叩く)
-2. SilverBirdEngineをbuild (build.xmlを叩く)
-3. SilverBirdServerをbuild(build.xmlを叩く)
-4. SilverBirdClientにAbstuctGamePlayerを継承したGamePlayerを作成する。
-5. SilverBirdClientをbuild(build.xmlを叩く)
-6. SilverBirdServerのPlayerDefs.confに4で作ったclassを記述する。player0〜player3のうちどれをつかってもよい。 
+1. SmartBirdEngineをbuild. SmartBird/SmartBirdEngine直下にあるpomを実行する。
+%>mvn insatall 
+これによりsbengine.jarが生成される。
+2. SmartBirdClientにAbstuctGamePlayerを継承したGamePlayerを作成する。
+3. SmartBirdServerのPlayerDefs.confに4で作ったclassを記述する。player0〜player3のうちどれをつかってもよい。 
 例)
 
 player0 = <4で作ったクラス>
-player1 = org.sb.server.player.sample.SampleRandomPlayer
-player2 = org.sb.server.player.sample.SampleRandomPlayer
-player3 = org.sb.server.player.sample.SampleRandomPlayer
+player1 = org.smartbirdpj.server.player.sample.SampleRandomPlayer
+player2 = org.smartbirdpj.server.player.sample.SampleRandomPlayer
+player3 = org.smartbirdpj.server.player.sample.SampleRandomPlayer
 
+4. SmartBird直下にあるpomを使ってwarを生成する。 
+これによりsbclient.jar,sbengine.jar,sb.warが生成される。
 
-7. SilverBirdServerのGameServer#mainを起動する。
+5. sb.warをtomcatにデプロイする。
+6. <デプロイ先>/index.htmlにアクセスし、startボタンを実行する。
+例) http://localhost:8080/sb/index.html
 
 以上でゲームスタート。
 
 ■AbstructGamePlayerの実装方法
 
-詳細はSilberBirdClientのConcreatePlayerかなんかを参考にすればわかると思うが、とりあえずさくっと説明。
+詳細はSmartBirdClientのConcreatePlayerかなんかを参考にすればわかると思うが、とりあえずさくっと説明。
 
 重要なのは以下の２つのメソッド
 
