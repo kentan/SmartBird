@@ -1,6 +1,8 @@
+#SmartBird
+
 <img title="SmartBird" src="https://raw.githubusercontent.com/kentan/SmartBird/master/sbSample.png" height="400" width="500" />
 
-#SmartBird
+
 SmartBird is artificial intelligence, AI, platform for Mahjong.
 
 SmartBird provides the function that enable programmers to make thier own AI based on their strategy.
