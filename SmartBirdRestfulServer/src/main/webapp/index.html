@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Insert title here</title>
+	<title>Your New Application</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src='tileDrawing.js'></script>
+	<script src='sb.js'></script>
+	<link rel="stylesheet" type="text/css" href="sb.css">
+
+</head>
+<body>
+
+    
+	<button onclick="sb.startGame('testMessage')">start</button>
+	<button onclick="sb.pauseGame()">pause</button>
+	<button onclick="sb.resumeGame(2000)">resume(slow)</button>
+	<button onclick="sb.resumeGame(50)">resume(fast)</button>
+	<button onclick="sb.resumeGame(-1)">resume(manual)</button>
+	<!-- content goes here-->
+	<div id="table" style="background-color:#98FB98;with:1000px;height:1000px">
+		<div id="tableInfo" class="info">
+		    <label id="round"> </label>
+		   	<div style="position:absolute; top:20px; left:0px; height:60px;width:50px;z-index:1">
+				<canvas id="dora0" width="45px" height="55px"></canvas>
+			</div>
+		   	<div style="position:absolute; top:20px; left:45px; height:60px;width:50px;z-index:1">
+				<canvas id="dora1" width="45px" height="55px"></canvas>
+			</div>
+		   	<div style="position:absolute; top:20px; left:90px; height:60px;width:50px;z-index:1">
+				<canvas id="dora2" width="45px" height="55px"></canvas>
+			</div>
+		   	<div style="position:absolute; top:20px; left:135px; height:60px;width:50px;z-index:1">
+				<canvas id="dora3" width="45px" height="55px"></canvas>
+			</div>
+
+			<label id="pointPool" style="position:absolute; top:90px;left:0px;"></label>
+				
+		</div>
+		<div class="p0">
+			<div id = 'discarded0' style="position:absolute; height:200px; width:300px;"></div>
+			<div id = 'info0' style="position:absolute; left:350px;height:200px; width:300px;"></div>
+			<div id = 'wall0' style="position:absolute; top:200px; left:0px;"></div>
+			<div id = 'huro0' style="position:absolute; top:205px; left:520px;"></div>
+		</div>
+		<div class="p1">
+			<div id = 'discarded1' style="position:absolute; height:200px; width:300px;"></div>			
+			<div id = 'info1' style="position:absolute; left:350px;height:200px; width:300px;"></div>
+			<div id = 'wall1' style="position:absolute; top:200px; left:0px;"></div>
+			<div id = 'huro1' style="position:absolute; top:205px; left:520px;"></div>
+		</div>
+		<div class="p2">
+			<div id = 'discarded2' style="position:absolute; height:200px; width:300px;"></div>
+			<div id = 'info2' style="position:absolute; left:350px;height:200px; width:300px;"></div>
+			<div id = 'wall2' style="position:absolute; top:200px; left:0px;"></div>
+			<div id = 'huro2' style="position:absolute; top:205px; left:520px;"></div>
+		</div>
+		<div class="p3">
+			<div id = 'discarded3' style="position:absolute; height:200px; width:300px;"></div>
+			<div id = 'info3' style="position:absolute; left:350px;height:200px; width:300px;"></div>
+			<div id = 'wall3' style="position:absolute; top:200px; left:0px;"></div>
+			<div id = 'huro3' style="position:absolute; top:205px; left:520px;"></div>
+		</div>		
+    </div>
+     <div id='d1' style="position:absolute; top:1000px; left:0px; height:60px;width:50px;z-index:1">
+	   <div id="log"></div>
+	</div>
+</body>
+</html>
