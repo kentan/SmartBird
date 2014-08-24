@@ -19,7 +19,7 @@
 
     </properties>
     <build>
-        <finalName>SmartBirdRestfulServer</finalName>
+        <finalName>sb</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
