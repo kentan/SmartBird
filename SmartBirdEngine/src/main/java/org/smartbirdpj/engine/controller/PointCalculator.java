@@ -58,7 +58,7 @@ public class PointCalculator {
 	}
 
 	private boolean isParent() {
-		return TileEnum.EAST.equals(_playerWind);
+		return _playerWind.equals(_prevailingWind);
 	}
 
 	private int countDoraTile(WinningHandsBasic winningHands) {
