@@ -117,7 +117,9 @@ public class PointCalculator {
 		put(WinningHandsEnum.TUMO,new TumoValidator());
 		
 	}};
-	private int calculateHan(WinningHands winningHands){
+
+    private final static String DELIMITER = ",";
+	private int calculateHan(WinningHands winningHands,StringBuffer yaku){
 		int han = 0;
 		if(winningHands.isRichi()){
 			han += 1;
@@ -127,46 +129,41 @@ public class PointCalculator {
 			
 			if(WinningHandsEnum.YAKUHAI.equals(entry.getKey())){
 				YakuhaiValidator yakuhaiValidator = (YakuhaiValidator)entry.getValue();
-				for(MeldElement elem : ((WinningHandsBasic)winningHands).getList()){
-					if(yakuhaiValidator.validateEachPlayerWind(elem,status)){
-						han += entry.getKey().getHan(winningHands.isStolen());
-					}
-					if(yakuhaiValidator.validateEachPrevailingWind(elem,status)){
-						han += entry.getKey().getHan(winningHands.isStolen());
-					}
-					if(yakuhaiValidator.validateEachWhite(elem,status)){
-						han += entry.getKey().getHan(winningHands.isStolen());
-					}
-					if(yakuhaiValidator.validateEachRed(elem,status)){
-						han += entry.getKey().getHan(winningHands.isStolen());
-					}
-					if(yakuhaiValidator.validateEachGreen(elem,status)){
-						han += entry.getKey().getHan(winningHands.isStolen());
-					}
-				}
+				for(MeldElement elem : ((WinningHandsBasic)winningHands).getList()) {
+                    if (yakuhaiValidator.validateEachPlayerWind(elem, status) ||
+                            yakuhaiValidator.validateEachPrevailingWind(elem, status) ||
+                            yakuhaiValidator.validateEachWhite(elem, status) ||
+                            yakuhaiValidator.validateEachRed(elem, status) ||
+                            yakuhaiValidator.validateEachGreen(elem, status)) {
+                        han += entry.getKey().getHan(winningHands.isStolen());
+                        yaku.append(entry.getKey().toString() + DELIMITER);
+                    }
+                }
 			}
 			else if(WinningHandsEnum.SANSYOKU_DOJUN.equals(entry.getKey()) ||
 					WinningHandsEnum.SANSYOKU_DOKOKU.equals(entry.getKey())){
 				if(entry.getValue().validate(winningHands,status)){
-
 					han += entry.getKey().getHan(status.is3SyokuStolen);
+                    yaku.append(entry.getKey().toString() + DELIMITER);
 				}
 			}
 			else if(WinningHandsEnum.SAN_ANKO.equals(entry.getKey()) ||
 					WinningHandsEnum.SAN_KANTSU.equals(entry.getKey())){
 				if(entry.getValue().validate(winningHands,status)){
-
 					han += entry.getKey().getHan(false);
+                    yaku.append(entry.getKey().toString() + DELIMITER);
 				}
 			}
 			else {
 				if(entry.getValue().validate(winningHands,status)){
-
 					han += entry.getKey().getHan(winningHands.isStolen());
+                    yaku.append(entry.getKey().toString() + DELIMITER);
 				}
 			}
 		}
-		han += countDoraTile((WinningHandsBasic)winningHands);
+        int dora = countDoraTile((WinningHandsBasic)winningHands);
+        yaku.append(dora + DELIMITER);
+		han += dora;
 		return han;
 	}
 
@@ -245,7 +242,7 @@ public class PointCalculator {
 		return ceil(hu);
 	}
 
-	public Point calculate(WinningHandsList winningHandsList) {
+	public Point calculate(WinningHandsList winningHandsList,StringBuffer yaku) {
 		int maxHan = 0;
 		int maxHu = 0;
 
@@ -259,7 +256,7 @@ public class PointCalculator {
 
 				int hu = calculateHu((WinningHandsBasic) winningHand);
 
-				int han = calculateHan((WinningHandsBasic) winningHand);
+				int han = calculateHan((WinningHandsBasic) winningHand,yaku);
 
 				if (han > maxHan) {
 					maxHan = han;

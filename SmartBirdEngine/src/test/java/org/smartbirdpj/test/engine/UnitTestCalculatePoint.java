@@ -194,6 +194,7 @@ public class UnitTestCalculatePoint {
 				}
 
 				TileSet haiSet = new TileSet(jiKaze, baKaze);
+
 				haiSet.setTiles(hais);
 				
 				haiSet.setWinningTile(hais.get(hais.size() - 1));
