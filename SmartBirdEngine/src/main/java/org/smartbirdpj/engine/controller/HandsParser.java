@@ -143,10 +143,12 @@ public class HandsParser {
 
 
 			if (tileSet.isWinningTile(h1)) {
-				if (h1.equals(TileEnum.CHARACTOR7) || h1.equals(TileEnum.BAMBOO7)
-						|| h1.equals(TileEnum.CIRCLE7)) {
+				if (h1.equals(TileEnum.CHARACTOR7)
+						|| h1.equals(TileEnum.BAMBOO7)
+						|| h1.equals(TileEnum.CIRCLE7)){
 					child.setWinningFormEnum(WinningFormEnum.PENTYAN, tileSet.isTumo());
-				} else {
+				}
+				else {
 					child.setWinningFormEnum(WinningFormEnum.RYANMEN, tileSet.isTumo());
 				}
 			}
@@ -156,8 +158,8 @@ public class HandsParser {
 			}
 			if (tileSet.isWinningTile(h3)) {
 
-				if (h1.equals(TileEnum.CHARACTOR3) || h1.equals(TileEnum.BAMBOO3)
-						|| h1.equals(TileEnum.CIRCLE3)) {
+				if (h3.equals(TileEnum.CHARACTOR3) || h3.equals(TileEnum.BAMBOO3)
+						|| h3.equals(TileEnum.CIRCLE3)) {
 					child.setWinningFormEnum(WinningFormEnum.PENTYAN, tileSet.isTumo());
 				} else {
 					child.setWinningFormEnum(WinningFormEnum.RYANMEN, tileSet.isTumo());

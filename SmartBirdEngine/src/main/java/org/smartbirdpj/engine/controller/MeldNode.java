@@ -65,7 +65,7 @@ public class MeldNode{
 	public MeldElement getMeld(){
 		return meld;
 	}
-	
+
 	/*for unit test*/	
 	public List<WinningHands> transformGraphToList(){
 		List<WinningHands> winningHandsList = new ArrayList<WinningHands>();
@@ -87,7 +87,10 @@ public class MeldNode{
 		}
 		List<MeldNode> children = this.getChildren();
 		if(children.size() == 0){
-			winningHandsList.add(winningHands);
+			// Valid winningHandsBasic always needs 5 melds.
+			if(winningHands.getList().size() == 5) {
+				winningHandsList.add(winningHands);
+			}
 			return ;			
 		}
 		for(MeldNode child: children){
