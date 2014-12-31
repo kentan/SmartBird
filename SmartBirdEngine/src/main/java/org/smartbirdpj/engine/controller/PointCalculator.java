@@ -50,6 +50,7 @@ public class PointCalculator {
 	private TileEnum _playerWind;
 	private TileEnum _prevailingWind;
 	private List<TileEnum> _doraList;
+	private String validatedYaku = null;
 
 	public PointCalculator(TileEnum playerWind, TileEnum prevailingWind, List<TileEnum> doraList) {
 		_playerWind = playerWind;
@@ -242,12 +243,16 @@ public class PointCalculator {
 		return ceil(hu);
 	}
 
-	public Point calculate(WinningHandsList winningHandsList,StringBuffer yaku) {
+	public String getValidatedYaku(){
+		return this.validatedYaku;
+	}
+
+	public Point calculate(WinningHandsList winningHandsList) {
 		int maxHan = 0;
 		int maxHu = 0;
 
 		for (WinningHands winningHand : winningHandsList.getList()) {
-
+			StringBuffer sb = new StringBuffer();
 			if (winningHand instanceof WinningHandsKokushiMuso) {
 				maxHan = 13;
 				maxHu = 40;
@@ -256,10 +261,11 @@ public class PointCalculator {
 
 				int hu = calculateHu((WinningHandsBasic) winningHand);
 
-				int han = calculateHan((WinningHandsBasic) winningHand,yaku);
+				int han = calculateHan((WinningHandsBasic) winningHand,sb);
 
 				if (han > maxHan) {
 					maxHan = han;
+					validatedYaku = sb.toString();
 				}
 				if (hu > maxHu) {
 					maxHu = hu;

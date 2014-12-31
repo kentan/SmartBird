@@ -21,7 +21,7 @@ public class TileSet {
 	private boolean _isStolen;
 	private boolean _isTumo;
 	private boolean _isRichi;
-    private StringBuffer yaku = new StringBuffer();
+    private String yaku = new String();
 
 	private List<MeldElement> _huroList = new ArrayList<MeldElement>();
 
@@ -144,7 +144,9 @@ public class TileSet {
 		}
 
 		PointCalculator calculator = new PointCalculator(_playerWind, _prevailingWind, _doraList);
-		return calculator.calculate(winningHandsListCache,yaku);
+		Point p = calculator.calculate(winningHandsListCache);
+		this.yaku = calculator.getValidatedYaku();
+		return p;
 
 	}
 
