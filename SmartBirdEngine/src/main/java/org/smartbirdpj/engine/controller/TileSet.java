@@ -151,7 +151,7 @@ public class TileSet {
 	}
 
     public String getValidYaku(){
-        return this.yaku.toString();
+        return this.yaku;
     }
 
 

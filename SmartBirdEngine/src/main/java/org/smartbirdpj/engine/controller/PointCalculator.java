@@ -59,7 +59,7 @@ public class PointCalculator {
 	}
 
 	private boolean isParent() {
-		return _playerWind.equals(_prevailingWind);
+		return _playerWind.equals(TileEnum.EAST);
 	}
 
 	private int countDoraTile(WinningHandsBasic winningHands) {
@@ -131,11 +131,23 @@ public class PointCalculator {
 			if(WinningHandsEnum.YAKUHAI.equals(entry.getKey())){
 				YakuhaiValidator yakuhaiValidator = (YakuhaiValidator)entry.getValue();
 				for(MeldElement elem : ((WinningHandsBasic)winningHands).getList()) {
-                    if (yakuhaiValidator.validateEachPlayerWind(elem, status) ||
-                            yakuhaiValidator.validateEachPrevailingWind(elem, status) ||
-                            yakuhaiValidator.validateEachWhite(elem, status) ||
-                            yakuhaiValidator.validateEachRed(elem, status) ||
-                            yakuhaiValidator.validateEachGreen(elem, status)) {
+                    if (yakuhaiValidator.validateEachPlayerWind(elem, status)){
+						han += entry.getKey().getHan(winningHands.isStolen());
+						yaku.append(entry.getKey().toString() + DELIMITER);
+					}
+					if (yakuhaiValidator.validateEachPrevailingWind(elem, status)){
+						han += entry.getKey().getHan(winningHands.isStolen());
+						yaku.append(entry.getKey().toString() + DELIMITER);
+					}
+					if (yakuhaiValidator.validateEachWhite(elem, status)){
+						han += entry.getKey().getHan(winningHands.isStolen());
+						yaku.append(entry.getKey().toString() + DELIMITER);
+					}
+					if (yakuhaiValidator.validateEachRed(elem, status)){
+						han += entry.getKey().getHan(winningHands.isStolen());
+						yaku.append(entry.getKey().toString() + DELIMITER);
+					}
+					if (yakuhaiValidator.validateEachGreen(elem, status)){
                         han += entry.getKey().getHan(winningHands.isStolen());
                         yaku.append(entry.getKey().toString() + DELIMITER);
                     }
@@ -248,58 +260,63 @@ public class PointCalculator {
 	}
 
 	public Point calculate(WinningHandsList winningHandsList) {
-		int maxHan = 0;
-		int maxHu = 0;
+
+		Point highestPoint = null;
+		int highestProfit = Integer.MAX_VALUE;
 
 		for (WinningHands winningHand : winningHandsList.getList()) {
 			StringBuffer sb = new StringBuffer();
 			if (winningHand instanceof WinningHandsKokushiMuso) {
-				maxHan = 13;
-				maxHu = 40;
 				break;
 			} else {
 
 				int hu = calculateHu((WinningHandsBasic) winningHand);
 
-				int han = calculateHan((WinningHandsBasic) winningHand,sb);
+				int han = calculateHan((WinningHandsBasic) winningHand, sb);
 
-				if (han > maxHan) {
-					maxHan = han;
+
+
+				LOGGER.finest("-Han:" + han);
+				LOGGER.finest("-Hu:" + hu);
+				boolean isTumo = winningHandsList.get(0).isTumo();
+				PointHolder pointCalculator = new PointHolder();
+				Point point = null;
+				int profit = 0;
+				if (isTumo) {
+					if (isParent()) {
+						point = pointCalculator.getPointOnTumoParent(han, hu);
+						if(point == null) continue;
+						profit = point.getPoint1() * 3;
+
+					} else {
+						point = pointCalculator.getPointOnTumoChild(han, hu);
+						if(point == null) continue;
+						profit = point.getPoint1() + point.getPoint2() * 2;
+					}
+
+				} else {
+					if (isParent()) {
+
+						point = pointCalculator.getPointOnRonParent(han, hu);
+						if(point == null) continue;
+						profit = point.getPoint1();
+
+					} else {
+						point = pointCalculator.getPointOnRonChild(han, hu);
+						if(point == null) continue;
+						profit = point.getPoint1();
+					}
+				}
+				if(highestPoint == null || profit > highestProfit){
+					highestPoint = point;
+					highestProfit = profit;
 					validatedYaku = sb.toString();
 				}
-				if (hu > maxHu) {
-					maxHu = hu;
-				}
-			}
 
-		}
-		LOGGER.finest("-Han:" + maxHan);
-		LOGGER.finest("-Hu:" + maxHu);
-		boolean isTumo = winningHandsList.get(0).isTumo();
-		PointHolder pointCalculator = new PointHolder();
-		Point point = null;
-		if (isTumo) {
-			if (isParent()) {
-
-				point = pointCalculator.getPointOnTumoParent(maxHan, maxHu);
-
-			} else {
-
-				point = pointCalculator.getPointOnTumoChild(maxHan, maxHu);
-
-			}
-
-		} else {
-			if (isParent()) {
-
-				point = pointCalculator.getPointOnRonParent(maxHan, maxHu);
-
-			} else {
-
-				point = pointCalculator.getPointOnRonChild(maxHan, maxHu);
 			}
 		}
-		return point;
+		return highestPoint;
+
 	}
 
 

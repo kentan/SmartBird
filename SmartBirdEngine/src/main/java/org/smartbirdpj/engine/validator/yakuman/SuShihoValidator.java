@@ -28,7 +28,7 @@ public class SuShihoValidator extends WinningHandsValidator {
 		boolean east =false, south = false, west = false,north = false;
 
 		for(MeldElement meld : melds){
-			if(allowedMelds.contains(meld.getTileSuite())){
+			if(allowedMelds.contains(meld.getMeldEnum())){
 				if(TileEnum.EAST.equals(meld.getList().get(0))){
 					east = true;
 				}				
