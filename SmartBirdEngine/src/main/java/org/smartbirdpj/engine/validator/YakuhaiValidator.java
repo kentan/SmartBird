@@ -7,12 +7,14 @@ import org.smartbirdpj.engine.controller.WinningHandsBasic;
 import org.smartbirdpj.mdl.MeldElement;
 import org.smartbirdpj.mdl.enm.MeldEnum;
 import org.smartbirdpj.mdl.enm.TileEnum;
+import org.smartbirdpj.mdl.enm.WinningHandsEnum;
 
 
 public class YakuhaiValidator extends WinningHandsValidator {
 
 	public boolean validate(WinningHands winningHands, WinningHandsStatus status){
 		boolean isYakuhai = false;
+
 		for(MeldElement elem : ((WinningHandsBasic)winningHands).getList()){
 			isYakuhai |= validateEachPlayerWind(elem,status);
 			isYakuhai |= validateEachPrevailingWind(elem,status);
@@ -43,7 +45,9 @@ public class YakuhaiValidator extends WinningHandsValidator {
 		return validateEach(mentsu, status, TileEnum.GREEN);
 	}
 	private boolean validateEach(MeldElement mentsu,WinningHandsStatus status,TileEnum wind) {
-		
+		if (status.isHigherWinningHandsValid(WinningHandsEnum.YAKUHAI)) {
+			return false;
+		}
 		if (MeldEnum.WALL_KONG.equals(mentsu.getMeldEnum()) || MeldEnum.STEAL_KONG.equals(mentsu.getMeldEnum())
 				|| MeldEnum.WALL_PONG.equals(mentsu.getMeldEnum()) || MeldEnum.STEAL_PONG.equals(mentsu.getMeldEnum())) {
 			List<TileEnum> tiles = mentsu.getList();

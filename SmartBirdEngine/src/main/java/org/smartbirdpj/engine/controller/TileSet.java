@@ -87,6 +87,9 @@ public class TileSet {
 	public void setWinningTile(TileEnum tile) {
 		_winningTile = tile;
 	}
+	public TileEnum getWinningTile(){
+		return _winningTile;
+	}
 
 	public void addDoraTiles(List<TileEnum> tiles) {
 		_doraList.addAll(tiles);
@@ -138,7 +141,6 @@ public class TileSet {
 			}
 		}
 
-
 		if(validateWinningHandsList(winningHandsListCache) == false){
 			return null;
 		}
@@ -167,8 +169,7 @@ public class TileSet {
 	}
 	
 	public List<TileEnum> getTiles(){
-		// TODO deep copy for preventing from exposure
-		return _tiles;
+		return new ArrayList<TileEnum>(_tiles);
 	}
 	@Override
 	public String toString(){

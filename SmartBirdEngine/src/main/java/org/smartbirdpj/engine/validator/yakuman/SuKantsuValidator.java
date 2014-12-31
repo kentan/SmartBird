@@ -25,6 +25,10 @@ public class SuKantsuValidator extends WinningHandsValidator{
 			}	
 
 		}
-		return numOfKong == 4;
+		if(numOfKong == 4){
+			status.isYakuman = true;
+			return true;
+		}
+		return false;
 	}
 }

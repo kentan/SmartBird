@@ -27,6 +27,7 @@ public class ChinrotoValidator extends WinningHandsValidator {
 			}
 
 		}
+		status.isYakuman = true;
 		return true;
 	}
 }

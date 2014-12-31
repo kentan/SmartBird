@@ -195,21 +195,26 @@ public class PointCalculator {
 		}
 	}
 
-	private int calculateHu(WinningHandsBasic winningHand) {
-		if (winningHand.is7Toitsu()) {
+	private int calculateHu(WinningHands winningHand) {
+
+		WinningHandsBasic basic = (WinningHandsBasic)winningHand;
+		if (basic.is7Toitsu()) {
 			return 25;
+		}
+		if (basic.isKokushi()) {
+			return 30; // any Hu is fine. Since yakuman doesn't need hu for calculation.
 		}
 		int hu = 20;
 
-		if (winningHand.isMenzen() && !winningHand.isTumo()) {
+		if (basic.isMenzen() && !winningHand.isTumo()) {
 			hu += 10;
 		}
 		try {
-			hu += winningHand.getWinningFormEnum().getHu();
+			hu += basic.getWinningFormEnum().getHu();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-		for (MeldElement meld : winningHand.getList()) {
+		for (MeldElement meld : basic.getList()) {
 			MeldEnum meldEnum = meld.getMeldEnum();
 			if (MeldEnum.EYES.equals(meldEnum)) {
 				TileEnum tile = meld.getList().get(0);
@@ -263,57 +268,52 @@ public class PointCalculator {
 
 		Point highestPoint = null;
 		int highestProfit = Integer.MAX_VALUE;
-
+		boolean isTumo = winningHandsList.get(0).isTumo();
 		for (WinningHands winningHand : winningHandsList.getList()) {
 			StringBuffer sb = new StringBuffer();
-			if (winningHand instanceof WinningHandsKokushiMuso) {
-				break;
-			} else {
-
-				int hu = calculateHu((WinningHandsBasic) winningHand);
-
-				int han = calculateHan((WinningHandsBasic) winningHand, sb);
 
 
+			int hu = calculateHu(winningHand);
 
-				LOGGER.finest("-Han:" + han);
-				LOGGER.finest("-Hu:" + hu);
-				boolean isTumo = winningHandsList.get(0).isTumo();
-				PointHolder pointCalculator = new PointHolder();
-				Point point = null;
-				int profit = 0;
-				if (isTumo) {
-					if (isParent()) {
-						point = pointCalculator.getPointOnTumoParent(han, hu);
-						if(point == null) continue;
-						profit = point.getPoint1() * 3;
+			int han = calculateHan(winningHand, sb);
 
-					} else {
-						point = pointCalculator.getPointOnTumoChild(han, hu);
-						if(point == null) continue;
-						profit = point.getPoint1() + point.getPoint2() * 2;
-					}
+
+			LOGGER.finest("-Han:" + han);
+			LOGGER.finest("-Hu:" + hu);
+			PointHolder pointCalculator = new PointHolder();
+			Point point = null;
+			int profit = 0;
+			if (isTumo) {
+				if (isParent()) {
+					point = pointCalculator.getPointOnTumoParent(han, hu);
+					if (point == null) continue;
+					profit = point.getPoint1() * 3;
 
 				} else {
-					if (isParent()) {
-
-						point = pointCalculator.getPointOnRonParent(han, hu);
-						if(point == null) continue;
-						profit = point.getPoint1();
-
-					} else {
-						point = pointCalculator.getPointOnRonChild(han, hu);
-						if(point == null) continue;
-						profit = point.getPoint1();
-					}
-				}
-				if(highestPoint == null || profit > highestProfit){
-					highestPoint = point;
-					highestProfit = profit;
-					validatedYaku = sb.toString();
+					point = pointCalculator.getPointOnTumoChild(han, hu);
+					if (point == null) continue;
+					profit = point.getPoint1() + point.getPoint2() * 2;
 				}
 
+			} else {
+				if (isParent()) {
+
+					point = pointCalculator.getPointOnRonParent(han, hu);
+					if (point == null) continue;
+					profit = point.getPoint1();
+
+				} else {
+					point = pointCalculator.getPointOnRonChild(han, hu);
+					if (point == null) continue;
+					profit = point.getPoint1();
+				}
 			}
+			if (highestPoint == null || profit > highestProfit) {
+				highestPoint = point;
+				highestProfit = profit;
+				validatedYaku = sb.toString();
+			}
+
 		}
 		return highestPoint;
 

@@ -23,7 +23,7 @@ abstract public class SanSyokuValidator extends WinningHandsValidator {
 
 	}
 	
-	protected boolean is3syoku(List<MeldEnum> meldsEnums,WinningHands winningHands, boolean isDokoku) {
+	private boolean is3syoku(List<MeldEnum> meldsEnums,WinningHands winningHands, boolean isDokoku) {
 
 		List<MeldElement> meldList = ((WinningHandsBasic)winningHands).getList();
 		boolean isOkCharactor = false;
@@ -92,10 +92,14 @@ abstract public class SanSyokuValidator extends WinningHandsValidator {
 	protected boolean is3syokuStolen(WinningHands winningHands, boolean isDokoku) {
 		List<MeldEnum> meldsEnums= new ArrayList<MeldEnum>();
 		if (isDokoku) {
+
 			meldsEnums.add(MeldEnum.STEAL_KONG);
 			meldsEnums.add(MeldEnum.STEAL_PONG);
+			meldsEnums.add(MeldEnum.WALL_KONG);
+			meldsEnums.add(MeldEnum.WALL_PONG);
 		} else {
 			meldsEnums.add(MeldEnum.STEAL_CHOW);
+			meldsEnums.add(MeldEnum.WALL_CHOW);
 		}
 
 		return is3syoku(meldsEnums, winningHands, isDokoku);

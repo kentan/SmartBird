@@ -17,6 +17,7 @@ public class HandsParser {
 		WinningHands hands = parseKokushiMusou(tileSet);
 		if(hands != null){
 			winningHandsList.add(hands);
+			return winningHandsList;
 		}		
 		// chi-toitsu
 		hands = parse7Toitsu(tileSet);
@@ -194,9 +195,9 @@ public class HandsParser {
 		return winningHandsBasic;
 	}
 
-	private WinningHands parseKokushiMusou(TileSet tileSet) {
+	private WinningHandsBasic parseKokushiMusou(TileSet tileSet) {
 
-		WinningHandsKokushiMuso winningHands = new WinningHandsKokushiMuso();
+		WinningHandsBasic winningHands = new WinningHandsBasic();
 		TileEnum[] kokushiTileCandidates = { TileEnum.CHARACTOR1, TileEnum.CHARACTOR9,
 				TileEnum.BAMBOO1, TileEnum.BAMBOO9, TileEnum.CIRCLE1, TileEnum.CIRCLE9,
 				TileEnum.EAST, TileEnum.SOUTH, TileEnum.WEST, TileEnum.NORTH,
@@ -204,12 +205,32 @@ public class HandsParser {
 
 		for (TileEnum h : kokushiTileCandidates) {
 			if (tileSet.getTiles().contains(h)) {
-				winningHands.addTile(h);
+				MeldElement meld = new MeldElement(MeldEnum.KOKUSHI,h);
+				winningHands.add(meld);
 			}else{
 				return null;
 			}
 		}
+		TileEnum winningTile = tileSet.getWinningTile();
+		List<TileEnum> tiles = tileSet.getTiles();
+		tiles.remove(winningTile);
+		if(tileSet.getTiles().contains(winningTile)){
+			winningHands.setWinningForm(WinningFormEnum.KOKUSHI13);
+		}else{
+			winningHands.setWinningForm(WinningFormEnum.KOKUSHI_TANKI);
+		}
 
+		if(tileSet.isTumo()){
+			winningHands.setTumo();
+		}
+		if(tileSet.isRichi()){
+			winningHands.setRichi();
+		}
+		if(tileSet.isStolen()){
+			return null; // illegal status. kokushi can't be composed of any stolen tile.
+		}
+
+		winningHands.setKokushi();
 		return winningHands;
 	}
 	private WinningHandsList parseBasic(TileSet tileSet){

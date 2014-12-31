@@ -46,6 +46,10 @@ public class SuShihoValidator extends WinningHandsValidator {
 			}
 			
 		}
-		return (east && west && south && north);
+		if((east && west && south && north)){
+			status.isYakuman = true;
+			return true;
+		}
+		return false;
 	}
 }

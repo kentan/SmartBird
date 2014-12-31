@@ -5,7 +5,7 @@ import java.util.Map;
 
 @SuppressWarnings("serial")
 public enum WinningFormEnum {
-	PENTYAN,KANTYAN,RYANMEN,SYANPON,TANKI;
+	PENTYAN,KANTYAN,RYANMEN,SYANPON,TANKI,KOKUSHI13,KOKUSHI_TANKI;
 	
 	private final static Map<WinningFormEnum, Integer>AGARI_TO_HU_MAP_RON = new HashMap<WinningFormEnum,Integer>(){
 		{

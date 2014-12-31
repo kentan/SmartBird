@@ -42,6 +42,11 @@ public class DaiSangenValidator extends WinningHandsValidator {
 			}
 			
 		}
-		return (haku && hatsu && tyun);
+		if (haku && hatsu && tyun){
+			status.isYakuman = true;
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

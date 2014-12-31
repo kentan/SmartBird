@@ -22,6 +22,7 @@ public class TsuIsoValidator extends WinningHandsValidator {
 
 			return false;
 		}
+		status.isYakuman = true;
 		return true;
 	}
 }

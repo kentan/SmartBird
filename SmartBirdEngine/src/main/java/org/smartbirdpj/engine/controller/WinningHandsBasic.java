@@ -11,6 +11,7 @@ public class WinningHandsBasic extends WinningHands {
         private boolean _isStolen = false;
         private WinningFormEnum _winningHandsFormEnum;
         private boolean _is7Toitsu = false;
+        private boolean _isKokushi = false;
 
         public WinningHandsBasic(){}
         public WinningHandsBasic(boolean isNaki,boolean isTumo,boolean isRichi){
@@ -46,9 +47,15 @@ public class WinningHandsBasic extends WinningHands {
         public boolean is7Toitsu(){
         	return _is7Toitsu;
         }
+        public boolean isKokushi(){
+                return _isKokushi;
+        }
         public void set7Toitsu(){
         	_is7Toitsu = true;
         	setWinningForm(WinningFormEnum.TANKI);
+        }
+        public void setKokushi(){
+                _isKokushi = true;
         }
         
 }
