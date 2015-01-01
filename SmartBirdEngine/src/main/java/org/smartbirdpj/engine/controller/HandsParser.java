@@ -181,6 +181,7 @@ public class HandsParser {
 		if(tiles.size() != 14){
 			return null;
 		}
+		TileEnum previous = null;
 		WinningHandsBasic winningHandsBasic = new WinningHandsBasic();
 		for (int i = 0; i < tiles.size(); i = i + 2) {
 			TileEnum h1 = tiles.get(i);
@@ -188,6 +189,11 @@ public class HandsParser {
 			if (h1 != h2) {
 				return null;
 			}
+			// 7 toitsu doesn't allow duplicated pair.
+			if(h1.equals(previous)){
+				return null;
+			}
+			previous = h1;
 			MeldElement m = new MeldElement(MeldEnum.EYES, h1, h2);
 			winningHandsBasic.add(m);
 		}

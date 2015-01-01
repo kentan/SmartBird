@@ -555,11 +555,12 @@ public class PointHolder {
 
 		try{
 			rv = map.get(han).get(hu);
+			rv.setHan(han);
+			rv.setHu(hu);
 		}catch(NullPointerException e){
 			rv = null;
 		}
-		rv.setHan(han);
-		rv.setHu(hu);
+
 		return rv;
 	}
 }
