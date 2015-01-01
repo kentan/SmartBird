@@ -120,9 +120,12 @@ public class PointCalculator {
 	}};
 
     private final static String DELIMITER = ",";
+	private final static String LABEL_RICHI = "RICHI";
+	private final static String LABEL_DORA = "DORA";
 	private int calculateHan(WinningHands winningHands,StringBuffer yaku){
 		int han = 0;
 		if(winningHands.isRichi()){
+			yaku.append(LABEL_RICHI + DELIMITER);
 			han += 1;
 		}
 		WinningHandsStatus status = new WinningHandsStatus(_playerWind,_prevailingWind);
@@ -131,7 +134,7 @@ public class PointCalculator {
 			if(WinningHandsEnum.YAKUHAI.equals(entry.getKey())){
 				YakuhaiValidator yakuhaiValidator = (YakuhaiValidator)entry.getValue();
 				for(MeldElement elem : ((WinningHandsBasic)winningHands).getList()) {
-                    if (yakuhaiValidator.validateEachPlayerWind(elem, status)){
+					if (yakuhaiValidator.validateEachPlayerWind(elem, status)){
 						han += entry.getKey().getHan(winningHands.isStolen());
 						yaku.append(entry.getKey().toString() + DELIMITER);
 					}
@@ -175,7 +178,7 @@ public class PointCalculator {
 			}
 		}
         int dora = countDoraTile((WinningHandsBasic)winningHands);
-        yaku.append(dora + DELIMITER);
+        yaku.append(LABEL_DORA + dora + DELIMITER);
 		han += dora;
 		return han;
 	}

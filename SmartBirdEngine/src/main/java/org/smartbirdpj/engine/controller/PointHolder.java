@@ -558,6 +558,8 @@ public class PointHolder {
 		}catch(NullPointerException e){
 			rv = null;
 		}
+		rv.setHan(han);
+		rv.setHu(hu);
 		return rv;
 	}
 }

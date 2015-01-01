@@ -1,6 +1,8 @@
 package org.smartbirdpj.mdl;
 
 public class Point {
+	private int _hu;
+	private int _han;
 	private int _point1;
 	private int _point2;
 	
@@ -17,5 +19,20 @@ public class Point {
 	}
 	public int getPoint2(){
 		return _point2;
+	}
+
+	public int getHan(){
+		return _han;
+
+	}
+	public int getHu(){
+		return _hu;
+	}
+	public void setHan(int han){
+		_han = han;
+
+	}
+	public void setHu(int hu){
+		_hu = hu;
 	}
 }
