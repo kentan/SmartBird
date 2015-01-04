@@ -177,9 +177,11 @@ public class PointCalculator {
 				}
 			}
 		}
-        int dora = countDoraTile((WinningHandsBasic)winningHands);
-        yaku.append(LABEL_DORA + dora + DELIMITER);
-		han += dora;
+		if(!status.isYakuman) {
+			int dora = countDoraTile((WinningHandsBasic) winningHands);
+			yaku.append(LABEL_DORA + dora + DELIMITER);
+			han += dora;
+		}
 		return han;
 	}
 
